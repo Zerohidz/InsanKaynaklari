@@ -2,24 +2,33 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public static class PersonNamer
+public class PersonNamer
 {
-    public static string GetRandomName(JobCriterias.Race race, out bool isMale)
+    public PersonNamer()
     {
-        isMale = Random.Range(0f, 1f) < 0.5f;
-        string name = "";
-        if (race == JobCriterias.Race.Turkish)
-            name = GetRandomDoubleNameWithProbability(_nameSets[race], isMale);
-        else if (race == JobCriterias.Race.Arab)
-            name = GetRandomDoubleName(_nameSets[race], isMale);
-        else
-            name = GetRandomNameFrom(_nameSets[race], isMale);
+        _nameSets = new() {
+            {JobCriterias.Race.Russsian,new NameSet(_russianMaleNames, _russianFemaleNames, _russianSurnames )},
+            {JobCriterias.Race.Turkish,new NameSet(_turkishMaleNames, _turkishFemaleNames, _turkishSurnames)},
+            {JobCriterias.Race.Arab,new NameSet(_arabMaleNames, _arabFemaleNames, _arabSurnames)},
+            {JobCriterias.Race.German,new NameSet(_germanMaleNames, _germanFemaleNames, _germanSurnames)},
+            {JobCriterias.Race.American ,new NameSet(_americanMaleNames, _americanFemaleNames, _americanSurnames) },
+        };
+    }
 
-        name += " " + GetRandomNameFrom(_nameSets[race].Surnames);
+    public string GetRandomName(JobCriterias.Race race, bool isMale)
+    {
+        string name = "";
+        NameSet nameSet = _nameSets[race];
+        if (race == JobCriterias.Race.Turkish)
+            name = GetRandomDoubleNameWithProbability(nameSet, isMale);
+        else 
+            name = GetRandomDoubleNameFrom(nameSet, isMale);
+
+        name += " " + GetRandomNameFrom(nameSet.Surnames);
         return name;
     }
 
-    private static string GetRandomDoubleNameWithProbability(NameSet nameSet, bool isMale)
+    private string GetRandomDoubleNameWithProbability(NameSet nameSet, bool isMale)
     {
         if (!nameSet.HasNameProbabilities)
             return null;
@@ -38,12 +47,23 @@ public static class PersonNamer
         return name;
     }
 
-    private static string GetRandomDoubleName(NameSet nameSet, bool isMale)
+    private string GetRandomDoubleNameFrom(NameSet nameSet, bool isMale)
     {
-        throw new System.NotImplementedException();
+        bool isDoubleName = Random.Range(0f, 1f) < 0.5f;
+        string name = "";
+        if (isDoubleName)
+        {
+            name = GetRandomNameFrom(nameSet, isMale);
+            name += " " + GetRandomNameFrom(nameSet, isMale, name);
+        }
+        else
+        {
+            name = GetRandomNameFrom(nameSet, isMale);
+        }
+        return name;
     }
 
-    private static string GetRandomNameFrom(NameSet nameSet, bool isMale, string nameToExclude = null)
+    private string GetRandomNameFrom(NameSet nameSet, bool isMale, string nameToExclude = null)
     {
         var name = "";
         if (isMale)
@@ -51,11 +71,10 @@ public static class PersonNamer
         else
             name = GetRandomNameFrom(nameSet.FemaleNames, nameToExclude);
 
-        name += " " + nameSet.Surnames;
         return name;
     }
 
-    private static string GetRandomNameFrom(string[] array, string nameToExclude = null)
+    private string GetRandomNameFrom(string[] array, string nameToExclude = null)
     {
         if (nameToExclude != null)
         {
@@ -73,7 +92,7 @@ public static class PersonNamer
         }
     }
 
-    private static string GetRandomNameWithProbability(NameSet nameSet, bool isMale)
+    private string GetRandomNameWithProbability(NameSet nameSet, bool isMale)
     {
         if (!nameSet.HasNameProbabilities)
             return null;
@@ -101,7 +120,7 @@ public static class PersonNamer
         return nameArray[0].Item1;
     }
 
-    public static void ShuffleArray<T>(T[] array)
+    public void ShuffleArray<T>(T[] array)
     {
         var random = new System.Random();
         for (int i = array.Length - 1; i > 0; i--)
@@ -124,7 +143,7 @@ public static class PersonNamer
         public string[] FemaleNames;
         public string[] Surnames;
 
-        public NameSet((string, float)[] maleNamesWithProbabilities, (string, float)[] feMaleNamesWithProbabilities, string[] surnames) : this()
+        public NameSet((string, float)[] maleNamesWithProbabilities, (string, float)[] feMaleNamesWithProbabilities, string[] surnames)
         {
             MaleNamesWithProbabilities = maleNamesWithProbabilities;
             FemaleNamesWithProbabilities = feMaleNamesWithProbabilities;
@@ -141,15 +160,9 @@ public static class PersonNamer
         }
     }
 
-    private static readonly Dictionary<JobCriterias.Race, NameSet> _nameSets = new() {
-        {JobCriterias.Race.Russsian,new NameSet(_russianMaleNames, _russianFemaleNames, _russianSurnames )},
-        {JobCriterias.Race.Turkish,new NameSet(_turkishMaleNames, _turkishFemaleNames, _turkishSurnames)},
-        {JobCriterias.Race.Arab,new NameSet(_arabMaleNames, _arabFemaleNames, _arabSurnames)},
-        {JobCriterias.Race.German,new NameSet(_germanMaleNames, _germanFemaleNames, _germanSurnames)},
-        {JobCriterias.Race.American ,new NameSet(_americanMaleNames, _americanFemaleNames, _americanSurnames) },
-    };
+    private Dictionary<JobCriterias.Race, NameSet> _nameSets;
 
-    private static readonly (string, float)[] _turkishMaleNames = {
+    private readonly (string, float)[] _turkishMaleNames = {
         ("Ahmet", 0.0406f), ("Ali", 0.0394f), ("Mehmet", 0.0357f), ("Mustafa", 0.0318f), ("Ýbrahim", 0.0229f),
         ("Osman", 0.0184f), ("Hüseyin", 0.0169f), ("Hasan", 0.0153f), ("Murat", 0.0148f), ("Yusuf", 0.0139f),
         ("Emre", 0.0129f), ("Kemal", 0.0127f), ("Ertuðrul", 0.0125f), ("Cemal", 0.0121f), ("Yunus", 0.0119f),
@@ -175,7 +188,7 @@ public static class PersonNamer
         ("Yasir", 0.0048f), ("Bartu", 0.0047f), ("Hüseyin Ali", 0.0047f), ("Taylan", 0.0047f), ("Abdurrahman", 0.0046f),
     };
 
-    private static readonly (string, float)[] _turkishFemaleNames = {
+    private readonly (string, float)[] _turkishFemaleNames = {
         ("Açelya", 0.03f), ("Aslý", 0.09f), ("Ayþe", 0.12f), ("Bade", 0.02f), ("Begüm", 0.03f),
         ("Belgin", 0.01f), ("Belgin", 0.02f), ("Berna", 0.01f), ("Berrin", 0.03f), ("Betül", 0.01f),
         ("Beyza", 0.02f), ("Binnur", 0.01f), ("Buse", 0.05f), ("Canan", 0.01f), ("Cansu", 0.02f),
@@ -199,7 +212,7 @@ public static class PersonNamer
         ("Zekiye", 0.01f),
     };
 
-    private static readonly string[] _turkishSurnames = new string[] {
+    private readonly string[] _turkishSurnames = new string[] {
         "Acar", "Akbaþ", "Akgün", "Aksoy", "Aktaþ", "Akyüz", "Ari", "Arslan",
         "Atalay", "Atasoy", "Aydoðan", "Aydýn", "Aygün", "Aykut", "Aypar", "Aysel",
         "Aysu", "Ayyýldýz", "Ayþe", "Aytaç", "Babacan", "Bayar", "Bayer", "Baykara",
@@ -215,7 +228,7 @@ public static class PersonNamer
         "Yýlmaz", "Yaldýz", "Yýldýz",
     };
 
-    private static readonly string[] _germanMaleNames = new string[] {
+    private readonly string[] _germanMaleNames = new string[] {
         "Alexander", "Andreas", "Anton", "Armin", "Axel", "Benjamin", "Bernd", "Christian", "Christopher", "Daniel",
         "David", "Dirk", "Dominik", "Eckhard", "Eduard", "Egon", "Emil", "Erhard", "Ernst", "Fabian", "Felix",
         "Florian", "Frank", "Friedrich", "Georg", "Gerald", "Gerhard", "Gernot", "Gregor", "Günter", "Hans",
@@ -226,7 +239,7 @@ public static class PersonNamer
         "Sebastian", "Stefan", "Thomas", "Thorsten", "Timo", "Tobias", "Uwe", "Volker", "Walter", "Werner",
     };
 
-    private static readonly string[] _germanFemaleNames = new string[] {
+    private readonly string[] _germanFemaleNames = new string[] {
         "Alexandra", "Alina", "Amelie", "Anastasia", "Angela", "Angelika", "Anja", "Anna", "Anne", "Antje", "Astrid",
         "Barbara", "Beate", "Bianca", "Brigitte", "Carina", "Carla", "Caroline", "Christa", "Christiane", "Christina",
         "Claudia", "Constanze", "Dagmar", "Daniela", "Diana", "Doris", "Edith", "Elena", "Elisabeth", "Ella", "Ellen",
@@ -241,7 +254,7 @@ public static class PersonNamer
         "Vanessa", "Veronika",
     };
 
-    private static readonly string[] _germanSurnames = new string[] {
+    private readonly string[] _germanSurnames = new string[] {
         "Abel", "Baumann", "Becker", "Bergmann", "Berger", "Beyer", "Böhm", "Brandt", "Braun", "Busch",
         "Dietrich", "Eberhardt", "Eckert", "Engel", "Fischer", "Franke", "Freitag", "Friedrich", "Gärtner",
         "Gerhardt", "Götz", "Graf", "Gruber", "Haas", "Hahn", "Hartmann", "Heinrich", "Heller", "Herrmann",
@@ -253,7 +266,7 @@ public static class PersonNamer
         "Winkler", "Wolf", "Wolff", "Ziegler", "Zimmermann",
     };
 
-    private static readonly string[] _americanMaleNames = new string[] {
+    private readonly string[] _americanMaleNames = new string[] {
         "Adam", "Andrew", "Anthony", "Austin", "Benjamin", "Blake", "Brandon", "Brian", "Cameron", "Charles",
         "Christian", "Christopher", "Cody", "Cole", "Connor", "Daniel", "David", "Derek", "Dominic", "Dylan",
         "Edward", "Elijah", "Eric", "Ethan", "Gabriel", "Gavin", "George", "Gregory", "Hunter", "Isaac",
@@ -264,7 +277,7 @@ public static class PersonNamer
         "Timothy", "Travis", "Trevor", "Tyler", "Victor", "Vincent", "William", "Wyatt", "Zachary",
     };
 
-    private static readonly string[] _americanFemaleNames = new string[] {
+    private readonly string[] _americanFemaleNames = new string[] {
         "Abigail", "Alyssa", "Amanda", "Amber", "Amy", "Angelina", "Ashley", "Bethany", "Brittany", "Brooke",
         "Caitlin", "Caroline", "Cassandra", "Chelsea", "Christina", "Claire", "Courtney", "Crystal", "Danielle",
         "Destiny", "Elizabeth", "Emily", "Emma", "Erica", "Erin", "Gabrielle", "Hailey", "Haley", "Hannah",
@@ -276,7 +289,7 @@ public static class PersonNamer
         "Whitney", "Zoe",
     };
 
-    private static readonly string[] _americanSurnames = new string[] {
+    private readonly string[] _americanSurnames = new string[] {
         "Adams", "Anderson", "Baker", "Barnes", "Bell", "Brooks", "Brown", "Bryant", "Butler", "Campbell",
         "Carter", "Clark", "Coleman", "Collins", "Cook", "Cooper", "Cox", "Cruz", "Davis", "Diaz",
         "Edwards", "Evans", "Fisher", "Flores", "Foster", "Garcia", "Gomez", "Gonzalez", "Gray",
@@ -289,7 +302,7 @@ public static class PersonNamer
         "Watson", "White", "Williams", "Wilson", "Wood", "Wright", "Young",
     };
 
-    private static readonly string[] _russianMaleNames = new string[] {
+    private readonly string[] _russianMaleNames = new string[] {
         "Aleksandr", "Alexey", "Anatoliy", "Andrei", "Anton", "Arkadiy", "Artem", "Bogdan", "Boris", "Danil",
         "Denis", "Dmitriy", "Eduard", "Egor", "Evgeniy", "Fedor", "Filipp", "Gavriil", "Georgiy", "Gleb",
         "Grigoriy", "Igor", "Ilya", "Ivan", "Kirill", "Konstantin", "Lev", "Maksim", "Mikhail", "Nikita",
@@ -303,7 +316,7 @@ public static class PersonNamer
         "Varvara", "Vasilin", "Vassily", "Venedikt", "Vsevolod", "Yefim", "Yemelyanov", "Yermolay", "Yermolai", "Zahar",
     };
 
-    private static readonly string[] _russianFemaleNames = new string[] {
+    private readonly string[] _russianFemaleNames = new string[] {
         "Alina", "Anastasiya", "Anna", "Antonina", "Arina", "Daria", "Darina", "Diana", "Dina", "Ekaterina",
         "Elizaveta", "Eva", "Galina", "Inna", "Irina", "Karina", "Kira", "Kseniya", "Larisa", "Lidiya",
         "Liliya", "Lyudmila", "Maria", "Mariya", "Marina", "Marta", "Nadezhda", "Nataliya", "Nina", "Oksana",
@@ -315,7 +328,7 @@ public static class PersonNamer
         "Toma", "Varya", "Venera", "Vesta", "Yeva", "Yuliana", "Yuliya", "Zarina", "Zlata", "Zoya"
     };
 
-    private static readonly string[] _russianSurnames = new string[] {
+    private readonly string[] _russianSurnames = new string[] {
         "Abramov", "Alexandrov", "Andreev", "Antonov", "Averin", "Bogdanov", "Borisov", "Chernov", "Danilov", "Davydov",
         "Denisov", "Dmitriev", "Efimov", "Egorov", "Fedorov", "Filippov", "Gavrilov", "Golubev", "Gorbachev", "Gordeev",
         "Gromov", "Ivanov", "Kalinin", "Karpov", "Kazakov", "Kharitonov", "Khokhlov", "Kuzmin", "Lebedev", "Lobanov",
@@ -325,7 +338,7 @@ public static class PersonNamer
         "Volkov", "Vorobyov", "Yakovlev", "Yegorov", "Yermakov", "Zaitsev", "Zakharov", "Zhdanov", "Zhukov"
     };
 
-    private static readonly string[] _arabMaleNames = new string[] {
+    private readonly string[] _arabMaleNames = new string[] {
         "Abdullah", "Ahmed", "Ali", "Amir", "Anwar", "Asem", "Ayman", "Aziz", "Bassam", "Fadi",
         "Fahad", "Faisal", "Farid", "Firas", "Ghazi", "Hadi", "Hakim", "Hamid", "Hani", "Harun",
         "Hasan", "Hazim", "Hisham", "Husam", "Ibrahim", "Imad", "Ismail", "Jaber", "Jalal", "Jamal",
@@ -336,7 +349,7 @@ public static class PersonNamer
         "Walid", "Yahya", "Yaser", "Yassin", "Youssef", "Zakaria", "Ziad", "Zuhair",
     };
 
-    private static readonly string[] _arabFemaleNames = new string[] {
+    private readonly string[] _arabFemaleNames = new string[] {
         "Abeer", "Afaf", "Aisha", "Alia", "Amal", "Amira", "Anfal", "Anoud", "Asma",
         "Aya", "Ayat", "Ayesha", "Aziza", "Banan", "Dalal", "Dana", "Dina", "Duha",
         "Fadia", "Fadwa", "Fahima", "Farida", "Faten", "Fatima", "Ghada", "Habiba",
@@ -350,7 +363,7 @@ public static class PersonNamer
         "Siham", "Souad", "Sumaya", "Suzan", "Taghrid", "Wafa", "Yara", "Yasmin", "Zahra",
     };
 
-    private static readonly string[] _arabSurnames =  {
+    private readonly string[] _arabSurnames =  {
         "Al-Amiri", "Al-Ansari", "Al-Askari", "Al-Aswad", "Al-Awadhi", "Al-Azm", "Al-Bakr", "Al-Baroudi",
         "Al-Darweesh", "Al-Dosari", "Al-Fakhri", "Al-Farhan", "Al-Faris", "Al-Fatih", "Al-Ghamdi", "Al-Ghazi",
         "Al-Haddad", "Al-Haddawi", "Al-Halabi", "Al-Halwani", "Al-Hamad", "Al-Harbi", "Al-Hashemi", "Al-Hassan",
