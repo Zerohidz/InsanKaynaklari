@@ -1,3 +1,4 @@
+using System;
 using Unity.Burst.CompilerServices;
 using UnityEditor;
 using UnityEngine;
@@ -5,8 +6,8 @@ using UnityEngine.UIElements;
 
 public static class JobCriterias
 {
-    public static readonly int[] Years = { 25, 65 };
-    public static readonly int[] ExperienceYears = { 0, 20 };
+    public static readonly Range AgeRange = new(25, 65);
+    public static readonly Range ExperienceYearsRange = new(0, 20);
 
     public static readonly string[] JobFields = {
         "Eðitim",

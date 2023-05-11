@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PersonNamer : Singleton<PersonNamer>
+public class NameGenerator : Singleton<NameGenerator>
 {
     private Dictionary<JobCriterias.Race, NameSet> _nameSets;
 
@@ -82,7 +82,6 @@ public class PersonNamer : Singleton<PersonNamer>
     {
         if (nameToExclude != null)
         {
-            // e�er performans d���kse buray� optimize et
             var list = new List<string>(array);
             list.Remove(nameToExclude);
 
@@ -96,46 +95,34 @@ public class PersonNamer : Singleton<PersonNamer>
         }
     }
 
+    // TODO: the calculation of probability can slow down the process of getting the name
+    // so we can precalculate the total probabilities on each step of the summation
     private string GetRandomNameWithProbability(NameSet nameSet, bool isMale)
     {
         if (!nameSet.HasNameProbabilities)
             return null;
 
-        (string, float)[] nameArray;
+        (string name, float probability)[] nameArray;
         if (isMale)
             nameArray = nameSet.MaleNamesWithProbabilities;
         else
             nameArray = nameSet.FemaleNamesWithProbabilities;
 
-        float probabilitySum = nameArray.Sum(x => x.Item2);
+        float probabilitySum = nameArray.Sum(x => x.probability);
         float randomFloat = Random.Range(0f, probabilitySum);
-        ShuffleArray(nameArray);
 
         float sum = 0;
         foreach (var item in nameArray)
         {
-            sum += item.Item2;
+            sum += item.probability;
             if (sum >= randomFloat)
-                return item.Item1;
+                return item.name;
         }
 
         // return the first random element if any error occurs
         Debug.Log("Random calculation failed!");
-        return nameArray[0].Item1;
+        return nameArray[0].name;
     }
-
-    public void ShuffleArray<T>(T[] array)
-    {
-        var random = new System.Random();
-        for (int i = array.Length - 1; i > 0; i--)
-        {
-            int j = random.Next(i + 1);
-            T temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
-    }
-
 
     private struct NameSet
     {
