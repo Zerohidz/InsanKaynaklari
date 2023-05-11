@@ -2,10 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PersonNamer
+public class PersonNamer : Singleton<PersonNamer>
 {
-    public PersonNamer()
+    private Dictionary<JobCriterias.Race, NameSet> _nameSets;
+
+    protected override void Awake()
     {
+        base.Awake();
+
         _nameSets = new() {
             {JobCriterias.Race.Russsian,new NameSet(_russianMaleNames, _russianFemaleNames, _russianSurnames )},
             {JobCriterias.Race.Turkish,new NameSet(_turkishMaleNames, _turkishFemaleNames, _turkishSurnames)},
@@ -21,7 +25,7 @@ public class PersonNamer
         NameSet nameSet = _nameSets[race];
         if (race == JobCriterias.Race.Turkish)
             name = GetRandomDoubleNameWithProbability(nameSet, isMale);
-        else 
+        else
             name = GetRandomDoubleNameFrom(nameSet, isMale);
 
         name += " " + GetRandomNameFrom(nameSet.Surnames);
@@ -78,7 +82,7 @@ public class PersonNamer
     {
         if (nameToExclude != null)
         {
-            // eðer performans düþükse burayý optimize et
+            // eï¿½er performans dï¿½ï¿½ï¿½kse burayï¿½ optimize et
             var list = new List<string>(array);
             list.Remove(nameToExclude);
 
@@ -159,83 +163,80 @@ public class PersonNamer
             Surnames = surnames;
         }
     }
-
-    private Dictionary<JobCriterias.Race, NameSet> _nameSets;
-
     private readonly (string, float)[] _turkishMaleNames = {
-        ("Ahmet", 0.0406f), ("Ali", 0.0394f), ("Mehmet", 0.0357f), ("Mustafa", 0.0318f), ("Ýbrahim", 0.0229f),
-        ("Osman", 0.0184f), ("Hüseyin", 0.0169f), ("Hasan", 0.0153f), ("Murat", 0.0148f), ("Yusuf", 0.0139f),
-        ("Emre", 0.0129f), ("Kemal", 0.0127f), ("Ertuðrul", 0.0125f), ("Cemal", 0.0121f), ("Yunus", 0.0119f),
-        ("Taha", 0.0116f), ("Ahmad", 0.0115f), ("Uður", 0.0113f), ("Enes", 0.0109f), ("Ahmad", 0.0106f),
+        ("Ahmet", 0.0406f), ("Ali", 0.0394f), ("Mehmet", 0.0357f), ("Mustafa", 0.0318f), ("ï¿½brahim", 0.0229f),
+        ("Osman", 0.0184f), ("Hï¿½seyin", 0.0169f), ("Hasan", 0.0153f), ("Murat", 0.0148f), ("Yusuf", 0.0139f),
+        ("Emre", 0.0129f), ("Kemal", 0.0127f), ("Ertuï¿½rul", 0.0125f), ("Cemal", 0.0121f), ("Yunus", 0.0119f),
+        ("Taha", 0.0116f), ("Ahmad", 0.0115f), ("Uï¿½ur", 0.0113f), ("Enes", 0.0109f), ("Ahmad", 0.0106f),
         ("Emin", 0.0105f), ("Fatih", 0.0102f), ("Halil", 0.0101f), ("Yakup", 0.0101f), ("Ercan", 0.0098f),
-        ("Hakan", 0.0096f), ("Furkan", 0.0093f), ("Ömer", 0.0093f), ("Adem", 0.0092f), ("Can", 0.0092f),
+        ("Hakan", 0.0096f), ("Furkan", 0.0093f), ("ï¿½mer", 0.0093f), ("Adem", 0.0092f), ("Can", 0.0092f),
         ("Yasin", 0.0091f), ("Fikret", 0.0090f), ("Efe", 0.0089f), ("Necmettin", 0.0088f), ("Abdullah", 0.0087f),
-        ("Berk", 0.0086f), ("Selim", 0.0085f), ("Hacý", 0.0084f), ("Mert", 0.0083f), ("Serdar", 0.0083f),
-        ("Umut", 0.0083f), ("Ege", 0.0082f), ("Salih", 0.0082f), ("Yiðit", 0.0082f), ("Yaþar", 0.0081f),
-        ("Nihat", 0.0080f), ("Kenan", 0.0079f), ("Cemil", 0.0078f), ("Barýþ", 0.0077f), ("Serkan", 0.0076f),
-        ("Þahin", 0.0076f), ("Arif", 0.0075f), ("Emrah", 0.0075f), ("Aydýn", 0.0074f), ("Yavuz", 0.0074f),
-        ("Nuri", 0.0073f), ("Erdal", 0.0072f), ("Yýlmaz", 0.0072f), ("Bülent", 0.0071f), ("Recep", 0.0071f),
-        ("Samet", 0.0070f), ("Orhan", 0.0069f), ("Musa", 0.0068f), ("Ýsmail", 0.0067f), ("Metin", 0.0066f),
-        ("Cengiz", 0.0065f), ("Ýlker", 0.0065f), ("Gökhan", 0.0064f), ("Ahmed", 0.0063f), ("Ali Ýhsan", 0.0063f),
-        ("Tuncay", 0.0063f), ("Yýldýrým", 0.0063f), ("Aykut", 0.0062f), ("Mikail", 0.0062f), ("Nihat", 0.0062f),
-        ("Onur", 0.0062f), ("Selahattin", 0.0062f), ("Mücahit", 0.0061f), ("Necati", 0.0061f), ("Þevket", 0.0061f),
-        ("Þenol", 0.0060f), ("Yalçýn", 0.0060f), ("Koray", 0.0059f), ("Erhan", 0.0058f), ("Kadir", 0.0058f),
-        ("Deniz", 0.0057f), ("Hakan", 0.0057f), ("Bora", 0.0056f), ("Cihan", 0.0056f), ("Sadýk", 0.0056f),
-        ("Fikri", 0.0055f), ("Ergün", 0.0054f), ("Orkun", 0.0054f), ("Zeki", 0.0054f), ("Bekir", 0.0053f),
+        ("Berk", 0.0086f), ("Selim", 0.0085f), ("Hacï¿½", 0.0084f), ("Mert", 0.0083f), ("Serdar", 0.0083f),
+        ("Umut", 0.0083f), ("Ege", 0.0082f), ("Salih", 0.0082f), ("Yiï¿½it", 0.0082f), ("Yaï¿½ar", 0.0081f),
+        ("Nihat", 0.0080f), ("Kenan", 0.0079f), ("Cemil", 0.0078f), ("Barï¿½ï¿½", 0.0077f), ("Serkan", 0.0076f),
+        ("ï¿½ahin", 0.0076f), ("Arif", 0.0075f), ("Emrah", 0.0075f), ("Aydï¿½n", 0.0074f), ("Yavuz", 0.0074f),
+        ("Nuri", 0.0073f), ("Erdal", 0.0072f), ("Yï¿½lmaz", 0.0072f), ("Bï¿½lent", 0.0071f), ("Recep", 0.0071f),
+        ("Samet", 0.0070f), ("Orhan", 0.0069f), ("Musa", 0.0068f), ("ï¿½smail", 0.0067f), ("Metin", 0.0066f),
+        ("Cengiz", 0.0065f), ("ï¿½lker", 0.0065f), ("Gï¿½khan", 0.0064f), ("Ahmed", 0.0063f), ("Ali ï¿½hsan", 0.0063f),
+        ("Tuncay", 0.0063f), ("Yï¿½ldï¿½rï¿½m", 0.0063f), ("Aykut", 0.0062f), ("Mikail", 0.0062f), ("Nihat", 0.0062f),
+        ("Onur", 0.0062f), ("Selahattin", 0.0062f), ("Mï¿½cahit", 0.0061f), ("Necati", 0.0061f), ("ï¿½evket", 0.0061f),
+        ("ï¿½enol", 0.0060f), ("Yalï¿½ï¿½n", 0.0060f), ("Koray", 0.0059f), ("Erhan", 0.0058f), ("Kadir", 0.0058f),
+        ("Deniz", 0.0057f), ("Hakan", 0.0057f), ("Bora", 0.0056f), ("Cihan", 0.0056f), ("Sadï¿½k", 0.0056f),
+        ("Fikri", 0.0055f), ("Ergï¿½n", 0.0054f), ("Orkun", 0.0054f), ("Zeki", 0.0054f), ("Bekir", 0.0053f),
         ("Fuat", 0.0053f), ("Hilmi", 0.0053f), ("Necmi", 0.0053f), ("Zafer", 0.0053f), ("Muharrem", 0.0052f),
-        ("Mehdi", 0.0051f), ("Burak", 0.0050f), ("Ekrem", 0.0050f), ("Emin Çaðlar", 0.0050f), ("Gürkan", 0.0050f),
-        ("Oktay", 0.0050f), ("Orhan Can", 0.0050f), ("Eren", 0.0049f), ("Rýdvan", 0.0049f), ("Ýzzet", 0.0048f),
-        ("Yasir", 0.0048f), ("Bartu", 0.0047f), ("Hüseyin Ali", 0.0047f), ("Taylan", 0.0047f), ("Abdurrahman", 0.0046f),
+        ("Mehdi", 0.0051f), ("Burak", 0.0050f), ("Ekrem", 0.0050f), ("Emin ï¿½aï¿½lar", 0.0050f), ("Gï¿½rkan", 0.0050f),
+        ("Oktay", 0.0050f), ("Orhan Can", 0.0050f), ("Eren", 0.0049f), ("Rï¿½dvan", 0.0049f), ("ï¿½zzet", 0.0048f),
+        ("Yasir", 0.0048f), ("Bartu", 0.0047f), ("Hï¿½seyin Ali", 0.0047f), ("Taylan", 0.0047f), ("Abdurrahman", 0.0046f),
     };
 
     private readonly (string, float)[] _turkishFemaleNames = {
-        ("Açelya", 0.03f), ("Aslý", 0.09f), ("Ayþe", 0.12f), ("Bade", 0.02f), ("Begüm", 0.03f),
-        ("Belgin", 0.01f), ("Belgin", 0.02f), ("Berna", 0.01f), ("Berrin", 0.03f), ("Betül", 0.01f),
+        ("Aï¿½elya", 0.03f), ("Aslï¿½", 0.09f), ("Ayï¿½e", 0.12f), ("Bade", 0.02f), ("Begï¿½m", 0.03f),
+        ("Belgin", 0.01f), ("Belgin", 0.02f), ("Berna", 0.01f), ("Berrin", 0.03f), ("Betï¿½l", 0.01f),
         ("Beyza", 0.02f), ("Binnur", 0.01f), ("Buse", 0.05f), ("Canan", 0.01f), ("Cansu", 0.02f),
-        ("Cemre", 0.02f), ("Ceyda", 0.01f), ("Ceylan", 0.03f), ("Çaðla", 0.02f), ("Damla", 0.04f),
+        ("Cemre", 0.02f), ("Ceyda", 0.01f), ("Ceylan", 0.03f), ("ï¿½aï¿½la", 0.02f), ("Damla", 0.04f),
         ("Derya", 0.07f), ("Didem", 0.01f), ("Dilek", 0.03f), ("Ebru", 0.06f), ("Eda", 0.02f),
         ("Ela", 0.02f), ("Elif", 0.08f), ("Emel", 0.01f), ("Esin", 0.02f), ("Esra", 0.05f),
         ("Ezgi", 0.03f), ("Fadime", 0.01f), ("Fatma", 0.10f), ("Ferda", 0.01f), ("Feride", 0.02f),
-        ("Gamze", 0.03f), ("Gizem", 0.04f), ("Gül", 0.01f), ("Gülçin", 0.01f), ("Gülay", 0.02f),
-        ("Gülnur", 0.01f), ("Gülþah", 0.02f), ("Gülten", 0.01f), ("Güzin", 0.01f), ("Hale", 0.01f),
+        ("Gamze", 0.03f), ("Gizem", 0.04f), ("Gï¿½l", 0.01f), ("Gï¿½lï¿½in", 0.01f), ("Gï¿½lay", 0.02f),
+        ("Gï¿½lnur", 0.01f), ("Gï¿½lï¿½ah", 0.02f), ("Gï¿½lten", 0.01f), ("Gï¿½zin", 0.01f), ("Hale", 0.01f),
         ("Hande", 0.04f), ("Hasibe", 0.01f), ("Hatice", 0.06f), ("Hazal", 0.03f), ("Hilal", 0.04f),
-        ("Ilgýn", 0.01f), ("Irmak", 0.02f), ("Kader", 0.02f), ("Kamile", 0.01f), ("Kübra", 0.05f),
+        ("Ilgï¿½n", 0.01f), ("Irmak", 0.02f), ("Kader", 0.02f), ("Kamile", 0.01f), ("Kï¿½bra", 0.05f),
         ("Lale", 0.02f), ("Merve", 0.08f), ("Mine", 0.02f), ("Nagehan", 0.01f), ("Nalan", 0.01f),
         ("Necmiye", 0.01f), ("Neslihan", 0.04f), ("Nida", 0.01f), ("Nihal", 0.01f), ("Nur", 0.03f),
-        ("Nuran", 0.01f), ("Nuray", 0.03f), ("Özge", 0.03f), ("Özlem", 0.06f), ("Pýnar", 0.05f),
-        ("Rabia", 0.01f), ("Reyhan", 0.02f), ("Sabiha", 0.01f), ("Sadýk", 0.01f), ("Seda", 0.03f),
+        ("Nuran", 0.01f), ("Nuray", 0.03f), ("ï¿½zge", 0.03f), ("ï¿½zlem", 0.06f), ("Pï¿½nar", 0.05f),
+        ("Rabia", 0.01f), ("Reyhan", 0.02f), ("Sabiha", 0.01f), ("Sadï¿½k", 0.01f), ("Seda", 0.03f),
         ("Selda", 0.02f), ("Sevgi", 0.02f), ("Sevil", 0.01f), ("Sevim", 0.02f), ("Sezen", 0.01f),
-        ("Sibel", 0.03f), ("Simge", 0.01f), ("Sinem", 0.05f), ("Songül", 0.02f), ("Þebnem", 0.01f),
-        ("Þenay", 0.01f), ("Þule", 0.01f), ("Tuðba", 0.02f), ("Tülin", 0.01f), ("Tümay", 0.01f),
-        ("Türkan", 0.01f), ("Uður", 0.01f), ("Ümit", 0.01f), ("Ümmü", 0.01f), ("Yasemin", 0.06f),
-        ("Yelda", 0.01f), ("Yeliz", 0.02f), ("Yüksel", 0.01f), ("Zarife", 0.01f), ("Zehra", 0.04f),
+        ("Sibel", 0.03f), ("Simge", 0.01f), ("Sinem", 0.05f), ("Songï¿½l", 0.02f), ("ï¿½ebnem", 0.01f),
+        ("ï¿½enay", 0.01f), ("ï¿½ule", 0.01f), ("Tuï¿½ba", 0.02f), ("Tï¿½lin", 0.01f), ("Tï¿½may", 0.01f),
+        ("Tï¿½rkan", 0.01f), ("Uï¿½ur", 0.01f), ("ï¿½mit", 0.01f), ("ï¿½mmï¿½", 0.01f), ("Yasemin", 0.06f),
+        ("Yelda", 0.01f), ("Yeliz", 0.02f), ("Yï¿½ksel", 0.01f), ("Zarife", 0.01f), ("Zehra", 0.04f),
         ("Zekiye", 0.01f),
     };
 
     private readonly string[] _turkishSurnames = new string[] {
-        "Acar", "Akbaþ", "Akgün", "Aksoy", "Aktaþ", "Akyüz", "Ari", "Arslan",
-        "Atalay", "Atasoy", "Aydoðan", "Aydýn", "Aygün", "Aykut", "Aypar", "Aysel",
-        "Aysu", "Ayyýldýz", "Ayþe", "Aytaç", "Babacan", "Bayar", "Bayer", "Baykara",
-        "Bayrak", "Bayram", "Baysal", "Bektaþ", "Beþerler", "Beyaz", "Bilge",
-        "Birinci", "Boða", "Bozkurt", "Can", "Canan", "Cengiz", "Çelik", "Demir",
-        "Deniz", "Doðan", "Duman", "Durak", "Duru", "Duygu", "Erdem", "Erdinç",
-        "Erdoðan", "Erkýlýç", "Erol", "Ersöz", "Gür", "Güner", "Güneþ", "Gürsel",
-        "Güzel", "Ýlhan", "Ýnan", "Kahraman", "Kaplan", "Kara", "Karaca", "Karakaya",
-        "Karakuþ", "Kasap", "Kaya", "Kýlýç", "Kývanç", "Koç", "Korkmaz", "Kurt",
-        "Karakuþ", "Mutlu", "Özcan", "Özdemir", "Özen", "Özyürek", "Sönmez",
-        "Süleyman", "Þahin", "Þanlý", "Þen", "Þimþek", "Taþ", "Tuncel", "Türk",
-        "Uzun", "Uzman", "Yalçýn", "Yaman", "Yapýcý", "Yavuz", "Yýldýrým",
-        "Yýlmaz", "Yaldýz", "Yýldýz",
+        "Acar", "Akbaï¿½", "Akgï¿½n", "Aksoy", "Aktaï¿½", "Akyï¿½z", "Ari", "Arslan",
+        "Atalay", "Atasoy", "Aydoï¿½an", "Aydï¿½n", "Aygï¿½n", "Aykut", "Aypar", "Aysel",
+        "Aysu", "Ayyï¿½ldï¿½z", "Ayï¿½e", "Aytaï¿½", "Babacan", "Bayar", "Bayer", "Baykara",
+        "Bayrak", "Bayram", "Baysal", "Bektaï¿½", "Beï¿½erler", "Beyaz", "Bilge",
+        "Birinci", "Boï¿½a", "Bozkurt", "Can", "Canan", "Cengiz", "ï¿½elik", "Demir",
+        "Deniz", "Doï¿½an", "Duman", "Durak", "Duru", "Duygu", "Erdem", "Erdinï¿½",
+        "Erdoï¿½an", "Erkï¿½lï¿½ï¿½", "Erol", "Ersï¿½z", "Gï¿½r", "Gï¿½ner", "Gï¿½neï¿½", "Gï¿½rsel",
+        "Gï¿½zel", "ï¿½lhan", "ï¿½nan", "Kahraman", "Kaplan", "Kara", "Karaca", "Karakaya",
+        "Karakuï¿½", "Kasap", "Kaya", "Kï¿½lï¿½ï¿½", "Kï¿½vanï¿½", "Koï¿½", "Korkmaz", "Kurt",
+        "Karakuï¿½", "Mutlu", "ï¿½zcan", "ï¿½zdemir", "ï¿½zen", "ï¿½zyï¿½rek", "Sï¿½nmez",
+        "Sï¿½leyman", "ï¿½ahin", "ï¿½anlï¿½", "ï¿½en", "ï¿½imï¿½ek", "Taï¿½", "Tuncel", "Tï¿½rk",
+        "Uzun", "Uzman", "Yalï¿½ï¿½n", "Yaman", "Yapï¿½cï¿½", "Yavuz", "Yï¿½ldï¿½rï¿½m",
+        "Yï¿½lmaz", "Yaldï¿½z", "Yï¿½ldï¿½z",
     };
 
     private readonly string[] _germanMaleNames = new string[] {
         "Alexander", "Andreas", "Anton", "Armin", "Axel", "Benjamin", "Bernd", "Christian", "Christopher", "Daniel",
         "David", "Dirk", "Dominik", "Eckhard", "Eduard", "Egon", "Emil", "Erhard", "Ernst", "Fabian", "Felix",
-        "Florian", "Frank", "Friedrich", "Georg", "Gerald", "Gerhard", "Gernot", "Gregor", "Günter", "Hans",
+        "Florian", "Frank", "Friedrich", "Georg", "Gerald", "Gerhard", "Gernot", "Gregor", "Gï¿½nter", "Hans",
         "Harald", "Heiko", "Heinz", "Helmut", "Henning", "Herbert", "Hermann", "Horst", "Jan", "Jens", "Joachim",
-        "Johannes", "Jonas", "Jörg", "Jürgen", "Kai", "Karsten", "Klaus", "Konrad", "Lars", "Leo", "Lukas",
+        "Johannes", "Jonas", "Jï¿½rg", "Jï¿½rgen", "Kai", "Karsten", "Klaus", "Konrad", "Lars", "Leo", "Lukas",
         "Manfred", "Marcus", "Markus", "Martin", "Matthias", "Maximilian", "Michael", "Moritz", "Nico", "Niklas",
-        "Oliver", "Patrick", "Paul", "Peter", "Philipp", "Rainer", "Ralf", "Reinhard", "René", "Roland", "Rolf",
+        "Oliver", "Patrick", "Paul", "Peter", "Philipp", "Rainer", "Ralf", "Reinhard", "Renï¿½", "Roland", "Rolf",
         "Sebastian", "Stefan", "Thomas", "Thorsten", "Timo", "Tobias", "Uwe", "Volker", "Walter", "Werner",
     };
 
@@ -255,14 +256,14 @@ public class PersonNamer
     };
 
     private readonly string[] _germanSurnames = new string[] {
-        "Abel", "Baumann", "Becker", "Bergmann", "Berger", "Beyer", "Böhm", "Brandt", "Braun", "Busch",
-        "Dietrich", "Eberhardt", "Eckert", "Engel", "Fischer", "Franke", "Freitag", "Friedrich", "Gärtner",
-        "Gerhardt", "Götz", "Graf", "Gruber", "Haas", "Hahn", "Hartmann", "Heinrich", "Heller", "Herrmann",
-        "Hoffmann", "Holz", "Huber", "Jäger", "Kaiser", "Keller", "Klein", "König", "Krause", "Krüger",
-        "Kuhn", "Kunz", "Lang", "Lehmann", "Lorenz", "Ludwig", "Maier", "Mayer", "Meier", "Meyer", "Müller",
-        "Neumann", "Peters", "Pfeiffer", "Richter", "Ritter", "Roth", "Sauer", "Schäfer", "Schaller", "Schindler",
+        "Abel", "Baumann", "Becker", "Bergmann", "Berger", "Beyer", "Bï¿½hm", "Brandt", "Braun", "Busch",
+        "Dietrich", "Eberhardt", "Eckert", "Engel", "Fischer", "Franke", "Freitag", "Friedrich", "Gï¿½rtner",
+        "Gerhardt", "Gï¿½tz", "Graf", "Gruber", "Haas", "Hahn", "Hartmann", "Heinrich", "Heller", "Herrmann",
+        "Hoffmann", "Holz", "Huber", "Jï¿½ger", "Kaiser", "Keller", "Klein", "Kï¿½nig", "Krause", "Krï¿½ger",
+        "Kuhn", "Kunz", "Lang", "Lehmann", "Lorenz", "Ludwig", "Maier", "Mayer", "Meier", "Meyer", "Mï¿½ller",
+        "Neumann", "Peters", "Pfeiffer", "Richter", "Ritter", "Roth", "Sauer", "Schï¿½fer", "Schaller", "Schindler",
         "Schmidt", "Schneider", "Scholz", "Schreiber", "Schubert", "Schulz", "Schumacher", "Schuster", "Schwarz",
-        "Seidel", "Simon", "Sommer", "Stahl", "Stein", "Thomas", "Vogel", "Wagner", "Weber", "Weiß", "Werner",
+        "Seidel", "Simon", "Sommer", "Stahl", "Stein", "Thomas", "Vogel", "Wagner", "Weber", "Weiï¿½", "Werner",
         "Winkler", "Wolf", "Wolff", "Ziegler", "Zimmermann",
     };
 
