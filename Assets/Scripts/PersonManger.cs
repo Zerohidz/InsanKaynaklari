@@ -9,12 +9,12 @@ public class PersonManger : SingletonMB<PersonManger>
     public void GenerateNewPerson()
     {
         JobCriterias.Race race = JobCriterias.Race.Turkish;
-        bool isMale = Random.Range(0, 1f) < 0.5f;
+        Gender gender = Random.Range(0, 1f) < 0.5f ? Gender.Male : Gender.Female;
         int age = Random.Range(JobCriterias.AgeRange.Start.Value, JobCriterias.AgeRange.End.Value);
         CurrentPersonInfo = new()
         {
-            Name = NameGenerator.Instance.GetRandomName(race, isMale),
-            IsMale = isMale,
+            Name = NameGenerator.Instance.GetRandomName(race, gender),
+            Gender = gender,
             Age = age,
         };
     }

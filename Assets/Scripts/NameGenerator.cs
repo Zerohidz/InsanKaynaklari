@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class NameGenerator : SingletonMB<NameGenerator>
 {
@@ -19,9 +20,10 @@ public class NameGenerator : SingletonMB<NameGenerator>
         };
     }
 
-    public string GetRandomName(JobCriterias.Race race, bool isMale)
+    public string GetRandomName(JobCriterias.Race race, Gender gender)
     {
         string name = "";
+        bool isMale = gender == Gender.Male ? true : false;
         NameSet nameSet = _nameSets[race];
         if (race == JobCriterias.Race.Turkish)
             name = GetRandomDoubleNameWithProbability(nameSet, isMale);
