@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class NameGenerator : Singleton<NameGenerator>
+public class NameGenerator : SingletonMB<NameGenerator>
 {
     private Dictionary<JobCriterias.Race, NameSet> _nameSets;
 

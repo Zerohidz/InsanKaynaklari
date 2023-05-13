@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PersonManger : Singleton<PersonManger>
+public class PersonManger : SingletonMB<PersonManger>
 {
     public PersonInfo CurrentPersonInfo { get; private set; }
 
