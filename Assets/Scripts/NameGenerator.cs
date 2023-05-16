@@ -206,7 +206,7 @@ public class NameGenerator : SingletonMB<NameGenerator>
     private readonly string[] _turkishSurnames = new string[] {
         "Acar", "Akbay", "Akgün", "Aksoy", "Aktaş", "Akyüz", "Akman", "Arslan",
         "Atalay", "Atasoy", "Aydoğan", "Aydın", "Aygün", "Aykut", "Aypar", "Aysel",
-        "Aysu", "Ayyıldız", "AyŞe", "Aytaş", "Babacan", "Bayar", "Bayer", "Baykara",
+        "Aysu", "Ayyıldız", "Akben", "Aytaş", "Babacan", "Bayar", "Bayer", "Baykara",
         "Bayrak", "Bayram", "Baysal", "Bektaş", "Beşerler", "Beyaz", "Bilge",
         "Birinci", "Bora", "Bozkurt", "Can", "Canan", "Cengiz", "Çelik", "Demir",
         "Deniz", "Doğan", "Duman", "Durak", "Duru", "Duygu", "Erdem", "Erdinç",

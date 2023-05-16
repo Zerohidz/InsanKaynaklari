@@ -26,77 +26,54 @@ public static class GenderExtensions
         return displayText;
     }
 
-    public static string GetDisplay(this EducationJob educationJob)
+    public static string GetDisplay(this Job job)
     {
-        string displayText = educationJob switch
+        string displayText = job switch
         {
-            EducationJob.Math => "Matematik",
-            EducationJob.Biology => "Biyoloji",
-            EducationJob.Chemistry => "Kimya",
-            EducationJob.Literature => "Edebiyat",
-            EducationJob.Geography => "Coðrafya",
-            EducationJob.History => "Tarih",
-            EducationJob.PhysicalEducation => "Beden Eðitimi",
-            EducationJob.Physics => "Fizik",
-            EducationJob.ForeignLanguage => "Yabancý Dil",
-            EducationJob.Geometry => "Geometri",
-            _ => "Belirsiz iþ",
-        };
-        return displayText;
-    }
+            Job.Math => "Matematik",
+            Job.Biology => "Biyoloji",
+            Job.Chemistry => "Kimya",
+            Job.Literature => "Edebiyat",
+            Job.Geography => "Coðrafya",
+            Job.History => "Tarih",
+            Job.PhysicalEducation => "Beden Eðitimi",
+            Job.Physics => "Fizik",
+            Job.ForeignLanguage => "Yabancý Dil",
+            Job.Geometry => "Geometri",
 
-    public static string GetDisplay(this HealthJob healthJob)
-    {
-        string displayText = healthJob switch
-        {
-            HealthJob.CardiovascularMD => "Kardiyovasküler týbba odaklanan Týp Doktoru (MD)",
-            HealthJob.InternalMedicineMD => "Dahiliye odaklý Týp Doktoru (MD)",
-            HealthJob.EmergencyMedicineMD => "Acil týp odaklý Týp Doktoru (MD)",
-            HealthJob.PediatricsMD => "Pediatri odaklý Týp Doktoru (MD)",
-            HealthJob.OncologyMD => "Onkoloji odaklý Týp Doktoru (MD)",
-            HealthJob.PsychiatryMD => "Psikiyatri odaklý Týp Doktoru (MD)",
-            HealthJob.DermatologyMD => "Dermatoloji odaklý Týp Doktoru (MD)",
-            HealthJob.NeurologyMD => "Nörolojiye odaklanan Týp Doktoru (MD)",
-            HealthJob.FamilyMedicineMD => "Aile hekimliðine odaklanan Týp Doktoru (MD)",
-            HealthJob.ObstetricsAndGynecologyMD => "Kadýn Hastalýklarý ve Doðum odaklý Týp Doktoru (MD)",
-            _ => "Belirsiz iþ",
-        };
-        return displayText;
-    }
+            Job.CardiovascularMD => "Kardiyovasküler týbba odaklanan Týp Doktoru (MD)",
+            Job.InternalMedicineMD => "Dahiliye odaklý Týp Doktoru (MD)",
+            Job.EmergencyMedicineMD => "Acil týp odaklý Týp Doktoru (MD)",
+            Job.PediatricsMD => "Pediatri odaklý Týp Doktoru (MD)",
+            Job.OncologyMD => "Onkoloji odaklý Týp Doktoru (MD)",
+            Job.PsychiatryMD => "Psikiyatri odaklý Týp Doktoru (MD)",
+            Job.DermatologyMD => "Dermatoloji odaklý Týp Doktoru (MD)",
+            Job.NeurologyMD => "Nörolojiye odaklanan Týp Doktoru (MD)",
+            Job.FamilyMedicineMD => "Aile hekimliðine odaklanan Týp Doktoru (MD)",
+            Job.ObstetricsAndGynecologyMD => "Kadýn Hastalýklarý ve Doðum odaklý Týp Doktoru (MD)",
 
-    public static string GetDisplay(this MarketingEconomyJob marketingEconomyJob)
-    {
-        string displayText = marketingEconomyJob switch
-        {
-            MarketingEconomyJob.EconomicsBachelor => "Ekonomi lisans derecesi",
-            MarketingEconomyJob.FinanceBachelor => "Finans alanýnda lisans derecesi",
-            MarketingEconomyJob.MarketingBachelor => "Pazarlama lisans derecesi",
-            MarketingEconomyJob.BusinessBachelor => "Ýþletme alanýnda lisans derecesi",
-            MarketingEconomyJob.InternationalBusinessBachelor => "Uluslararasý iþletme lisans derecesi",
-            MarketingEconomyJob.ManagementBachelor => "Yönetim alanýnda lisans derecesi",
-            MarketingEconomyJob.SupplyChainManagementBachelor => "Tedarik zinciri yönetiminde lisans derecesi",
-            MarketingEconomyJob.AdvertisingBachelor => "Reklamcýlýkta lisans derecesi",
-            MarketingEconomyJob.PublicRelationsBachelor => "Halkla iliþkiler alanýnda lisans derecesi",
-            MarketingEconomyJob.DigitalMarketingBachelor => "Dijital pazarlama alanýnda lisans derecesi",
-            _ => "Belirsiz iþ",
-        };
-        return displayText;
-    }
+            Job.EconomicsBachelor => "Ekonomi lisans derecesi",
+            Job.FinanceBachelor => "Finans alanýnda lisans derecesi",
+            Job.MarketingBachelor => "Pazarlama lisans derecesi",
+            Job.BusinessBachelor => "Ýþletme alanýnda lisans derecesi",
+            Job.InternationalBusinessBachelor => "Uluslararasý iþletme lisans derecesi",
+            Job.ManagementBachelor => "Yönetim alanýnda lisans derecesi",
+            Job.SupplyChainManagementBachelor => "Tedarik zinciri yönetiminde lisans derecesi",
+            Job.AdvertisingBachelor => "Reklamcýlýkta lisans derecesi",
+            Job.PublicRelationsBachelor => "Halkla iliþkiler alanýnda lisans derecesi",
+            Job.DigitalMarketingBachelor => "Dijital pazarlama alanýnda lisans derecesi",
 
-    public static string GetDisplay(this EngineeringJob engineeringJob)
-    {
-        string displayText = engineeringJob switch
-        {
-            EngineeringJob.ChemicalEngineeringBachelor => "Kimya mühendisliði lisans derecesi",
-            EngineeringJob.CivilEngineeringBachelor => "Ýnþaat mühendisliði lisans derecesi",
-            EngineeringJob.ComputerEngineeringBachelor => "Bilgisayar mühendisliði lisans derecesi",
-            EngineeringJob.ElectricalEngineeringBachelor => "Elektrik mühendisliði lisans derecesi",
-            EngineeringJob.EnvironmentalEngineeringBachelor => "Çevre mühendisliði lisans derecesi",
-            EngineeringJob.IndustrialEngineeringBachelor => "Endüstri mühendisliði lisans derecesi",
-            EngineeringJob.MaterialEngineeringBachelor => "Malzeme mühendisliði lisans derecesi",
-            EngineeringJob.MechanicalEngineeringBachelor => "Makine mühendisliði lisans derecesi",
-            EngineeringJob.SoftwareEngineeringBachelor => "Yazýlým mühendisliði lisans derecesi",
-            EngineeringJob.AerospaceEngineeringBachelor => "Havacýlýk ve uzay mühendisliði lisans derecesi",
+            Job.ChemicalEngineeringBachelor => "Kimya mühendisliði lisans derecesi",
+            Job.CivilEngineeringBachelor => "Ýnþaat mühendisliði lisans derecesi",
+            Job.ComputerEngineeringBachelor => "Bilgisayar mühendisliði lisans derecesi",
+            Job.ElectricalEngineeringBachelor => "Elektrik mühendisliði lisans derecesi",
+            Job.EnvironmentalEngineeringBachelor => "Çevre mühendisliði lisans derecesi",
+            Job.IndustrialEngineeringBachelor => "Endüstri mühendisliði lisans derecesi",
+            Job.MaterialEngineeringBachelor => "Malzeme mühendisliði lisans derecesi",
+            Job.MechanicalEngineeringBachelor => "Makine mühendisliði lisans derecesi",
+            Job.SoftwareEngineeringBachelor => "Yazýlým mühendisliði lisans derecesi",
+            Job.AerospaceEngineeringBachelor => "Havacýlýk ve uzay mühendisliði lisans derecesi",
+
             _ => "Belirsiz iþ",
         };
         return displayText;

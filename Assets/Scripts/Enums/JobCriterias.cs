@@ -6,11 +6,66 @@ public static class JobCriterias
     public static readonly Range AgeRange = new(25, 45);
     public static readonly Range ExperienceYearsRange = new(0, 20);
 
-    public static readonly Dictionary<JobField, Type> JobFields = new() {
-        {JobField.Education, typeof(EducationJob)},
-        {JobField.Health, typeof(HealthJob)},
-        {JobField.MarketingAndEconomics, typeof(MarketingEconomyJob)},
-        {JobField.Engineering, typeof(EngineeringJob)},
+    public static readonly Dictionary<JobField, Job[]> JobFields = new() {
+        {JobField.Education, EducationJobs},
+        {JobField.Health, HealthJobs},
+        {JobField.MarketingAndEconomics, MarketingEconomyJobs},
+        {JobField.Engineering, EngineeringJobs},
+    };
+
+    public static readonly Job[] EducationJobs = {
+        Job.Math,
+        Job.Biology,
+        Job.Chemistry,
+        Job.Literature,
+        Job.Geography,
+        Job.History,
+        Job.PhysicalEducation,
+        Job.Physics,
+        Job.ForeignLanguage,
+        Job.Geometry,
+    };
+
+    public static readonly Job[] HealthJobs = {
+        Job.CardiovascularMD,
+        Job.InternalMedicineMD,
+        Job.EmergencyMedicineMD,
+        Job.PediatricsMD,
+        Job.OncologyMD,
+        Job.PsychiatryMD,
+        Job.DermatologyMD,
+        Job.NeurologyMD,
+        Job.FamilyMedicineMD,
+        Job.ObstetricsAndGynecologyMD,
+    };
+
+
+    public static readonly Job[] MarketingEconomyJobs =
+    {
+        Job.EconomicsBachelor,
+        Job.FinanceBachelor,
+        Job.MarketingBachelor,
+        Job.BusinessBachelor,
+        Job.InternationalBusinessBachelor,
+        Job.ManagementBachelor,
+        Job.SupplyChainManagementBachelor,
+        Job.AdvertisingBachelor,
+        Job.PublicRelationsBachelor,
+        Job.DigitalMarketingBachelor,
+    };
+
+    public static readonly Job[] EngineeringJobs =
+    {
+        Job.ChemicalEngineeringBachelor,
+        Job.CivilEngineeringBachelor,
+        Job.ComputerEngineeringBachelor,
+        Job.ElectricalEngineeringBachelor,
+        Job.EnvironmentalEngineeringBachelor,
+        Job.IndustrialEngineeringBachelor,
+        Job.MaterialEngineeringBachelor,
+        Job.MechanicalEngineeringBachelor,
+        Job.SoftwareEngineeringBachelor,
+        Job.AerospaceEngineeringBachelor,
     };
 }
 
@@ -37,7 +92,7 @@ public enum JobField
     Engineering,
 }
 
-public enum EducationJob
+public enum Job
 {
     Math,
     Biology,
@@ -49,10 +104,7 @@ public enum EducationJob
     Physics,
     ForeignLanguage,
     Geometry,
-}
 
-public enum HealthJob
-{
     CardiovascularMD,
     InternalMedicineMD,
     EmergencyMedicineMD,
@@ -63,10 +115,7 @@ public enum HealthJob
     NeurologyMD,
     FamilyMedicineMD,
     ObstetricsAndGynecologyMD,
-}
 
-public enum MarketingEconomyJob
-{
     EconomicsBachelor,
     FinanceBachelor,
     MarketingBachelor,
@@ -77,10 +126,7 @@ public enum MarketingEconomyJob
     AdvertisingBachelor,
     PublicRelationsBachelor,
     DigitalMarketingBachelor,
-}
-
-public enum EngineeringJob
-{
+    
     ChemicalEngineeringBachelor,
     CivilEngineeringBachelor,
     ComputerEngineeringBachelor,

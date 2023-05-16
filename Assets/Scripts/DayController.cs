@@ -12,7 +12,7 @@ public class DayController : MonoBehaviour
         _day = GameController.Instance.Day;
         // TODO: decide which properties are gonna shown according to day
 
-        PersonManger.Instance.GenerateNewPerson();
+        PersonManger.Instance.NextPerson();
         _cv.SetInfo(PersonManger.Instance.CurrentPersonInfo);
     }
 
