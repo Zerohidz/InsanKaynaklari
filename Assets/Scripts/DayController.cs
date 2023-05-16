@@ -15,4 +15,6 @@ public class DayController : MonoBehaviour
         PersonManger.Instance.GenerateNewPerson();
         _cv.SetInfo(PersonManger.Instance.CurrentPersonInfo);
     }
+
+
 }

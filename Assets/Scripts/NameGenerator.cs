@@ -5,27 +5,27 @@ using UnityEngine.Analytics;
 
 public class NameGenerator : SingletonMB<NameGenerator>
 {
-    private Dictionary<JobCriterias.Race, NameSet> _nameSets;
+    private Dictionary<Race, NameSet> _nameSets;
 
     protected override void Awake()
     {
         base.Awake();
 
         _nameSets = new() {
-            {JobCriterias.Race.Russsian,new NameSet(_russianMaleNames, _russianFemaleNames, _russianSurnames )},
-            {JobCriterias.Race.Turkish,new NameSet(_turkishMaleNames, _turkishFemaleNames, _turkishSurnames)},
-            {JobCriterias.Race.Arab,new NameSet(_arabMaleNames, _arabFemaleNames, _arabSurnames)},
-            {JobCriterias.Race.German,new NameSet(_germanMaleNames, _germanFemaleNames, _germanSurnames)},
-            {JobCriterias.Race.American ,new NameSet(_americanMaleNames, _americanFemaleNames, _americanSurnames) },
+            {Race.Russsian,new NameSet(_russianMaleNames, _russianFemaleNames, _russianSurnames )},
+            {Race.Turkish,new NameSet(_turkishMaleNames, _turkishFemaleNames, _turkishSurnames)},
+            {Race.Arab,new NameSet(_arabMaleNames, _arabFemaleNames, _arabSurnames)},
+            {Race.German,new NameSet(_germanMaleNames, _germanFemaleNames, _germanSurnames)},
+            {Race.American ,new NameSet(_americanMaleNames, _americanFemaleNames, _americanSurnames) },
         };
     }
 
-    public string GetRandomName(JobCriterias.Race race, Gender gender)
+    public string GetRandomName(Race race, Gender gender)
     {
         string name = "";
         bool isMale = gender == Gender.Male ? true : false;
         NameSet nameSet = _nameSets[race];
-        if (race == JobCriterias.Race.Turkish)
+        if (race == Race.Turkish)
             name = GetRandomDoubleNameWithProbability(nameSet, isMale);
         else
             name = GetRandomDoubleNameFrom(nameSet, isMale);
