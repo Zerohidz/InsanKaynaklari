@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3403466601458862697}
   - component: {fileID: 1097340149428322923}
   m_Layer: 5
-  m_Name: CV_Bad Habits
+  m_Name: CV_NegativeTraits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 234, y: -312}
-  m_SizeDelta: {x: 464.4319, y: 151.2717}
+  m_AnchoredPosition: {x: 94, y: -549}
+  m_SizeDelta: {x: 579.288, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3403466601458862697
 CanvasRenderer:
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 1.511275, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 657441994742297304}
   - component: {fileID: 6168804060579069353}
   m_Layer: 5
-  m_Name: CV_Good Habits
+  m_Name: CV_PositiveTraits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,8 +170,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 234.00006, y: -265.00003}
-  m_SizeDelta: {x: 464.4319, y: 151.2717}
+  m_AnchoredPosition: {x: 93, y: -324}
+  m_SizeDelta: {x: 579.288, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &657441994742297304
 CanvasRenderer:
@@ -478,8 +478,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 234.00006, y: -174.00003}
-  m_SizeDelta: {x: 464.4319, y: 151.2717}
+  m_AnchoredPosition: {x: 291.42822, y: -125.96}
+  m_SizeDelta: {x: 579.288, y: 48.934}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3363880585999935348
 CanvasRenderer:
@@ -613,8 +613,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 234.00006, y: -134.00003}
-  m_SizeDelta: {x: 464.4319, y: 151.2717}
+  m_AnchoredPosition: {x: 291.42822, y: -134.00003}
+  m_SizeDelta: {x: 579.288, y: 151.272}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5489704464497499846
 CanvasRenderer:
@@ -707,7 +707,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 108.267914}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -883,7 +883,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -115.22, y: -166.86}
+  m_AnchoredPosition: {x: -115.22, y: -170.38995}
   m_SizeDelta: {x: 234, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4946081923729167062
@@ -1018,8 +1018,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 234.00006, y: -92}
-  m_SizeDelta: {x: 464.4319, y: 151.2717}
+  m_AnchoredPosition: {x: 291.42822, y: -92}
+  m_SizeDelta: {x: 579.288, y: 151.272}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6355737254191197051
 CanvasRenderer:
@@ -1130,7 +1130,7 @@ GameObject:
   - component: {fileID: 5199148950991199889}
   - component: {fileID: 2898084180213645491}
   m_Layer: 5
-  m_Name: CV_Bad Habits_Header
+  m_Name: CV_NegativeTraits_Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1153,7 +1153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -125.98444, y: -257.86606}
+  m_AnchoredPosition: {x: -125.98444, y: -435.39606}
   m_SizeDelta: {x: 212.463, y: 43.0039}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5199148950991199889
@@ -1288,8 +1288,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 234.00006, y: -50.635864}
-  m_SizeDelta: {x: 464.4319, y: 151.2717}
+  m_AnchoredPosition: {x: 291.42822, y: -50.635864}
+  m_SizeDelta: {x: 579.288, y: 151.272}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5108223979231445825
 CanvasRenderer:
@@ -1382,7 +1382,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 110.236404}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1423,7 +1423,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -141.11, y: -121.36}
+  m_AnchoredPosition: {x: -141.11, y: -127.43001}
   m_SizeDelta: {x: 182.22, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3955781321289057462
@@ -1693,8 +1693,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 234.00006, y: -220.00003}
-  m_SizeDelta: {x: 464.4319, y: 151.2717}
+  m_AnchoredPosition: {x: 291.42822, y: -170.38995}
+  m_SizeDelta: {x: 579.288, y: 44.996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8989941464315564487
 CanvasRenderer:
@@ -1940,7 +1940,7 @@ GameObject:
   - component: {fileID: 2855931511586613858}
   - component: {fileID: 7853580842104270211}
   m_Layer: 5
-  m_Name: CV_Good Habits_Header
+  m_Name: CV_PositiveTraits_Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1963,7 +1963,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -132.87422, y: -208.89757}
+  m_AnchoredPosition: {x: -132.87422, y: -212.42752}
   m_SizeDelta: {x: 198.6834, y: 39.0668}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2855931511586613858
@@ -2074,7 +2074,7 @@ GameObject:
   - component: {fileID: 7208102706217136648}
   - component: {fileID: 7753039300769068790}
   m_Layer: 5
-  m_Name: CV
+  m_Name: CV_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2131,7 +2131,10 @@ MonoBehaviour:
   Name: {fileID: 3659454839964058089}
   Gender: {fileID: 7365518666266675537}
   Age: {fileID: 7344492418699483826}
+  Race: {fileID: 0}
+  Religion: {fileID: 0}
+  PoliticView: {fileID: 0}
   Job: {fileID: 6955227204106020872}
   ExperienceYears: {fileID: 8182401970320716094}
-  GoodHabits: {fileID: 6168804060579069353}
-  BadHabits: {fileID: 1097340149428322923}
+  PositiveTraits: {fileID: 6168804060579069353}
+  NegativeTraits: {fileID: 1097340149428322923}

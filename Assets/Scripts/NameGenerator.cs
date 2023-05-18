@@ -39,7 +39,7 @@ public class NameGenerator : SingletonMB<NameGenerator>
         if (!nameSet.HasNameProbabilities)
             return null;
 
-        bool isDoubleName = Random.Range(0f, 1f) < 0.5f;
+        bool isDoubleName = BoolHelper.GetRandomBool();
         string name = "";
         if (isDoubleName)
         {
@@ -55,7 +55,7 @@ public class NameGenerator : SingletonMB<NameGenerator>
 
     private string GetRandomDoubleNameFrom(NameSet nameSet, bool isMale)
     {
-        bool isDoubleName = Random.Range(0f, 1f) < 0.5f;
+        bool isDoubleName = BoolHelper.GetRandomBool();
         string name = "";
         if (isDoubleName)
         {
@@ -87,13 +87,11 @@ public class NameGenerator : SingletonMB<NameGenerator>
             var list = new List<string>(array);
             list.Remove(nameToExclude);
 
-            int randomIndex = Random.Range(0, list.Count);
-            return list[randomIndex];
+            return list[Random.Range(0, list.Count)];
         }
         else
         {
-            int randomIndex = Random.Range(0, array.Length);
-            return array[randomIndex];
+            return array[Random.Range(0, array.Length)];
         }
     }
 

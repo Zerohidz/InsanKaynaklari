@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 public static class JobCriterias
 {
-    public static readonly Range AgeRange = new(25, 45);
-    public static readonly Range ExperienceYearsRange = new(0, 20);
+    public static readonly Range AgeRange = new(25, 46);
+    public static readonly Range ExperienceYearsRange = new(0, 21);
 
-    public static readonly Dictionary<JobField, Job[]> JobFields = new() {
+    public static readonly Dictionary<JobField, Job[]> JobsOfJobFields = new() {
         {JobField.Education, EducationJobs},
         {JobField.Health, HealthJobs},
         {JobField.MarketingAndEconomics, MarketingEconomyJobs},
@@ -14,16 +14,16 @@ public static class JobCriterias
     };
 
     public static readonly Job[] EducationJobs = {
-        Job.Math,
-        Job.Biology,
-        Job.Chemistry,
-        Job.Literature,
-        Job.Geography,
-        Job.History,
-        Job.PhysicalEducation,
-        Job.Physics,
-        Job.ForeignLanguage,
-        Job.Geometry,
+        Job.MathTeacher,
+        Job.BiologyTeacher,
+        Job.ChemistryTeacher,
+        Job.LiteratureTeacher,
+        Job.GeographyTeacher,
+        Job.HistoryTeacher,
+        Job.PhysicalEducationTeacher,
+        Job.PhysicsTeacher,
+        Job.ForeignLanguageTeacher,
+        Job.GeometryTeacher,
     };
 
     public static readonly Job[] HealthJobs = {
@@ -94,16 +94,18 @@ public enum JobField
 
 public enum Job
 {
-    Math,
-    Biology,
-    Chemistry,
-    Literature,
-    Geography,
-    History,
-    PhysicalEducation,
-    Physics,
-    ForeignLanguage,
-    Geometry,
+    Undefined,
+
+    MathTeacher,
+    BiologyTeacher,
+    ChemistryTeacher,
+    LiteratureTeacher,
+    GeographyTeacher,
+    HistoryTeacher,
+    PhysicalEducationTeacher,
+    PhysicsTeacher,
+    ForeignLanguageTeacher,
+    GeometryTeacher,
 
     CardiovascularMD,
     InternalMedicineMD,

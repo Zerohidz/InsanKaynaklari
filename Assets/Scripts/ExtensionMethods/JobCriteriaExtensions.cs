@@ -8,7 +8,26 @@ public static class GenderExtensions
         {
             Gender.Male => "Erkek",
             Gender.Female => "Kadın",
-            _ => "Belirsiz hocam",
+            _ => "",
+        };
+        return displayText;
+    }
+
+    public static string GetDisplayAsYears(this int years)
+    {
+        return years.ToString() + " Yıl";
+    }
+
+    public static string GetDisplay(this Race race)
+    {
+        string displayText = race switch
+        {
+            Race.Russsian => "Rus",
+            Race.Turkish => "Türk",
+            Race.Arab => "Arap",
+            Race.German => "Alman",
+            Race.American => "Amerikan",
+            _ => "",
         };
         return displayText;
     }
@@ -21,7 +40,7 @@ public static class GenderExtensions
             JobField.Health => "Sağlık",
             JobField.MarketingAndEconomics => "Pazarlama ve Ekonomi",
             JobField.Engineering => "Mühendislik",
-            _ => "Belirsiz alan",
+            _ => "",
         };
         return displayText;
     }
@@ -30,16 +49,16 @@ public static class GenderExtensions
     {
         string displayText = job switch
         {
-            Job.Math => "Matematik",
-            Job.Biology => "Biyoloji",
-            Job.Chemistry => "Kimya",
-            Job.Literature => "Edebiyat",
-            Job.Geography => "Coğrafya",
-            Job.History => "Tarih",
-            Job.PhysicalEducation => "Beden Eğitimi",
-            Job.Physics => "Fizik",
-            Job.ForeignLanguage => "Yabancı Dil",
-            Job.Geometry => "Geometri",
+            Job.MathTeacher => "Matematik Öğretmeni",
+            Job.BiologyTeacher => "Biyoloji Öğretmeni",
+            Job.ChemistryTeacher => "Kimya Öğretmeni",
+            Job.LiteratureTeacher => "Edebiyat Öğretmeni",
+            Job.GeographyTeacher => "Coğrafya Öğretmeni",
+            Job.HistoryTeacher => "Tarih Öğretmeni",
+            Job.PhysicalEducationTeacher => "Beden Eğitimi Öğretmeni",
+            Job.PhysicsTeacher => "Fizik Öğretmeni",
+            Job.ForeignLanguageTeacher => "Yabancı Dil Öğretmeni",
+            Job.GeometryTeacher => "Geometri Öğretmeni",
 
             Job.CardiovascularMD => "Kardiyovasküler tıbba odaklanan Tıp Doktoru (MD)",
             Job.InternalMedicineMD => "Dahiliye odaklı Tıp Doktoru (MD)",
@@ -74,7 +93,7 @@ public static class GenderExtensions
             Job.SoftwareEngineeringBachelor => "Yazılım mühendisliği lisans derecesi",
             Job.AerospaceEngineeringBachelor => "Havacılık ve uzay mühendisliği lisans derecesi",
 
-            _ => "Belirsiz iş",
+            _ => "",
         };
         return displayText;
     }
@@ -93,7 +112,7 @@ public static class GenderExtensions
             PositiveTrait.Responsible => "Sorumluluk Sahibi",
             PositiveTrait.HighCommunicationSkill => "Yüksek İletişim Kabiliyeti",
             PositiveTrait.Adaptable => "Uyum Sağlayabilme, Esneklik",
-            _ => "Belirsiz özellik",
+            _ => "",
         };
         return displayText;
     }
@@ -112,7 +131,7 @@ public static class GenderExtensions
             NegativeTrait.NegativeAttitude => "Meslektaşlara veya müşterilere karşı olumsuz tutum veya davranış",
             NegativeTrait.NoncomplianceWithCompanyPolicy => "Şirket politikalarına veya prosedürlerine itaatsizlik veya meydan okuma",
             NegativeTrait.ExcessiveUseOfPersonalDevices => "Çalışma saatlerinde kişisel cihazların veya sosyal medyanın aşırı kullanımı.",
-            _ => "Belirsiz özellik",
+            _ => "",
         };
         return displayText;
     }
@@ -129,7 +148,7 @@ public static class GenderExtensions
             PoliticView.Fascism => "Faşizm",
             PoliticView.Communism => "Komünizm",
             PoliticView.Nationalism => "Milliyetçilik",
-            _ => "Belirsiz politik görüş",
+            _ => "",
         };
         return displayText;
     }
@@ -146,8 +165,28 @@ public static class GenderExtensions
             Religion.Atheism => "Ateizm",
             Religion.Deism => "Deizm",
             Religion.Agnosticism => "Agnostisizm",
-            _ => "Belirsiz din",
+            _ => "",
         };
         return displayText;
+    }
+
+    public static string GetDisplay(this PositiveTrait[] traits)
+    {
+        string displayText = "";
+        foreach (var trait in traits)
+        {
+            displayText += $"-> {trait.GetDisplay()}\n";
+        }
+        return displayText.TrimEnd('\n');
+    }
+
+    public static string GetDisplay(this NegativeTrait[] traits)
+    {
+        string displayText = "";
+        foreach (var trait in traits)
+        {
+            displayText += $"-> {trait.GetDisplay()}\n";
+        }
+        return displayText.TrimEnd('\n');
     }
 }
