@@ -6,12 +6,17 @@ public static class JobCriterias
     public static readonly Range AgeRange = new(25, 46);
     public static readonly Range ExperienceYearsRange = new(0, 21);
 
-    public static readonly Dictionary<JobField, Job[]> JobsOfJobFields = new() {
-        {JobField.Education, EducationJobs},
-        {JobField.Health, HealthJobs},
-        {JobField.MarketingAndEconomics, MarketingEconomyJobs},
-        {JobField.Engineering, EngineeringJobs},
-    };
+    public static readonly Dictionary<JobField, Job[]> JobsOfJobFields;
+
+    static JobCriterias()
+    {
+        JobsOfJobFields = new() {
+            {JobField.Education, EducationJobs},
+            {JobField.Health, HealthJobs},
+            {JobField.MarketingAndEconomics, MarketingEconomyJobs},
+            {JobField.Engineering, EngineeringJobs},
+        };
+    }
 
     public static readonly Job[] EducationJobs = {
         Job.MathTeacher,
@@ -128,7 +133,7 @@ public enum Job
     AdvertisingBachelor,
     PublicRelationsBachelor,
     DigitalMarketingBachelor,
-    
+
     ChemicalEngineeringBachelor,
     CivilEngineeringBachelor,
     ComputerEngineeringBachelor,

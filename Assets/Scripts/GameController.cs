@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class GameController : SingletonMB<GameController>
 {
-    public static event Action OnDayChanged;
+    public static event Action<int> OnDayChanged;
     public GameState MyProperty { get; set; }
 
-    private int _day = 1;
+    private int _day;
     public int Day
     {
         get { return _day; }
-        private set { _day = value; OnDayChanged?.Invoke(); }
+        private set { _day = value; OnDayChanged?.Invoke(value); }
     }
 
     private void Update()
@@ -25,6 +25,7 @@ public class GameController : SingletonMB<GameController>
     public void StartNewDay()
     {
         Day = Day + 1;
+        
         // TODO: start new day
         SceneManager.LoadScene("Day");
     }

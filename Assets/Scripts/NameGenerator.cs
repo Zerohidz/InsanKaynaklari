@@ -196,7 +196,7 @@ public class NameGenerator : SingletonMB<NameGenerator>
         ("Selda", 0.02f), ("Sevgi", 0.02f), ("Sevil", 0.01f), ("Sevim", 0.02f), ("Sezen", 0.01f),
         ("Sibel", 0.03f), ("Simge", 0.01f), ("Sinem", 0.05f), ("Songül", 0.02f), ("Şebnem", 0.01f),
         ("Şenay", 0.01f), ("Şule", 0.01f), ("Tuğba", 0.02f), ("Tülin", 0.01f), ("Tülay", 0.01f),
-        ("Türkan", 0.01f), ("Uğur", 0.01f), ("Ümit", 0.01f), ("Sümeyye", 0.01f), ("Yasemin", 0.06f),
+        ("Türkan", 0.01f), ("Ülkü", 0.01f), ("Ümit", 0.01f), ("Sümeyye", 0.01f), ("Yasemin", 0.06f),
         ("Yelda", 0.01f), ("Yeliz", 0.02f), ("Yüksel", 0.01f), ("Zarife", 0.01f), ("Zehra", 0.04f),
         ("Zekiye", 0.01f),
     };

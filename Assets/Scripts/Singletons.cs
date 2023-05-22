@@ -7,7 +7,10 @@ public abstract class SingletonMB<T> : MonoBehaviour where T : MonoBehaviour
     protected virtual void Awake()
     {
         if (Instance != null)
+        {
             Destroy(gameObject);
+            return;
+        }
         Instance = this as T;
     }
 

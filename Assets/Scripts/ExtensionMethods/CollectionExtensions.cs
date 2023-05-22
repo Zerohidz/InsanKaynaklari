@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,45 @@ public static class CollectionExtensions
 {
     public static T GetRandom<T>(this ICollection<T> collection)
     {
+        if (collection == null)
+            return default;
         int randomIdx = UnityEngine.Random.Range(0, collection.Count);
         return collection.ElementAt(randomIdx);
+    }
+
+    /// <summary>
+    /// If there is not sufficient amount of items, returns maximum amount
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="collection"></param>
+    /// <param name="count"></param>
+    /// <returns></returns>
+    public static ICollection<T> GetRandomRange<T>(this ICollection<T> collection, int count)
+    {
+        List<T> values = collection.ToList();
+        List<T> array = new();
+        count = Math.Clamp(count, 1, values.Count);
+
+        for (int i = 0; i < count; i++)
+        {
+            int randomIdx = UnityEngine.Random.Range(0, values.Count);
+            array.Add(values[randomIdx]);
+            values.RemoveAt(randomIdx);
+        }
+
+        return array.ToArray();
+    }
+
+    public static void Shuffle<T>(this T[] array)
+    {
+        int n = array.Length;
+        while (n > 1)
+        {
+            n--;
+            int k = UnityEngine.Random.Range(0, n + 1);
+            T value = array[k];
+            array[k] = array[n];
+            array[n] = value;
+        }
     }
 }

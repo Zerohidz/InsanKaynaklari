@@ -15,7 +15,7 @@ public static class EnumHelper
         return (T)values.GetValue(UnityEngine.Random.Range(0, values.Length));
     }
 
-    public static T[] GetRandomArray<T>(int count) where T : Enum
+    public static ICollection<T> GetRandomRange<T>(int count) where T : Enum
     {
         List<T> values = GetValues<T>().ToList();
         List<T> array = new();
