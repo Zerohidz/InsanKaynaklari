@@ -39,7 +39,7 @@ public class NameGenerator : SingletonMB<NameGenerator>
         if (!nameSet.HasNameProbabilities)
             return null;
 
-        bool isDoubleName = BoolHelper.GetRandomBool();
+        bool isDoubleName = BoolHelper.GetRandom();
         string name = "";
         if (isDoubleName)
         {
@@ -55,7 +55,7 @@ public class NameGenerator : SingletonMB<NameGenerator>
 
     private string GetRandomDoubleNameFrom(NameSet nameSet, bool isMale)
     {
-        bool isDoubleName = BoolHelper.GetRandomBool();
+        bool isDoubleName = BoolHelper.GetRandom();
         string name = "";
         if (isDoubleName)
         {
@@ -220,11 +220,11 @@ public class NameGenerator : SingletonMB<NameGenerator>
     private readonly string[] _germanMaleNames = new string[] {
         "Alexander", "Andreas", "Anton", "Armin", "Axel", "Benjamin", "Bernd", "Christian", "Christopher", "Daniel",
         "David", "Dirk", "Dominik", "Eckhard", "Eduard", "Egon", "Emil", "Erhard", "Ernst", "Fabian", "Felix",
-        "Florian", "Frank", "Friedrich", "Georg", "Gerald", "Gerhard", "Gernot", "Gregor", "G�nter", "Hans",
+        "Florian", "Frank", "Friedrich", "Georg", "Gerald", "Gerhard", "Gernot", "Gregor", "Günter", "Hans",
         "Harald", "Heiko", "Heinz", "Helmut", "Henning", "Herbert", "Hermann", "Horst", "Jan", "Jens", "Joachim",
-        "Johannes", "Jonas", "J�rg", "J�rgen", "Kai", "Karsten", "Klaus", "Konrad", "Lars", "Leo", "Lukas",
+        "Johannes", "Jonas", "Jörg", "Jürgen", "Kai", "Karsten", "Klaus", "Konrad", "Lars", "Leo", "Lukas",
         "Manfred", "Marcus", "Markus", "Martin", "Matthias", "Maximilian", "Michael", "Moritz", "Nico", "Niklas",
-        "Oliver", "Patrick", "Paul", "Peter", "Philipp", "Rainer", "Ralf", "Reinhard", "Ren�", "Roland", "Rolf",
+        "Oliver", "Patrick", "Paul", "Peter", "Philipp", "Rainer", "Ralf", "Reinhard", "René", "Roland", "Rolf",
         "Sebastian", "Stefan", "Thomas", "Thorsten", "Timo", "Tobias", "Uwe", "Volker", "Walter", "Werner",
     };
 
@@ -244,16 +244,17 @@ public class NameGenerator : SingletonMB<NameGenerator>
     };
 
     private readonly string[] _germanSurnames = new string[] {
-        "Abel", "Baumann", "Becker", "Bergmann", "Berger", "Beyer", "B�hm", "Brandt", "Braun", "Busch",
-        "Dietrich", "Eberhardt", "Eckert", "Engel", "Fischer", "Franke", "Freitag", "Friedrich", "G�rtner",
-        "Gerhardt", "G�tz", "Graf", "Gruber", "Haas", "Hahn", "Hartmann", "Heinrich", "Heller", "Herrmann",
-        "Hoffmann", "Holz", "Huber", "J�ger", "Kaiser", "Keller", "Klein", "K�nig", "Krause", "Kr�ger",
-        "Kuhn", "Kunz", "Lang", "Lehmann", "Lorenz", "Ludwig", "Maier", "Mayer", "Meier", "Meyer", "M�ller",
-        "Neumann", "Peters", "Pfeiffer", "Richter", "Ritter", "Roth", "Sauer", "Sch�fer", "Schaller", "Schindler",
+        "Abel", "Baumann", "Becker", "Bergmann", "Berger", "Beyer", "Böhm", "Brandt", "Braun", "Busch",
+        "Dietrich", "Eberhardt", "Eckert", "Engel", "Fischer", "Franke", "Freitag", "Friedrich", "Gärtner",
+        "Gerhardt", "Götz", "Graf", "Gruber", "Haas", "Hahn", "Hartmann", "Heinrich", "Heller", "Herrmann",
+        "Hoffmann", "Holz", "Huber", "Jäger", "Kaiser", "Keller", "Klein", "König", "Krause", "Krüger",
+        "Kuhn", "Kunz", "Lang", "Lehmann", "Lorenz", "Ludwig", "Maier", "Mayer", "Meier", "Meyer", "Müller",
+        "Neumann", "Peters", "Pfeiffer", "Richter", "Ritter", "Roth", "Sauer", "Schäfer", "Schaller", "Schindler",
         "Schmidt", "Schneider", "Scholz", "Schreiber", "Schubert", "Schulz", "Schumacher", "Schuster", "Schwarz",
-        "Seidel", "Simon", "Sommer", "Stahl", "Stein", "Thomas", "Vogel", "Wagner", "Weber", "Wei�", "Werner",
+        "Seidel", "Simon", "Sommer", "Stahl", "Stein", "Thomas", "Vogel", "Wagner", "Weber", "Weiß", "Werner",
         "Winkler", "Wolf", "Wolff", "Ziegler", "Zimmermann",
     };
+
 
     private readonly string[] _americanMaleNames = new string[] {
         "Adam", "Andrew", "Anthony", "Austin", "Benjamin", "Blake", "Brandon", "Brian", "Cameron", "Charles",

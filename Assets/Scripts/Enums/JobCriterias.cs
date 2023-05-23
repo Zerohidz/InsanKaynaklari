@@ -99,8 +99,6 @@ public enum JobField
 
 public enum Job
 {
-    Undefined,
-
     MathTeacher,
     BiologyTeacher,
     ChemistryTeacher,

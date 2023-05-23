@@ -5,22 +5,23 @@ using Unity.VisualScripting;
 
 public class PersonManger : SingletonMB<PersonManger>
 {
+    private delegate void Operation(PersonInfo p, CompanyRequest c);
+
     public PersonInfo CurrentPersonInfo { get; private set; }
 
     public void NextPerson()
     {
         CurrentPersonInfo = CreateRandomPerson();
-        MakeCorrectPerson(CurrentPersonInfo, CompanyRequestManager.Instance.CurrentCompanyRequest);
+        MakeFalsePerson(CurrentPersonInfo, CompanyRequestManager.Instance.CurrentCompanyRequest);
     }
 
     public PersonInfo CreateRandomPerson()
     {
         int age = UnityEngine.Random.Range(JobCriterias.AgeRange.Start.Value, JobCriterias.AgeRange.End.Value);
-        Race race = Race.Turkish;
+        Race race = EnumHelper.GetRandom<Race>();
         Gender gender = BoolHelper.GetRandomOneFrom(Gender.Male, Gender.Female);
         string name = NameGenerator.Instance.GetRandomName(race, gender);
-        // TODO: ýrklara göre din rasgeleliði ayarla
-        Religion religion = EnumHelper.GetRandom<Religion>();
+        Religion religion = GetRandomReligion(race);
         PoliticView politicView = EnumHelper.GetRandom<PoliticView>();
         Job job = EnumHelper.GetRandom<Job>();
         int experienceYears = UnityEngine.Random.Range(JobCriterias.ExperienceYearsRange.Start.Value, JobCriterias.ExperienceYearsRange.End.Value);
@@ -42,6 +43,20 @@ public class PersonManger : SingletonMB<PersonManger>
         };
     }
 
+    private Religion GetRandomReligion(Race race)
+    {
+        Religion randomReligion = EnumHelper.GetRandom<Religion>();
+        return race switch
+        {
+            Race.Turkish => BoolHelper.GetRandomFromPersentage(95) ? Religion.Islam : randomReligion,
+            Race.Arab => BoolHelper.GetRandomFromPersentage(90) ? Religion.Islam : randomReligion,
+            Race.Russsian => BoolHelper.GetRandomFromPersentage(77) ? Religion.Christianity : randomReligion,
+            Race.German => BoolHelper.GetRandomFromPersentage(60) ? Religion.Christianity : randomReligion,
+            Race.American => BoolHelper.GetRandomFromPersentage(67) ? Religion.Christianity : randomReligion,
+        _ => randomReligion,
+        };
+    }
+
     public void MakeCorrectPerson(PersonInfo personInfo, CompanyRequest companyRequest)
     {
         if (companyRequest.Jobs is not null && companyRequest.Jobs.Length > 0)
@@ -54,32 +69,38 @@ public class PersonManger : SingletonMB<PersonManger>
 
     public void MakeFalsePerson(PersonInfo personInfo, CompanyRequest companyRequest)
     {
-        // TODO: fix this
-
-        var properties = (Jobs: companyRequest.Jobs, PosTraits: companyRequest.PositiveTraits, NegTraits: companyRequest.NegativeTraits);
-
-        List<int> operations = properties switch
+        List<(Operation Operation, Operation OppositeOperation, bool IsNotNull)> nullChecks = new()
         {
-            (not null, not null, not null) => BoolHelper.GetRandomBool() ?
-                                                new List<int> { new[] { 1, 2, 3 }.GetRandom() } :
-                                                new int[] { 1, 2, 3 }.GetRandomRange(2).ToList(),
-            (not null, not null, null) => new List<int> { new[] { 1, 2 }.GetRandom() },
-            (not null, null, not null) => new List<int> { new[] { 1, 3 }.GetRandom() },
-            (not null, null, null) => new List<int> { 1 },
-            (null, not null, not null) => new List<int> { new[] { 2, 3 }.GetRandom() },
-            (null, not null, null) => new List<int> { 2 },
-            (null, null, not null) => new List<int> { 3 },
-            _ => new List<int>()
+            (MakeFalseJob, MakeCorrectJob, companyRequest.Jobs is not null),
+            (MakeFalsePositiveTrait, MakeCorrectPositiveTrait, companyRequest.PositiveTraits is not null),
+            (MakeFalseNegativeTrait, MakeCorrectNegativeTrait, companyRequest.NegativeTraits is not null),
         };
 
-        var actions = new Dictionary<int, Action> {
-            { 0, () => MakeFalseJob(personInfo, companyRequest) },
-            { 1, () => MakeFalsePositiveTrait(personInfo, companyRequest) },
-            { 2, () => MakeFalseNegativeTrait(personInfo, companyRequest) }
-        };
+        var nonNulls = nullChecks.Where(kv => kv.IsNotNull).ToList();
+        var operations = (nonNulls.Count() switch
+        {
+            3 => nonNulls.GetRandomRange(BoolHelper.GetRandomOneFrom(2, 1)),
+            2 => nonNulls.GetRandomRange(1),
+            1 => nonNulls,
+            _ => null,
+        }).ToList();
 
-        operations.ForEach(operation => actions[operation]?.Invoke());
+        operations?.ForEach(op => op.Operation?.Invoke(personInfo, companyRequest));
 
+        var oppositeOperations = nonNulls.Except(operations).Select(n => n.OppositeOperation);
+        oppositeOperations.ToList().ForEach(oop => oop?.Invoke(personInfo, companyRequest));
+    }
+
+    private static void MakeCorrectJob(PersonInfo personInfo, CompanyRequest companyRequest)
+    {
+        personInfo.Job = companyRequest.Jobs.GetRandom();
+    }
+
+    private static void MakeFalseJob(PersonInfo personInfo, CompanyRequest companyRequest)
+    {
+        List<Job> allJobs = EnumHelper.GetValues<Job>().ToList();
+        allJobs.RemoveAll(j => companyRequest.Jobs.Contains(j));
+        personInfo.Job = allJobs.GetRandom();
     }
 
     private static void MakeCorrectPositiveTrait(PersonInfo personInfo, CompanyRequest companyRequest)
@@ -98,8 +119,6 @@ public class PersonManger : SingletonMB<PersonManger>
 
     private static void MakeFalsePositiveTrait(PersonInfo personInfo, CompanyRequest companyRequest)
     {
-        // TODO: test this
-
         // allPositiveTraits'ten hepsini deðil rastgele bir kýsmýný çýkaracaðýz
         var positiveTraits = companyRequest.PositiveTraits.ToList();
         positiveTraits = positiveTraits.GetRandomRange(UnityEngine.Random.Range(1, positiveTraits.Count + 1)).ToList();
@@ -118,8 +137,6 @@ public class PersonManger : SingletonMB<PersonManger>
 
     private static void MakeFalseNegativeTrait(PersonInfo personInfo, CompanyRequest companyRequest)
     {
-        // TODO: test this
-
         // Ýstenmeyen negative trait'lerden rasgele miktarýný seç
         var negativeTraits = companyRequest.NegativeTraits.GetRandomRange(UnityEngine.Random.Range(1, companyRequest.NegativeTraits.Length + 1)).ToList();
 
@@ -132,18 +149,6 @@ public class PersonManger : SingletonMB<PersonManger>
         }
         personInfo.NegativeTraits = negativeTraits.ToArray();
         personInfo.NegativeTraits.Shuffle();
-    }
-
-    private static void MakeCorrectJob(PersonInfo personInfo, CompanyRequest companyRequest)
-    {
-        personInfo.Job = companyRequest.Jobs.GetRandom();
-    }
-
-    private static void MakeFalseJob(PersonInfo personInfo, CompanyRequest companyRequest)
-    {
-        List<Job> jobs = EnumHelper.GetValues<Job>().ToList();
-        jobs.RemoveAll(j => companyRequest.Jobs.Contains(j));
-        personInfo.Job = jobs.GetRandom();
     }
 }
 
