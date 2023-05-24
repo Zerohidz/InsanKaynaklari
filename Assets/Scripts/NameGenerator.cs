@@ -95,7 +95,7 @@ public class NameGenerator : SingletonMB<NameGenerator>
         }
     }
 
-    // TODO: the calculation of probability can slow down the process of getting the name
+    // The calculation of probability can slow down the process of getting the name
     // so we can precalculate the total probabilities on each step of the summation
     private string GetRandomNameWithProbability(NameSet nameSet, bool isMale)
     {

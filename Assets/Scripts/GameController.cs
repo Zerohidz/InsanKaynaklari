@@ -24,9 +24,9 @@ public class GameController : SingletonMB<GameController>
 
     public void StartNewDay()
     {
-        Day = Day + 1;
-        
         // TODO: start new day
+        
+        Day = Day + 1;
         SceneManager.LoadScene("Day");
     }
 }

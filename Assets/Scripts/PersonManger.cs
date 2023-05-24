@@ -11,6 +11,8 @@ public class PersonManger : SingletonMB<PersonManger>
 
     public void NextPerson()
     {
+        // TODO 2: liste oluþtur ordan yenisini ver
+
         CurrentPersonInfo = CreateRandomPerson();
         MakeFalsePerson(CurrentPersonInfo, CompanyRequestManager.Instance.CurrentCompanyRequest);
     }
