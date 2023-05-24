@@ -5,28 +5,49 @@ using Unity.VisualScripting;
 
 public class PersonManger : SingletonMB<PersonManger>
 {
+    private static int PersonListSize = 30;
     private delegate void Operation(PersonInfo p, CompanyRequest c);
+    private List<PersonInfo> _personList = new();
 
     public PersonInfo CurrentPersonInfo { get; private set; }
 
     public void NextPerson()
     {
-        // TODO 2: liste oluþtur ordan yenisini ver
+        if (_personList is null || _personList.Count < 1)
+            GeneratePersonList();
 
-        CurrentPersonInfo = CreateRandomPerson();
-        MakeFalsePerson(CurrentPersonInfo, CompanyRequestManager.Instance.CurrentCompanyRequest);
+        CurrentPersonInfo = _personList[0];
+        _personList.RemoveAt(0);
     }
 
-    public PersonInfo CreateRandomPerson()
+    private void GeneratePersonList()
+    {
+        for (int i = 0; i < PersonListSize; i++)
+        {
+            PersonInfo randomPerson = CreateRandomPerson();
+
+            if (i < PersonListSize / 2)
+                MakeCorrectPerson(randomPerson, CompanyRequestManager.Instance.CurrentCompanyRequest);
+            else
+                MakeFalsePerson(randomPerson, CompanyRequestManager.Instance.CurrentCompanyRequest);
+
+            _personList.Add(randomPerson);
+        }
+
+        _personList = _personList.Shuffled().ToList();
+    }
+
+    private PersonInfo CreateRandomPerson()
     {
         int age = UnityEngine.Random.Range(JobCriterias.AgeRange.Start.Value, JobCriterias.AgeRange.End.Value);
         Race race = EnumHelper.GetRandom<Race>();
         Gender gender = BoolHelper.GetRandomOneFrom(Gender.Male, Gender.Female);
         string name = NameGenerator.Instance.GetRandomName(race, gender);
         Religion religion = GetRandomReligion(race);
+        // TODO: bunu da milletlere göre oranla
         PoliticView politicView = EnumHelper.GetRandom<PoliticView>();
         Job job = EnumHelper.GetRandom<Job>();
-        int experienceYears = UnityEngine.Random.Range(JobCriterias.ExperienceYearsRange.Start.Value, JobCriterias.ExperienceYearsRange.End.Value);
+        int experienceYears = GetRandomExperience(age);
         PositiveTrait[] positiveTraits = EnumHelper.GetRandomRange<PositiveTrait>((int)Math.Sqrt(GameController.Instance.Day) * 2).ToArray();
         NegativeTrait[] negativeTraits = EnumHelper.GetRandomRange<NegativeTrait>((int)Math.Sqrt(GameController.Instance.Day) * 2).ToArray();
 
@@ -45,6 +66,13 @@ public class PersonManger : SingletonMB<PersonManger>
         };
     }
 
+    private static int GetRandomExperience(int age)
+    {
+        // TODO: reivze et ki experience sürekli 1-2 gelmesin yaw
+        return UnityEngine.Random.Range(JobCriterias.ExperienceYearsRange.Start.Value,
+                Math.Min(age - 18 + 1, JobCriterias.ExperienceYearsRange.End.Value));
+    }
+
     private Religion GetRandomReligion(Race race)
     {
         Religion randomReligion = EnumHelper.GetRandom<Religion>();
@@ -55,7 +83,7 @@ public class PersonManger : SingletonMB<PersonManger>
             Race.Russsian => BoolHelper.GetRandomFromPersentage(77) ? Religion.Christianity : randomReligion,
             Race.German => BoolHelper.GetRandomFromPersentage(60) ? Religion.Christianity : randomReligion,
             Race.American => BoolHelper.GetRandomFromPersentage(67) ? Religion.Christianity : randomReligion,
-        _ => randomReligion,
+            _ => randomReligion,
         };
     }
 

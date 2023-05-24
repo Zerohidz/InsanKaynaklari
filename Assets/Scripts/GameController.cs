@@ -16,12 +16,6 @@ public class GameController : SingletonMB<GameController>
         private set { _day = value; OnDayChanged?.Invoke(value); }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-            StartNewDay();
-    }
-
     public void StartNewDay()
     {
         // TODO: start new day

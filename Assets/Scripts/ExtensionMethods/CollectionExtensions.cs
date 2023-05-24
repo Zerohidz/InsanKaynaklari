@@ -37,16 +37,19 @@ public static class CollectionExtensions
         return array.ToArray();
     }
 
-    public static void Shuffle<T>(this T[] array)
+    public static ICollection<T> Shuffled<T>(this ICollection<T> collection)
     {
-        int n = array.Length;
+        var list = collection.ToList();
+        int n = list.Count;
         while (n > 1)
         {
             n--;
             int k = UnityEngine.Random.Range(0, n + 1);
-            T value = array[k];
-            array[k] = array[n];
-            array[n] = value;
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
         }
+
+        return list;
     }
 }
