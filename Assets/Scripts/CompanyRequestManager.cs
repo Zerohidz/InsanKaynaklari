@@ -35,7 +35,7 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
             PositiveTraits = new PositiveTrait[]
             {
                 PositiveTrait.Punctual,
-                PositiveTrait.Thorough,
+                PositiveTrait.Adaptable,
             },
         },
         new CompanyRequest() {
@@ -46,7 +46,7 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
             },
             PositiveTraits = new PositiveTrait[]
             {
-                PositiveTrait.Professional,
+                PositiveTrait.Organized,
             },
             NegativeTraits = new NegativeTrait[]
             {

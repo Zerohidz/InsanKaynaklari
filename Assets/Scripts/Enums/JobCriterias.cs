@@ -18,6 +18,14 @@ public static class JobCriterias
         };
     }
 
+    public static readonly (PositiveTrait, NegativeTrait)[] IncompatibleTraits = {
+        (PositiveTrait.Punctual, NegativeTrait.Procrastination),
+        (PositiveTrait.Organized, NegativeTrait.PoorHygiene),
+        (PositiveTrait.Adaptable,NegativeTrait.PoorCooperation),
+        (PositiveTrait.Responsible,NegativeTrait.NoncomplianceWithCompanyPolicy),
+        (PositiveTrait.Responsible,NegativeTrait.Procrastination),
+    };
+
     public static readonly Job[] EducationJobs = {
         Job.MathTeacher,
         Job.BiologyTeacher,
@@ -146,30 +154,20 @@ public enum Job
 
 public enum PositiveTrait
 {
-    Thorough,
-    Optimistic,
     Punctual,
-    Enterprising,
     Organized,
-    Professional,
-    TeamPlayer,
-    Responsible,
-    HighCommunicationSkill,
     Adaptable,
+    Enterprising,
+    Responsible,
 }
 
 public enum NegativeTrait
 {
-    PoorHygiene,
-    Procrastination,
-    ChronicTardiness,
     DisrespectfulLanguage,
-    DishonestBehavior,
-    PoorCooperation,
-    LackOfAccountability,
-    NegativeAttitude,
+    PoorHygiene,
     NoncomplianceWithCompanyPolicy,
-    ExcessiveUseOfPersonalDevices,
+    Procrastination,
+    PoorCooperation,
 }
 
 public enum PoliticView

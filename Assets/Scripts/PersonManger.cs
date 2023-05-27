@@ -48,8 +48,8 @@ public class PersonManger : SingletonMB<PersonManger>
         PoliticView politicView = EnumHelper.GetRandom<PoliticView>();
         Job job = EnumHelper.GetRandom<Job>();
         int experienceYears = GetRandomExperience(age);
-        PositiveTrait[] positiveTraits = EnumHelper.GetRandomRange<PositiveTrait>((int)Math.Sqrt(GameController.Instance.Day) * 2).ToArray();
-        NegativeTrait[] negativeTraits = EnumHelper.GetRandomRange<NegativeTrait>((int)Math.Sqrt(GameController.Instance.Day) * 2).ToArray();
+        PositiveTrait[] positiveTraits = EnumHelper.GetRandomRange<PositiveTrait>(2).ToArray();
+        NegativeTrait[] negativeTraits = EnumHelper.GetRandomRange<NegativeTrait>(2).ToArray();
 
         return new()
         {
@@ -68,7 +68,7 @@ public class PersonManger : SingletonMB<PersonManger>
 
     private static int GetRandomExperience(int age)
     {
-        // TODO: reivze et ki experience sürekli 1-2 gelmesin yaw
+        // TODO: reivze et ki experience sürekli 1-2 gelmesin yaw    
         return UnityEngine.Random.Range(JobCriterias.ExperienceYearsRange.Start.Value,
                 Math.Min(age - 18 + 1, JobCriterias.ExperienceYearsRange.End.Value));
     }

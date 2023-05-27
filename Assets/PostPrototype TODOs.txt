@@ -1,0 +1,2 @@
+1) Birinci gün gelen request'in herhangi bir parçası dün gelen request'inki ile aynı olmamalı
+2) Politik görüşü de milletlere veya dinlere göre ihtimalle

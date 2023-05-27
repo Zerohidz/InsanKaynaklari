@@ -102,16 +102,11 @@ public static class GenderExtensions
     {
         string displayText = positiveTrait switch
         {
-            PositiveTrait.Thorough => "Titiz",
-            PositiveTrait.Optimistic => "Ýyimser",
             PositiveTrait.Punctual => "Dakiklik",
-            PositiveTrait.Enterprising => "Giriþkenlik",
             PositiveTrait.Organized => "Düzen, Tertip",
-            PositiveTrait.Professional => "Profesyonellik",
-            PositiveTrait.TeamPlayer => "Takým Çalýþmacýsý",
+            PositiveTrait.Adaptable => "Esneklik",
+            PositiveTrait.Enterprising => "Giriþkenlik",
             PositiveTrait.Responsible => "Sorumluluk Sahibi",
-            PositiveTrait.HighCommunicationSkill => "Yüksek Ýletiþim Kabiliyeti",
-            PositiveTrait.Adaptable => "Uyum Saðlayabilme, Esneklik",
             _ => "",
         };
         return displayText;
@@ -121,16 +116,11 @@ public static class GenderExtensions
     {
         string displayText = negativeTrait switch
         {
-            NegativeTrait.PoorHygiene => "Kötü kiþisel hijyen veya bakým",
-            NegativeTrait.Procrastination => "Erteleme veya zayýf zaman yönetimi",
-            NegativeTrait.ChronicTardiness => "Sürekli geç kalma veya devamsýzlýk",
             NegativeTrait.DisrespectfulLanguage => "Saygýsýz veya uygunsuz dil veya davranýþ",
-            NegativeTrait.DishonestBehavior => "Dürüst olmayan veya etik olmayan davranýþ",
-            NegativeTrait.PoorCooperation => "Ýþbirliði içinde çalýþamama veya etkili iletiþim kuramama",
-            NegativeTrait.LackOfAccountability => "Kiþinin iþi için hesap verebilirlik veya sorumluluk eksikliði",
-            NegativeTrait.NegativeAttitude => "Meslektaþlara veya müþterilere karþý olumsuz tutum veya davranýþ",
+            NegativeTrait.PoorHygiene => "Kötü kiþisel hijyen veya bakým",
             NegativeTrait.NoncomplianceWithCompanyPolicy => "Þirket politikalarýna veya prosedürlerine itaatsizlik veya meydan okuma",
-            NegativeTrait.ExcessiveUseOfPersonalDevices => "Çalýþma saatlerinde kiþisel cihazlarýn veya sosyal medyanýn aþýrý kullanýmý.",
+            NegativeTrait.Procrastination => "Erteleme veya zayýf zaman yönetimi",
+            NegativeTrait.PoorCooperation => "Ýþbirliði içinde çalýþamama veya etkili iletiþim kuramama",
             _ => "",
         };
         return displayText;
