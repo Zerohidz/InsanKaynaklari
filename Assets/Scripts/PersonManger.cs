@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEngine;
 
 public class PersonManger : SingletonMB<PersonManger>
 {
-    private static int PersonListSize = 30;
+    private static int PersonListSize = 1000;
     private delegate void Operation(PersonInfo p, CompanyRequest c);
     private List<PersonInfo> _personList = new();
 
@@ -95,6 +96,8 @@ public class PersonManger : SingletonMB<PersonManger>
             MakeCorrectPositiveTrait(personInfo, companyRequest);
         if (companyRequest.NegativeTraits is not null)
             MakeCorrectNegativeTrait(personInfo, companyRequest);
+
+        personInfo.IsCorrect = true;
     }
 
     public void MakeFalsePerson(PersonInfo personInfo, CompanyRequest companyRequest)
@@ -119,6 +122,7 @@ public class PersonManger : SingletonMB<PersonManger>
 
         var oppositeOperations = nonNulls.Except(operations).Select(n => n.OppositeOperation);
         oppositeOperations.ToList().ForEach(oop => oop?.Invoke(personInfo, companyRequest));
+        personInfo.IsCorrect = false;
     }
 
     private static void MakeCorrectJob(PersonInfo personInfo, CompanyRequest companyRequest)

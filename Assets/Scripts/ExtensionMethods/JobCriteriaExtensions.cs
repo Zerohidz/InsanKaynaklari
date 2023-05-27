@@ -2,6 +2,16 @@
 // GetDisplay()'ler dictionary yerine switch kullanýyor çünkü language support gelebilir
 public static class GenderExtensions
 {
+    public static string GetDisplay(this (JobField JobField, Job[] Jobs)[] jobFields)
+    {
+        string displayText = "";
+        foreach (var (jobField, jobs) in jobFields)
+        {
+            displayText += $"• {jobField.GetDisplay()} sektöründen alým yapýlacak.\n";
+        }
+        return displayText.TrimEnd('\n');
+    }
+
     public static string GetDisplay(this Gender gender)
     {
         string displayText = gender switch
@@ -160,12 +170,22 @@ public static class GenderExtensions
         return displayText;
     }
 
+    public static string GetDisplay(this Job[] jobs)
+    {
+        string displayText = "";
+        foreach (var job in jobs)
+        {
+            displayText += $"• {job.GetDisplay()}\n";
+        }
+        return displayText.TrimEnd('\n');
+    }
+
     public static string GetDisplay(this PositiveTrait[] traits)
     {
         string displayText = "";
         foreach (var trait in traits)
         {
-            displayText += $"-> {trait.GetDisplay()}\n";
+            displayText += $"• {trait.GetDisplay()}\n";
         }
         return displayText.TrimEnd('\n');
     }
@@ -175,7 +195,7 @@ public static class GenderExtensions
         string displayText = "";
         foreach (var trait in traits)
         {
-            displayText += $"-> {trait.GetDisplay()}\n";
+            displayText += $"• {trait.GetDisplay()}\n";
         }
         return displayText.TrimEnd('\n');
     }

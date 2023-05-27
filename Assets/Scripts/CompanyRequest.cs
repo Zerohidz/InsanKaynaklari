@@ -9,9 +9,9 @@ public class CompanyRequest
     public Job[] Jobs { get; set; }
     public PositiveTrait[] PositiveTraits { get; set; }
     public NegativeTrait[] NegativeTraits { get; set; }
-    public (JobField JobField, int JobCount)[] JobFields => JobCriterias.JobsOfJobFields
+    public (JobField JobField, Job[] Jobs)[] JobFields => JobCriterias.JobsOfJobFields
                 .Where(kv => kv.Value.Intersect(Jobs).Any())
-                .Select(kv => (kv.Key, kv.Value.Intersect(Jobs).Count()))
+                .Select(kv => (kv.Key, kv.Value.Intersect(Jobs).ToArray()))
                 .ToArray();
 
     public CompanyRequest(Job[] jobs = null, PositiveTrait[] positiveTraits = null, NegativeTrait[] negativeTraits = null)

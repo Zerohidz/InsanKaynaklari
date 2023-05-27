@@ -76,7 +76,7 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
             List<Job> newJobs = new();
             for (int j = 0; j < requestDraft.JobFields.Length; j++)
             {
-                newJobs.AddRange(JobCriterias.JobsOfJobFields[randomJobFields[j]].GetRandomRange(requestDraft.JobFields[j].JobCount));
+                newJobs.AddRange(JobCriterias.JobsOfJobFields[randomJobFields[j]].GetRandomRange(requestDraft.JobFields[j].Jobs.Length));
             }
             request.Jobs = newJobs.ToArray();
 
