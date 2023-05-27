@@ -44,12 +44,12 @@ public class PersonManger : SingletonMB<PersonManger>
         Gender gender = BoolHelper.GetRandomOneFrom(Gender.Male, Gender.Female);
         string name = NameGenerator.Instance.GetRandomName(race, gender);
         Religion religion = GetRandomReligion(race);
-        // TODO: bunu da milletlere göre oranla
         PoliticView politicView = EnumHelper.GetRandom<PoliticView>();
         Job job = EnumHelper.GetRandom<Job>();
         int experienceYears = GetRandomExperience(age);
         PositiveTrait[] positiveTraits = EnumHelper.GetRandomRange<PositiveTrait>(2).ToArray();
-        NegativeTrait[] negativeTraits = EnumHelper.GetRandomRange<NegativeTrait>(2).ToArray();
+        NegativeTrait[] negativeTraits = JobCriterias.GetAvailableNegativeTraits(positiveTraits)
+                                                     .GetRandomRange(2).ToArray();
 
         return new()
         {

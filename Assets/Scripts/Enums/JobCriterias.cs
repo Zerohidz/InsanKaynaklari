@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.UIElements;
 
 public static class JobCriterias
 {
@@ -16,6 +18,30 @@ public static class JobCriterias
             {JobField.MarketingAndEconomics, MarketingEconomyJobs},
             {JobField.Engineering, EngineeringJobs},
         };
+    }
+
+    public static NegativeTrait[] GetAvailableNegativeTraits(PositiveTrait[] positiveTraits)
+    {
+        List<NegativeTrait> allNegativeTraits = EnumHelper.GetValues<NegativeTrait>().ToList();
+        foreach (var pair in IncompatibleTraits)
+        {
+            if (positiveTraits.Contains(pair.Item1))
+                allNegativeTraits.Remove(pair.Item2);
+        }
+
+        return allNegativeTraits.ToArray();
+    }
+
+    public static PositiveTrait[] GetAvailablePositiveTraits(NegativeTrait[] negativeTraits)
+    {
+        List<PositiveTrait> allPositiveTraits = EnumHelper.GetValues<PositiveTrait>().ToList();
+        foreach (var pair in IncompatibleTraits)
+        {
+            if (negativeTraits.Contains(pair.Item2))
+                allPositiveTraits.Remove(pair.Item1);
+        }
+
+        return allPositiveTraits.ToArray();
     }
 
     public static readonly (PositiveTrait, NegativeTrait)[] IncompatibleTraits = {
