@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -26,5 +27,15 @@ public class CV : MonoBehaviour
         ExperienceYears?.SetText(personInfo.ExperienceYears.GetDisplayAsYears());
         PositiveTraits?.SetText(personInfo.PositiveTraits?.GetDisplay());
         NegativeTraits?.SetText(personInfo.NegativeTraits?.GetDisplay());
+    }
+
+    public void Accept()
+    {
+        GetComponent<Animator>().SetTrigger("Accept");
+    }
+
+    public void Reject()
+    {
+        GetComponent<Animator>().SetTrigger("Reject");
     }
 }
