@@ -12,12 +12,16 @@ public class GameController : SingletonMB<GameController>
     private int _day;
     public int Day
     {
-        get { return _day; }
-        private set { _day = value; OnDayChanged?.Invoke(value); }
+        get => _day;
+        private set
+        {
+            _day = value;
+            OnDayChanged?.Invoke(value);
+        }
     }
 
     public void StartNewDay()
-    {   
+    {
         Day++;
         SceneManager.LoadScene("Day");
     }

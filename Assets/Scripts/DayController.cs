@@ -10,12 +10,14 @@ public class DayController : MonoBehaviour
     [SerializeField] private CR[] _crPrefabs;
     private CV _cv;
     private int _day;
+    private int _correctDecisionCount;
+    private int _incorrectDecisionCount;
 
     private void Start()
     {
         _day = GameController.Instance.Day;
 
-        _showCRButton.SetCR(_crPrefabs[0]);
+        _showCRButton.SetCR(_crPrefabs[_day < 3 ? 0 : 1]);
 
         GetNewCV();
     }
@@ -43,25 +45,42 @@ public class DayController : MonoBehaviour
         _cv.SetInfo(PersonManger.Instance.CurrentPersonInfo);
     }
 
-    public void DecideCorrectness(bool correctness)
+    public void DecideCorrectness(bool accepted)
     {
-        if (correctness)
+        if (_cv == null)
+            return;
+
+        if (accepted)
         {
             _cv.Accept();
+            _cv = null;
 
             if (PersonManger.Instance.CurrentPersonInfo.IsCorrect)
+            {
+                _correctDecisionCount++;
                 Debug.Log("Doðru adamla devam!");
+            }
             else
+            {
+                _incorrectDecisionCount++;
                 Debug.Log("Yanlýþ adam buu!");
+            }
         }
         else
         {
             _cv.Reject();
+            _cv = null;
 
             if (PersonManger.Instance.CurrentPersonInfo.IsCorrect)
+            {
+                _incorrectDecisionCount++;
                 Debug.Log("Yanlýþ yaptýn abi adam doðruydu!");
+            }
             else
+            {
+                _correctDecisionCount++;
                 Debug.Log("Doðru karar! Bu adam yanlýþ!");
+            }
         }
     }
 }

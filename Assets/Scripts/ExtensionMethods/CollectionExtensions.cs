@@ -8,8 +8,6 @@ public static class CollectionExtensions
 {
     public static T GetRandom<T>(this ICollection<T> collection)
     {
-        if (collection == null)
-            return default;
         int randomIdx = UnityEngine.Random.Range(0, collection.Count);
         return collection.ElementAt(randomIdx);
     }

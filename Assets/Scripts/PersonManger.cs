@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PersonManger : SingletonMB<PersonManger>
 {
-    private static int PersonListSize = 30;
+    private static int PersonListSize = 18;
     private delegate void Operation(PersonInfo p, CompanyRequest c);
     private List<PersonInfo> _personList = new();
 
@@ -15,7 +15,10 @@ public class PersonManger : SingletonMB<PersonManger>
     protected override void Awake()
     {
         base.Awake();
-        GameController.OnDayChanged += (x) => GeneratePersonList();
+        if (IsBeingDestroyed)
+            return;
+
+        GameController.OnDayChanged += (_) => GeneratePersonList();
     }
 
     public void NextPerson()
@@ -37,7 +40,7 @@ public class PersonManger : SingletonMB<PersonManger>
             if (i < PersonListSize / 2)
                 MakeCorrectPerson(randomPerson, CompanyRequestManager.Instance.CurrentCompanyRequest);
             else
-                MakeFalsePerson(randomPerson, CompanyRequestManager.Instance.CurrentCompanyRequest);
+                MakeIncorrectPerson(randomPerson, CompanyRequestManager.Instance.CurrentCompanyRequest);
 
             newPersonList.Add(randomPerson);
         }
@@ -76,7 +79,6 @@ public class PersonManger : SingletonMB<PersonManger>
 
     private static int GetRandomExperience(int age)
     {
-        // TODO: reivze et ki experience sürekli 1-2 gelmesin yaw    
         return UnityEngine.Random.Range(JobCriterias.ExperienceYearsRange.Start.Value,
                 Math.Min(age - 18 + 1, JobCriterias.ExperienceYearsRange.End.Value));
     }
@@ -107,20 +109,23 @@ public class PersonManger : SingletonMB<PersonManger>
         personInfo.IsCorrect = true;
     }
 
-    public void MakeFalsePerson(PersonInfo personInfo, CompanyRequest companyRequest)
+    public void MakeIncorrectPerson(PersonInfo personInfo, CompanyRequest companyRequest)
     {
         List<(Operation Operation, Operation OppositeOperation, bool IsNotNull)> nullChecks = new()
         {
-            (MakeFalseJob, MakeCorrectJob, companyRequest.Jobs is not null),
-            (MakeFalsePositiveTrait, MakeCorrectPositiveTrait, companyRequest.PositiveTraits is not null),
-            (MakeFalseNegativeTrait, MakeCorrectNegativeTrait, companyRequest.NegativeTraits is not null),
+            (MakeIncorrectJob, MakeCorrectJob, companyRequest.Jobs is not null),
+            (MakeIncorrectPositiveTrait, MakeCorrectPositiveTrait, companyRequest.PositiveTraits is not null),
+            (MakeIncorrectNegativeTrait, MakeCorrectNegativeTrait, companyRequest.NegativeTraits is not null),
         };
 
+        // Faz2: Yanlýþ insanlarýn yanlýþ özellikleri ihtimalen 2 tanesi veya 1 tanesi yanlýþ þeklinde,
+        // Biz bunu kesin insan sayýsý haline getirmeliyiz (örn: 15 kiþiden 5'i 1 özellik, 5'i 2, 5'i 3 özellik yanlýþ)
         var nonNulls = nullChecks.Where(kv => kv.IsNotNull).ToList();
         var operations = (nonNulls.Count() switch
         {
-            3 => nonNulls.GetRandomRange(BoolHelper.GetRandomOneFrom(2, 1)),
-            2 => nonNulls.GetRandomRange(1),
+            // TODO: yaþ meselesini 1 2 3 4 olarak koy
+            3 => nonNulls.GetRandomRange(BoolHelper.GetRandomOneFrom(1, 2, 3)),
+            2 => nonNulls.GetRandomRange(BoolHelper.GetRandomOneFrom(2, 1)),
             1 => nonNulls,
             _ => null,
         }).ToList();
@@ -137,9 +142,17 @@ public class PersonManger : SingletonMB<PersonManger>
         personInfo.Job = companyRequest.Jobs.GetRandom();
     }
 
-    private static void MakeFalseJob(PersonInfo personInfo, CompanyRequest companyRequest)
+    private static void MakeIncorrectJob(PersonInfo personInfo, CompanyRequest companyRequest)
     {
-        List<Job> allJobs = EnumHelper.GetValues<Job>().ToList();
+        // Faz2 : Kiþi yanlýþlýðý sayý kesinliði
+
+        // Faz2 : Birden fazla alandan job gelirse bu satýr zortlar
+        // Sen en iyisi bu fonksiyonu tekrar yaz
+        // Ýlk iki gün deðilse %90 ihtimal ver filan yaptýk
+        List<Job> allJobs = JobCriterias.JobsOfJobFields[companyRequest.JobFields[0].JobField].ToList();
+        if (allJobs.All(j => companyRequest.Jobs.Contains(j)) || BoolHelper.GetRandomFromPersentage(10))
+            allJobs = EnumHelper.GetValues<Job>().ToList();
+
         allJobs.RemoveAll(j => companyRequest.Jobs.Contains(j));
         personInfo.Job = allJobs.GetRandom();
     }
@@ -158,7 +171,7 @@ public class PersonManger : SingletonMB<PersonManger>
         personInfo.PositiveTraits.Shuffle();
     }
 
-    private static void MakeFalsePositiveTrait(PersonInfo personInfo, CompanyRequest companyRequest)
+    private static void MakeIncorrectPositiveTrait(PersonInfo personInfo, CompanyRequest companyRequest)
     {
         // allPositiveTraits'ten hepsini deðil rastgele bir kýsmýný çýkaracaðýz
         var positiveTraits = companyRequest.PositiveTraits.ToList();
@@ -176,7 +189,7 @@ public class PersonManger : SingletonMB<PersonManger>
         personInfo.NegativeTraits = allNegativeTraits.GetRandomRange(personInfo.NegativeTraits.Length).ToArray();
     }
 
-    private static void MakeFalseNegativeTrait(PersonInfo personInfo, CompanyRequest companyRequest)
+    private static void MakeIncorrectNegativeTrait(PersonInfo personInfo, CompanyRequest companyRequest)
     {
         // Ýstenmeyen negative trait'lerden rasgele miktarýný seç
         var negativeTraits = companyRequest.NegativeTraits.GetRandomRange(UnityEngine.Random.Range(1, companyRequest.NegativeTraits.Length + 1)).ToList();

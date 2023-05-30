@@ -35,7 +35,6 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
             PositiveTraits = new PositiveTrait[]
             {
                 PositiveTrait.Punctual,
-                PositiveTrait.Adaptable,
             },
         },
         new CompanyRequest() {
@@ -51,7 +50,6 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
             NegativeTraits = new NegativeTrait[]
             {
                 NegativeTrait.PoorHygiene,
-                NegativeTrait.Procrastination,
             },
         },
     };
@@ -59,6 +57,9 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
     protected override void Awake()
     {
         base.Awake();
+        if (IsBeingDestroyed)
+            return;
+
         GenerateCompanyRequests();
         GameController.OnDayChanged += UpdateCurrentCompanyRequest;
     }

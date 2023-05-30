@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,9 @@ public class PositionSwithcer : MonoBehaviour
 {
     [Header("Parameters")]
     [SerializeField] private Transform _destination;
-    [SerializeField] private float _displaySpeed = 5;
+    [SerializeField] private float _displayTime = 1.75f;
+    [SerializeField] private float _springTime = 0.25f;
+    [SerializeField] private float _springLength = 15;
 
     [Header("Child Movement")]
     public Transform Child;
@@ -23,28 +26,39 @@ public class PositionSwithcer : MonoBehaviour
     {
         _inDestination = !_inDestination;
         StopAllCoroutines();
-        StartCoroutine(LerpPositionCoroutine(_inDestination));
+        StartCoroutine(LerpPositionCoroutine(GetSpringPosition(), _springTime, endAction: () =>
+        {
+            StartCoroutine(LerpPositionCoroutine(GetTargetPosition(), _displayTime));
+        }));
     }
 
-    IEnumerator LerpPositionCoroutine(bool displaying)
+    IEnumerator LerpPositionCoroutine(Vector3 targetPosition, float time, Action endAction = null)
     {
-        Vector3 targetPosition = GetTargetPosition(displaying);
+        float startTime = Time.time;
         while (true)
         {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, _displaySpeed * Time.deltaTime);
+            float t = (Time.time - startTime) / time;
+            transform.position = Vector3.Lerp(transform.position, targetPosition, t);
             if (Vector3.Distance(transform.position, targetPosition) <= 0.01f)
                 break;
             yield return null;
         }
+
+        endAction?.Invoke();
     }
 
-    private Vector3 GetTargetPosition(bool displaying)
+    private Vector3 GetSpringPosition()
+    {
+        return transform.position + Vector3.Normalize(transform.position - GetTargetPosition()) * _springLength;
+    }
+
+    private Vector3 GetTargetPosition()
     {
         Vector3 destinationPosition = _destination.transform.position;
         if (Child != null)
             destinationPosition += (transform.position - Child.position);
 
-        Vector3 targetPosition = displaying ? destinationPosition : _initialPoisition;
+        Vector3 targetPosition = _inDestination ? destinationPosition : _initialPoisition;
         return targetPosition;
     }
 }

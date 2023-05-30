@@ -20,6 +20,11 @@ public static class JobCriterias
         };
     }
 
+    public static JobField GetJobFieldOfJob(Job job)
+    {
+        return JobsOfJobFields.Where(kv => kv.Value.Contains(job)).First().Key;
+    }
+
     public static NegativeTrait[] GetAvailableNegativeTraits(PositiveTrait[] positiveTraits)
     {
         List<NegativeTrait> allNegativeTraits = EnumHelper.GetValues<NegativeTrait>().ToList();
