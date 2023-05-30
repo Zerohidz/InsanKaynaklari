@@ -17,9 +17,7 @@ public class DayController : MonoBehaviour
 
         _showCRButton.SetCR(_crPrefabs[0]);
 
-        PersonManger.Instance.NextPerson();
-        _cv = Instantiate(_cvPrefabs[0], _cvParent);
-        _cv.SetInfo(PersonManger.Instance.CurrentPersonInfo);
+        GetNewCV();
     }
 
     private void Update()
@@ -33,6 +31,16 @@ public class DayController : MonoBehaviour
         {
             GameController.Instance.StartNewDay();
         }
+    }
+
+    public void GetNewCV()
+    {
+        if (_cv != null)
+            return;
+
+        PersonManger.Instance.NextPerson();
+        _cv = Instantiate(_cvPrefabs[0], _cvParent);
+        _cv.SetInfo(PersonManger.Instance.CurrentPersonInfo);
     }
 
     public void DecideCorrectness(bool correctness)
@@ -55,6 +63,5 @@ public class DayController : MonoBehaviour
             else
                 Debug.Log("Doðru karar! Bu adam yanlýþ!");
         }
-
     }
 }

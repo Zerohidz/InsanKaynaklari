@@ -6,11 +6,17 @@ using UnityEngine;
 
 public class PersonManger : SingletonMB<PersonManger>
 {
-    private static int PersonListSize = 1000;
+    private static int PersonListSize = 30;
     private delegate void Operation(PersonInfo p, CompanyRequest c);
     private List<PersonInfo> _personList = new();
 
     public PersonInfo CurrentPersonInfo { get; private set; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        GameController.OnDayChanged += (x) => GeneratePersonList();
+    }
 
     public void NextPerson()
     {
@@ -23,6 +29,7 @@ public class PersonManger : SingletonMB<PersonManger>
 
     private void GeneratePersonList()
     {
+        List<PersonInfo> newPersonList = new();
         for (int i = 0; i < PersonListSize; i++)
         {
             PersonInfo randomPerson = CreateRandomPerson();
@@ -32,10 +39,10 @@ public class PersonManger : SingletonMB<PersonManger>
             else
                 MakeFalsePerson(randomPerson, CompanyRequestManager.Instance.CurrentCompanyRequest);
 
-            _personList.Add(randomPerson);
+            newPersonList.Add(randomPerson);
         }
 
-        _personList = _personList.Shuffled().ToList();
+        _personList = newPersonList.Shuffled().ToList();
     }
 
     private PersonInfo CreateRandomPerson()

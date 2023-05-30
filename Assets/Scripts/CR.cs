@@ -24,8 +24,8 @@ public class CR : MonoBehaviour
         PositiveTraits?.SetText(companyRequest.PositiveTraits?.GetDisplay());
         NegativeTraits?.SetText(companyRequest.NegativeTraits?.GetDisplay());
 
-        JobsHeader?.gameObject.SetActive(companyRequest.Jobs is not null);
-        PositiveTraitsHeader?.gameObject.SetActive(companyRequest.PositiveTraits is not null);
-        NegativeTraitsHeader?.gameObject.SetActive(companyRequest.NegativeTraits is not null);
+        JobsHeader?.gameObject.SetActive(companyRequest.Jobs != null);
+        PositiveTraitsHeader?.gameObject.SetActive(companyRequest.PositiveTraits != null);
+        NegativeTraitsHeader?.gameObject.SetActive(companyRequest.NegativeTraits != null);
     }
 }

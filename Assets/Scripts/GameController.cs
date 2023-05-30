@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameController : SingletonMB<GameController>
 {
     public static event Action<int> OnDayChanged;
-    public GameState MyProperty { get; set; }
+    public GameState CurrentGameState { get; set; }
 
     private int _day;
     public int Day
@@ -18,7 +18,7 @@ public class GameController : SingletonMB<GameController>
 
     public void StartNewDay()
     {   
-        Day = Day + 1;
+        Day++;
         SceneManager.LoadScene("Day");
     }
 }
