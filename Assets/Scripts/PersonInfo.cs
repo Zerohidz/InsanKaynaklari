@@ -13,4 +13,6 @@ public class PersonInfo
     public int ExperienceYears { get; set; }
     public PositiveTrait[] PositiveTraits { get; set; }
     public NegativeTrait[] NegativeTraits { get; set; }
+
+    public int MaxPossibleJobExperience => Age - JobCriterias.MinimumJobYear;
 }

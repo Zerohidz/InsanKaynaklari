@@ -18,6 +18,7 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
         },
         new CompanyRequest() {
             Jobs = JobCriterias.JobsOfJobFields[JobField.Health],
+            FakeExperienceCheck = true,
         },
         new CompanyRequest() {
             Jobs = new Job[] {
@@ -25,6 +26,7 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
                 Job.MathTeacher,
                 Job.BiologyTeacher,
             },
+            FakeExperienceCheck = true,
         },
         new CompanyRequest() {
             Jobs = new Job[] {
@@ -36,6 +38,7 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
             {
                 PositiveTrait.Punctual,
             },
+            FakeExperienceCheck = true,
         },
         new CompanyRequest() {
             Jobs = new Job[] {
@@ -51,6 +54,7 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
             {
                 NegativeTrait.PoorHygiene,
             },
+            FakeExperienceCheck = true,
         },
     };
 
@@ -70,7 +74,7 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
         for (int i = 0; i < _companyRequestsDraft.Count; i++)
         {
             var requestDraft = _companyRequestsDraft[i];
-            var request = new CompanyRequest();
+            var request = new CompanyRequest(requestDraft);
 
             // Job
             JobField[] randomJobFields = EnumHelper.GetRandomRange<JobField>(requestDraft.JobFields.Length).ToArray();

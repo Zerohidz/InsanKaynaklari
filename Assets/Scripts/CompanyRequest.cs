@@ -9,6 +9,7 @@ public class CompanyRequest
     public Job[] Jobs { get; set; }
     public PositiveTrait[] PositiveTraits { get; set; }
     public NegativeTrait[] NegativeTraits { get; set; }
+    public bool FakeExperienceCheck { get; set; }
     public (JobField JobField, Job[] Jobs)[] JobFields => JobCriterias.JobsOfJobFields
                 .Where(kv => kv.Value.Intersect(Jobs).Any())
                 .Select(kv => (kv.Key, kv.Value.Intersect(Jobs).ToArray()))
@@ -19,6 +20,14 @@ public class CompanyRequest
         Jobs = jobs;
         PositiveTraits = positiveTraits;
         NegativeTraits = negativeTraits;
+    }
+
+    public CompanyRequest(CompanyRequest dataSource)
+    {
+        Jobs = dataSource.Jobs;
+        PositiveTraits = dataSource.PositiveTraits;
+        NegativeTraits = dataSource.NegativeTraits;
+        FakeExperienceCheck = dataSource.FakeExperienceCheck;
     }
 }
 

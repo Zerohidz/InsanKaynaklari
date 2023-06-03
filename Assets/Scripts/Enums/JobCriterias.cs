@@ -5,8 +5,8 @@ using UnityEngine.UIElements;
 
 public static class JobCriterias
 {
-    public static readonly Range AgeRange = new(25, 46);
-    public static readonly Range ExperienceYearsRange = new(0, 21);
+    public static readonly Range AgeRange = new(22, 36);
+    public static readonly int MinimumJobYear = 22;
 
     public static readonly Dictionary<JobField, Job[]> JobsOfJobFields;
 

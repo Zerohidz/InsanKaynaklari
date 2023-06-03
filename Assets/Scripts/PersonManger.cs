@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TreeEditor;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class PersonManger : SingletonMB<PersonManger>
 {
-    private static int PersonListSize = 18;
+    private static int PersonListSize = 20;
     private delegate void Operation(PersonInfo p, CompanyRequest c);
     private List<PersonInfo> _personList = new();
 
@@ -45,7 +47,26 @@ public class PersonManger : SingletonMB<PersonManger>
             newPersonList.Add(randomPerson);
         }
 
+        ObeyIncorrectExperienceRule(newPersonList);
+
         _personList = newPersonList.Shuffled().ToList();
+        Tests.PersonGenerationTest(_personList);
+    }
+
+    private void ObeyIncorrectExperienceRule(List<PersonInfo> personList)
+    {
+        if (GameController.Instance.Day == 2)
+            for (int i = 0; i < 6; i++)
+                MakeIncorrectExperience(personList[10 + i]);
+        else if (GameController.Instance.Day == 3)
+            for (int i = 0; i < 3; i++)
+                MakeIncorrectExperience(personList[10 + i]);
+        else if (GameController.Instance.Day == 4)
+            for (int i = 0; i < 2; i++)
+                MakeIncorrectExperience(personList[10 + i]);
+        else if (GameController.Instance.Day == 5)
+            for (int i = 0; i < 2; i++)
+                MakeIncorrectExperience(personList[10 + i]);
     }
 
     private PersonInfo CreateRandomPerson()
@@ -79,8 +100,7 @@ public class PersonManger : SingletonMB<PersonManger>
 
     private static int GetRandomExperience(int age)
     {
-        return UnityEngine.Random.Range(JobCriterias.ExperienceYearsRange.Start.Value,
-                Math.Min(age - 18 + 1, JobCriterias.ExperienceYearsRange.End.Value));
+        return UnityEngine.Random.Range(0, age - JobCriterias.MinimumJobYear + 1);
     }
 
     private Religion GetRandomReligion(Race race)
@@ -123,9 +143,8 @@ public class PersonManger : SingletonMB<PersonManger>
         var nonNulls = nullChecks.Where(kv => kv.IsNotNull).ToList();
         var operations = (nonNulls.Count() switch
         {
-            // TODO: yaþ meselesini 1 2 3 4 olarak koy
             3 => nonNulls.GetRandomRange(BoolHelper.GetRandomOneFrom(1, 2, 3)),
-            2 => nonNulls.GetRandomRange(BoolHelper.GetRandomOneFrom(2, 1)),
+            2 => nonNulls.GetRandomRange(BoolHelper.GetRandomOneFrom(1, 2)),
             1 => nonNulls,
             _ => null,
         }).ToList();
@@ -155,6 +174,19 @@ public class PersonManger : SingletonMB<PersonManger>
 
         allJobs.RemoveAll(j => companyRequest.Jobs.Contains(j));
         personInfo.Job = allJobs.GetRandom();
+    }
+
+    private static void MakeCorrectExperience(PersonInfo personInfo, CompanyRequest companyRequest)
+    {
+
+    }
+
+    private static void MakeIncorrectExperience(PersonInfo personInfo, CompanyRequest companyRequest = null)
+    {
+        personInfo.ExperienceYears = UnityEngine.Random.Range(
+            personInfo.MaxPossibleJobExperience + 1,
+            personInfo.MaxPossibleJobExperience + 4 + 1
+        );
     }
 
     private static void MakeCorrectPositiveTrait(PersonInfo personInfo, CompanyRequest companyRequest)

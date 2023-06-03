@@ -58,12 +58,12 @@ public class DayController : MonoBehaviour
             if (PersonManger.Instance.CurrentPersonInfo.IsCorrect)
             {
                 _correctDecisionCount++;
-                Debug.Log("Doðru adamla devam!");
+                Debug.Log("Doðru karar!");
             }
             else
             {
                 _incorrectDecisionCount++;
-                Debug.Log("Yanlýþ adam buu!");
+                Debug.Log("Yanlýþ karar!");
             }
         }
         else
@@ -74,12 +74,12 @@ public class DayController : MonoBehaviour
             if (PersonManger.Instance.CurrentPersonInfo.IsCorrect)
             {
                 _incorrectDecisionCount++;
-                Debug.Log("Yanlýþ yaptýn abi adam doðruydu!");
+                Debug.Log("Yanlýþ karar!");
             }
             else
             {
                 _correctDecisionCount++;
-                Debug.Log("Doðru karar! Bu adam yanlýþ!");
+                Debug.Log("Doðru karar!");
             }
         }
     }
