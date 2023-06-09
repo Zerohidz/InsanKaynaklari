@@ -70,7 +70,6 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
 
     private void GenerateCompanyRequests()
     {
-        SaveSystem.Test();
         List<CompanyRequest> companyRequests = new();
         for (int i = 0; i < _companyRequestsDraft.Count; i++)
         {

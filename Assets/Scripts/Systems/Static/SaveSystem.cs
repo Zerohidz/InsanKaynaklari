@@ -3,58 +3,74 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SaveSystem
 {
-    public static GameData GameData
-    {
-        get
-        {
-            if (_gameData == null)
-                LoadGameData();
-            return _gameData;
-        }
-        set { _gameData = value; }
-    }
+    public static GameData GameData { get; private set; }
 
-    private static GameData _gameData;
-    private const string EncryptionCodeWord = "VefalilarGalipGelecek";
+    private const string EncryptionCodeWord = "EntabiyleKodYazmaca";
+    private const string SaveFileName = "GameData.durs";
+    private static string _savePath;
 
-    public static void Test()
+    [RuntimeInitializeOnLoadMethod]
+    public static void Initialize()
     {
-        LoadGameData();
-        SaveGameData();
+        _savePath = Path.Combine(Application.persistentDataPath, SaveFileName);
         LoadGameData();
     }
 
     public static void LoadGameData()
     {
-        if (PlayerPrefs.HasKey("GameData"))
+        if (File.Exists(_savePath))
         {
-            string encryptedGameDataString = PlayerPrefs.GetString("GameData");
+            string encryptedGameDataString = ReadStringFromBinaryFile(_savePath);
             string gameDataString = Decrypt(encryptedGameDataString);
-            _gameData = JsonConvert.DeserializeObject<GameData>(gameDataString);
+            GameData = JsonConvert.DeserializeObject<GameData>(gameDataString);
         }
         else
         {
-            _gameData = new GameData
-            {
-                GlobalProperties = new GlobalProperties(),
-                Fourly = new FourlyModeProperties(),
-                Classic = new ClassicModeProperties(),
-                Timed = new TimedModeProperties()
-            };
+            GameData = new GameData();
         }
+
+        SaveGameData();
     }
 
     public static void SaveGameData()
     {
         string gameDataString = JsonConvert.SerializeObject(GameData);
         string encryptedGameDataString = Encrypt(gameDataString);
-        PlayerPrefs.SetString("GameData", encryptedGameDataString);
-        PlayerPrefs.Save();
+        SaveStringToBinaryFile(encryptedGameDataString, _savePath);
+    }
+
+    public static void DeleteGameData()
+    {
+        File.Delete(_savePath);
+        GameData = null;
+    }
+
+    public static void ResetGameData()
+    {
+        GameData = new GameData();
+        SaveGameData();
+    }
+
+    private static void SaveStringToBinaryFile(string str, string filePath)
+    {
+        byte[] bytes = Encoding.UTF8.GetBytes(str);
+        using FileStream fileStream = new(filePath, FileMode.Create);
+        fileStream.Write(bytes, 0, bytes.Length);
+    }
+
+    private static string ReadStringFromBinaryFile(string filePath)
+    {
+        using StreamReader reader = new(filePath);
+        using MemoryStream memoryStream = new();
+
+        reader.BaseStream.CopyTo(memoryStream);
+        byte[] bytes = memoryStream.ToArray();
+
+        return Encoding.UTF8.GetString(bytes);
     }
 
     private static string Encrypt(string clearString)
@@ -101,52 +117,26 @@ public class SaveSystem
     }
 }
 
-[Serializable]
 public class GameData
 {
-    public GlobalProperties GlobalProperties;
-    public FourlyModeProperties Fourly;
-    public ClassicModeProperties Classic;
-    public TimedModeProperties Timed;
+    public Config Config;
+    public CareerData CareerData;
+
+    public GameData()
+    {
+        Config = new Config();
+        CareerData = new CareerData();
+    }
 }
 
-[Serializable]
-public class GlobalProperties
+public class Config
 {
     public bool FirstTimeOpeningGame = true;
-    public bool AdRemoved = false;
-    public float SliderValue = 0.6f;
+    public float SoundVolume = 0.6f;
 }
 
-[Serializable]
-public class ClassicFourlyCommonProperties
+public class CareerData
 {
-    public bool WillStartEmpty;
-    public bool FirstTimePlaying = true;
-    public bool CanUndo;
-    public int GamePoints;
-    public int MaxPoints;
-    public int LastPlacedLetterOrder;
-    public char[] PlacableLetterList = new char[3];
-    public char[] OldPlacableLetterList = new char[3];
-    public char[][] PlacedLetterRows = new char[7][] { new char[7], new char[7], new char[7], new char[7], new char[7], new char[7], new char[7] };
-    public string[] FoundWords = new string[0];
-    public (int, int) LastPlacedLetterKey;
-}
-
-public class ClassicModeProperties : ClassicFourlyCommonProperties
-{
-
-}
-
-public class FourlyModeProperties : ClassicFourlyCommonProperties
-{
-
-}
-
-[Serializable]
-public class TimedModeProperties
-{
-    public bool FirstTimePlaying = true;
-    public int MaxPoints;
+    public int CurrentDay;
+    public int Money;
 }

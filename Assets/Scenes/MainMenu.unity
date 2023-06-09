@@ -929,7 +929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329463703272285604, guid: 6c5893ba2feca9d4d93e7dc0867cfeba, type: 3}
       propertyPath: m_Name
-      value: PersonNamer
+      value: NameGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 8093339872816361350, guid: 6c5893ba2feca9d4d93e7dc0867cfeba, type: 3}
       propertyPath: m_RootOrder

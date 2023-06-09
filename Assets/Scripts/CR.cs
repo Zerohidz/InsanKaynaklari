@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// Used to visualize the information inside a CompanyRequest object
+/// Used to visualize the information inside a Company Request Object
 /// </summary>
 public class CR : MonoBehaviour
 {

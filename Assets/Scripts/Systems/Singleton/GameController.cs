@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +16,11 @@ public class GameController : SingletonMB<GameController>
             _day = value;
             OnDayChanged?.Invoke(value);
         }
+    }
+
+    public void Start()
+    {
+        Debug.Log(SaveSystem.GameData);
     }
 
     public void StartNewDay()
