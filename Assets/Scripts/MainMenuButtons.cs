@@ -6,6 +6,6 @@ public class MainMenuButtons : MonoBehaviour
 {
     public void PlayButtonPressed()
     {
-        GameController.Instance.StartNewDay();
+        GameController.Instance.StartGame();
     }
 }

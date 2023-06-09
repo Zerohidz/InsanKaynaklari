@@ -18,15 +18,25 @@ public class GameController : SingletonMB<GameController>
         }
     }
 
-    public void Start()
+    public void StartGame()
     {
-        Debug.Log(SaveSystem.GameData);
+        Day = SaveSystem.GameData.CareerData.Day;
+        SceneManager.LoadScene("Day");
     }
 
     public void StartNewDay()
     {
         Day++;
+        SaveCareerData();
         SceneManager.LoadScene("Day");
+    }
+
+    private void SaveCareerData()
+    {
+        SaveSystem.GameData.CareerData.Day = Day;
+        SaveSystem.GameData.CareerData.Money = MoneySystem.Instance.Money;
+
+        SaveSystem.SaveGameData();
     }
 }
 

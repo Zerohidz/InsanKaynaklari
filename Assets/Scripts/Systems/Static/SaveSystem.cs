@@ -137,6 +137,6 @@ public class Config
 
 public class CareerData
 {
-    public int CurrentDay;
+    public int Day;
     public int Money;
 }

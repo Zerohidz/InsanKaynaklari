@@ -101,6 +101,6 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
 
     public void UpdateCurrentCompanyRequest(int day)
     {
-        CurrentCompanyRequest = _companyRequests[day - 1];
+        CurrentCompanyRequest = _companyRequests[day];
     }
 }
