@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class DayController : MonoBehaviour
 {
     [SerializeField] private Transform _cvParent;
     [SerializeField] private ShowCRButton _showCRButton;
+    [SerializeField] private DigitalClock _digitalClock;
     [SerializeField] private CV[] _cvPrefabs;
     [SerializeField] private CR[] _crPrefabs;
     private CV _cv;
@@ -16,8 +18,11 @@ public class DayController : MonoBehaviour
     private void Start()
     {
         _day = GameController.Instance.Day;
-
         _showCRButton.SetCR(_crPrefabs[_day < 3 ? 0 : 1]);
+
+        _digitalClock.Configure(DateTime.Parse("08:00"), DateTime.Parse("17:00"), TimeSpan.FromSeconds(10), TimeSpan.FromMinutes(15));
+        _digitalClock.OnTimeUp += () => Debug.Log("# Gün bitti aga!");
+        _digitalClock.Run();
 
         GetNewCV();
     }
