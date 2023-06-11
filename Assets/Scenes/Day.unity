@@ -183,8 +183,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Yeni CV Getir
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
+  m_sharedMaterial: {fileID: -2576088356904373890, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -678,8 +678,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4.3, y: 0}
-  m_SizeDelta: {x: 87.51489, y: 37.575104}
+  m_AnchoredPosition: {x: -3.8897882, y: 0}
+  m_SizeDelta: {x: 90.4089, y: 37.5751}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &647206579
 MonoBehaviour:
@@ -776,8 +776,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Talebi G\xF6ster"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
+  m_sharedMaterial: {fileID: -2576088356904373890, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -801,8 +801,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 23
+  m_fontSizeBase: 23
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1067,7 +1067,7 @@ GameObject:
   - component: {fileID: 999270320}
   - component: {fileID: 999270319}
   m_Layer: 5
-  m_Name: Day
+  m_Name: Day (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1115,15 +1115,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: "G\xFCn:"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
+  m_sharedMaterial: {fileID: -2576088356904373890, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284885808
-  m_fontColor: {r: 0.18823531, g: 0.16862746, b: 0.40000004, a: 1}
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607845, g: 0.19607845, b: 0.19607845, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1140,8 +1140,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1501,7 +1501,7 @@ GameObject:
   - component: {fileID: 1334684234}
   - component: {fileID: 1334684233}
   m_Layer: 5
-  m_Name: DaySign
+  m_Name: DaySign (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1547,17 +1547,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 2
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
+  m_sharedMaterial: {fileID: -2576088356904373890, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284885808
-  m_fontColor: {r: 0.18823531, g: 0.16862746, b: 0.40000004, a: 1}
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607845, g: 0.19607845, b: 0.19607845, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1574,8 +1574,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1805,8 +1805,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Reddet
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
+  m_sharedMaterial: {fileID: -2576088356904373890, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2209,8 +2209,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -104.4, y: 0}
-  m_SizeDelta: {x: 87.51489, y: 37.575104}
+  m_AnchoredPosition: {x: -107.3, y: 0}
+  m_SizeDelta: {x: 90.4089, y: 37.5751}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1867547975
 MonoBehaviour:
@@ -2416,8 +2416,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Kabul Et
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
+  m_sharedMaterial: {fileID: -2576088356904373890, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2652,18 +2652,6 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7258025442550201394, guid: 54189e1704c481f439e34c7d496c2f86, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 7258025442550201394, guid: 54189e1704c481f439e34c7d496c2f86, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 7258025442550201394, guid: 54189e1704c481f439e34c7d496c2f86, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 7258025442550201394, guid: 54189e1704c481f439e34c7d496c2f86, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2710,10 +2698,6 @@ PrefabInstance:
     - target: {fileID: 7258025442550201394, guid: 54189e1704c481f439e34c7d496c2f86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7258025442550201394, guid: 54189e1704c481f439e34c7d496c2f86, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

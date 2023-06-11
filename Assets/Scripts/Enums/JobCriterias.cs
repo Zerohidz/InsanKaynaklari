@@ -79,8 +79,8 @@ public static class JobCriterias
         Job.PsychiatryMD,
         Job.DermatologyMD,
         Job.NeurologyMD,
-        Job.FamilyMedicineMD,
-        Job.ObstetricsAndGynecologyMD,
+        Job.OrthopedicMD,
+        Job.OphthalmologistMD,
     };
 
 
@@ -157,8 +157,8 @@ public enum Job
     PsychiatryMD,
     DermatologyMD,
     NeurologyMD,
-    FamilyMedicineMD,
-    ObstetricsAndGynecologyMD,
+    OrthopedicMD,
+    OphthalmologistMD,
 
     EconomicsBachelor,
     FinanceBachelor,

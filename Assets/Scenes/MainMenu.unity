@@ -183,8 +183,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Oyna
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
+  m_sharedMaterial: {fileID: -2576088356904373890, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -612,8 +612,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u0130nsan Kaynaklar\u0131"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
+  m_sharedMaterial: {fileID: -2576088356904373890, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
