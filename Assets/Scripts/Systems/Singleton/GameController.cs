@@ -8,6 +8,9 @@ public class GameController : SingletonMB<GameController>
     public GameState CurrentGameState { get; set; }
 
     private int _day;
+    /// <summary>
+    /// Starts from 1
+    /// </summary>
     public int Day
     {
         get => _day;

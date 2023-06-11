@@ -7,7 +7,20 @@ using UnityEngine;
 
 public class SaveSystem
 {
-    public static GameData GameData { get; private set; }
+    private static GameData _gameData;
+    public static GameData GameData
+    {
+        get
+        {
+            if (_gameData == null)
+                LoadGameData();
+            return _gameData;
+        }
+        private set
+        {
+            _gameData = value;
+        }
+    }
 
     private const string EncryptionCodeWord = "EntabiyleKodYazmaca";
     private const string SaveFileName = "GameData.durs";
@@ -32,8 +45,6 @@ public class SaveSystem
         {
             GameData = new GameData();
         }
-
-        SaveGameData();
     }
 
     public static void SaveGameData()
@@ -137,6 +148,6 @@ public class Config
 
 public class CareerData
 {
-    public int Day;
-    public int Money;
+    public int Day = 1;
+    public int Money = 0;
 }

@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEngine;
 
 public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
 {
@@ -11,7 +7,7 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
 
     private List<CompanyRequest> _companyRequests;
 
-    private List<CompanyRequest> _companyRequestsDraft = new List<CompanyRequest>()
+    private List<CompanyRequest> _companyRequestsDraft = new()
     {
         new CompanyRequest() {
             Jobs = JobCriterias.JobsOfJobFields[JobField.Education],
@@ -70,7 +66,11 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
 
     private void GenerateCompanyRequests()
     {
-        List<CompanyRequest> companyRequests = new();
+        List<CompanyRequest> companyRequests = new()
+        {
+            null // Start from index 1
+        };
+
         for (int i = 0; i < _companyRequestsDraft.Count; i++)
         {
             var requestDraft = _companyRequestsDraft[i];
