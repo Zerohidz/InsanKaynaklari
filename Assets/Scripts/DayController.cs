@@ -12,6 +12,7 @@ public class DayController : SingletonMB<DayController>
     [SerializeField] private CR[] _crPrefabs;
     private CV _cv;
     private int _day;
+    private int _earnedMoney;
     private int _correctDecisionCount;
     private int _incorrectDecisionCount;
 
@@ -25,14 +26,9 @@ public class DayController : SingletonMB<DayController>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            PersonManger.Instance.NextPerson();
-            _cv.SetInfo(PersonManger.Instance.CurrentPersonInfo);
-        }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            GameController.Instance.StartNewDay();
+            EndDay();
         }
     }
 
@@ -59,11 +55,14 @@ public class DayController : SingletonMB<DayController>
             if (PersonManger.Instance.CurrentPersonInfo.IsCorrect)
             {
                 _correctDecisionCount++;
+                _earnedMoney += 5;
                 Debug.Log("Doðru karar!");
             }
             else
             {
                 _incorrectDecisionCount++;
+                if (_incorrectDecisionCount > 2)
+                    _earnedMoney -= 5;
                 Debug.Log("Yanlýþ karar!");
             }
         }
@@ -75,11 +74,14 @@ public class DayController : SingletonMB<DayController>
             if (PersonManger.Instance.CurrentPersonInfo.IsCorrect)
             {
                 _incorrectDecisionCount++;
+                if (_incorrectDecisionCount > 2)
+                    _earnedMoney -= 5;
                 Debug.Log("Yanlýþ karar!");
             }
             else
             {
                 _correctDecisionCount++;
+                _earnedMoney += 5;
                 Debug.Log("Doðru karar!");
             }
         }
@@ -88,6 +90,10 @@ public class DayController : SingletonMB<DayController>
     public void EndDay()
     {
         // TODO: implement
+        MoneySystem.Instance.EarnMoney(_earnedMoney);
+        _earnedMoney = 0;
         Debug.Log("Gün bitti aga!");
+        GameController.Instance.SaveCareerData();
+        GameController.Instance.StartNewDay();
     }
 }

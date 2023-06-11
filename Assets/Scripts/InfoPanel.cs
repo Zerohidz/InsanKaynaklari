@@ -11,7 +11,7 @@ public class InfoPanel : MonoBehaviour
 
     private void Start()
     {
-        DigitalClock.Configure(DateTime.Parse("08:00"), DateTime.Parse("17:00"), TimeSpan.FromSeconds(10), TimeSpan.FromMinutes(15));
+        DigitalClock.Configure(DateTime.Parse("08:00"), DateTime.Parse("17:00"), TimeSpan.FromSeconds(60), TimeSpan.FromMinutes(15));
         DigitalClock.OnTimeUp += () => DayController.Instance.EndDay();
         DigitalClock.Run();
 

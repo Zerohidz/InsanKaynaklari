@@ -10,7 +10,6 @@ public class SaveSystemMenu : MonoBehaviour
     [MenuItem("Save System/Delete Game Data")]
     public static void DeleteGameData()
     {
-        SaveSystem.Initialize();
         SaveSystem.DeleteGameData();
     }
 }

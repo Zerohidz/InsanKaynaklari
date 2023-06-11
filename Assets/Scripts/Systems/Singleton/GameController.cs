@@ -30,11 +30,10 @@ public class GameController : SingletonMB<GameController>
     public void StartNewDay()
     {
         Day++;
-        SaveCareerData();
         SceneManager.LoadScene("Day");
     }
 
-    private void SaveCareerData()
+    public void SaveCareerData()
     {
         SaveSystem.GameData.CareerData.Day = Day;
         SaveSystem.GameData.CareerData.Money = MoneySystem.Instance.Money;

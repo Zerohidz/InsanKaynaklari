@@ -21,6 +21,16 @@ public class MoneySystem : SingletonMB<MoneySystem>
         }
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        if (IsBeingDestroyed)
+            return;
+
+        Money = SaveSystem.GameData.CareerData.Money;
+        // TODO: Bunlarý ayrý ayrý yerlerde böyle mi çekelim yoksa tek bi yerden yerlerine mi gönderelim
+    }
+
     public void EarnMoney(int amount)
     {
         Money += amount;

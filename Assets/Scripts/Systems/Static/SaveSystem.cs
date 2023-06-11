@@ -24,19 +24,14 @@ public class SaveSystem
 
     private const string EncryptionCodeWord = "EntabiyleKodYazmaca";
     private const string SaveFileName = "GameData.durs";
-    private static string _savePath;
-
-    [RuntimeInitializeOnLoadMethod]
-    public static void Initialize()
-    {
-        _savePath = Path.Combine(Application.persistentDataPath, SaveFileName);
-        LoadGameData();
-    }
+    private static string _savePath => Path.Combine(Application.persistentDataPath, SaveFileName);
 
     public static void LoadGameData()
     {
+        Debug.Log("Loading Game Data!");
         if (File.Exists(_savePath))
         {
+            Debug.Log("Game Data Exists!");
             string encryptedGameDataString = ReadStringFromBinaryFile(_savePath);
             string gameDataString = Decrypt(encryptedGameDataString);
             GameData = JsonConvert.DeserializeObject<GameData>(gameDataString);
