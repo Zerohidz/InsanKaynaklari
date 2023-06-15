@@ -8,6 +8,7 @@ public class DayController : SingletonMB<DayController>
     [SerializeField] private Transform _cvParent;
     [SerializeField] private ShowCRButton _showCRButton;
     [SerializeField] private InfoPanel _infoPanel;
+    [SerializeField] private ESCPanel _escPanel;
     [SerializeField] private CV[] _cvPrefabs;
     [SerializeField] private CR[] _crPrefabs;
     private CV _cv;
@@ -29,6 +30,10 @@ public class DayController : SingletonMB<DayController>
         if (Input.GetKeyDown(KeyCode.N))
         {
             EndDay();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _escPanel.ToggleShow();
         }
     }
 

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace Krivodeling.UI.Effects
 {
+    [RequireComponent(typeof(Image))]
     public class UIBlur : MonoBehaviour
     {
         public Color Color { get => _color; set { _color = value; UpdateColor(); } }
@@ -29,20 +30,16 @@ namespace Krivodeling.UI.Effects
         [SerializeField]
         private FlipMode _editorFlipMode;
 #endif
-        [SerializeField]
-        private FlipMode _buildFlipMode;
-        [SerializeField, Range(0f, 1f)]
-        private float _intensity;
-        [SerializeField, Range(0f, 1f)]
-        private float _multiplier = 0.15f;
-        [SerializeField]
-        private UnityEvent _onBeginBlur;
-        [SerializeField]
-        private UnityEvent _onEndBlur;
-        [SerializeField]
-        private BlurChangedEvent _onBlurChanged;
+        [SerializeField] private FlipMode _buildFlipMode;
+        [SerializeField, Range(0f, 1f)] private float _intensity;
+        [SerializeField, Range(0f, 1f)] private float _multiplier = 0.15f;
+        [SerializeField] private bool _blurTogglesRaycastTarget = true;
+        [SerializeField] private UnityEvent _onBeginBlur;
+        [SerializeField] private UnityEvent _onEndBlur;
+        [SerializeField] private BlurChangedEvent _onBlurChanged;
 
         private Material _material;
+        private Image _image;
         private int _colorId;
         private int _flipXId;
         private int _flipYId;
@@ -74,6 +71,11 @@ namespace Krivodeling.UI.Effects
             StartCoroutine(EndBlurCoroutine(speed));
         }
 
+        private void Awake()
+        {
+            _image = GetComponent<Image>();
+        }
+
         private void Start()
         {
             SetComponents();
@@ -82,6 +84,7 @@ namespace Krivodeling.UI.Effects
 
         private void SetComponents()
         {
+            _image = GetComponent<Image>();
             _material = FindMaterial();
             _colorId = Shader.PropertyToID("_Color");
             _flipXId = Shader.PropertyToID("_FlipX");
@@ -95,7 +98,7 @@ namespace Krivodeling.UI.Effects
             Material material = GetComponent<Image>().material;
 
             if (material == null)
-                material = GetComponent<Renderer>().material;
+                material = GetComponent<Image>().material;
 
             if (material == null)
                 throw new NullReferenceException("Material not found");
@@ -145,6 +148,8 @@ namespace Krivodeling.UI.Effects
 
         private IEnumerator BeginBlurCoroutine(float speed)
         {
+            if (_blurTogglesRaycastTarget) _image.raycastTarget = true;
+
             OnBeginBlur?.Invoke();
 
             while (Intensity < 1f)
@@ -161,6 +166,8 @@ namespace Krivodeling.UI.Effects
 
         private IEnumerator EndBlurCoroutine(float speed)
         {
+            if (_blurTogglesRaycastTarget) _image.raycastTarget = false;
+
             while (Intensity > 0f)
             {
                 Intensity -= speed * Time.deltaTime;
