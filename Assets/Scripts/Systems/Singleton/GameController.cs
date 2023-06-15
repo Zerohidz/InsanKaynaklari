@@ -35,6 +35,7 @@ public class GameController : SingletonMB<GameController>
 
     public void SaveCareerData()
     {
+        Debug.Log("Career Data Saved!");
         SaveSystem.GameData.CareerData.Day = Day;
         SaveSystem.GameData.CareerData.Money = MoneySystem.Instance.Money;
 

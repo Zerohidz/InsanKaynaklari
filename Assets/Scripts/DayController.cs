@@ -93,7 +93,7 @@ public class DayController : SingletonMB<DayController>
         MoneySystem.Instance.EarnMoney(_earnedMoney);
         _earnedMoney = 0;
         Debug.Log("Gün bitti aga!");
-        GameController.Instance.SaveCareerData();
         GameController.Instance.StartNewDay();
+        GameController.Instance.SaveCareerData();
     }
 }

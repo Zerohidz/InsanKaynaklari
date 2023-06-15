@@ -50,7 +50,7 @@ public class PersonManger : SingletonMB<PersonManger>
         ObeyIncorrectExperienceRule(newPersonList);
 
         _personList = newPersonList.Shuffled().ToList();
-        Tests.PersonGenerationTest(_personList);
+        //Tests.PersonGenerationTest(_personList);
     }
 
     private void ObeyIncorrectExperienceRule(List<PersonInfo> personList)
