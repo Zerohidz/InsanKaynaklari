@@ -121,6 +121,14 @@ public class SaveSystem
         }
         return cipherString;
     }
+
+    public static void SaveCareerData(int day, int money)
+    {
+        GameData.CareerData.Day = day;
+        GameData.CareerData.Money = money;
+
+        SaveGameData();
+    }
 }
 
 public class GameData

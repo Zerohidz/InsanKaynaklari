@@ -31,6 +31,8 @@ public class GameController : SingletonMB<GameController>
     public void StartNewDay()
     {
         Day++;
+        SaveSystem.GameData.CareerData.Day = Day;
+        SaveSystem.SaveGameData();
         LoadDay();
     }
 
@@ -43,10 +45,7 @@ public class GameController : SingletonMB<GameController>
     public void SaveCareerData()
     {
         Debug.Log("Career Data Saved!");
-        SaveSystem.GameData.CareerData.Day = Day;
-        SaveSystem.GameData.CareerData.Money = MoneySystem.Instance.Money;
-
-        SaveSystem.SaveGameData();
+        SaveSystem.SaveCareerData(Day, MoneySystem.Instance.Money);
     }
 }
 

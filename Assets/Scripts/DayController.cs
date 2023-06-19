@@ -103,11 +103,15 @@ public class DayController : SingletonMB<DayController>
             DayEndingButNotYetEnded = true;
             return;
         }
+
+        // TODO: if (Son gün)
+
         // TODO: implement
         _dayEndScreen.SetInfo(MoneySystem.Instance.Money, _earnedMoney, _correctDecisionCount);
+        _dayEndScreen.SetVisible(true);
+
         _earnedMoney = 0;
         Debug.Log("Gün bitti aga!");
-        //GameController.Instance.StartNewDay();
         GameController.Instance.SaveCareerData();
     }
 }

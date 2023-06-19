@@ -13,7 +13,7 @@ public class MoneySystem : SingletonMB<MoneySystem>
     public int Money
     {
         get => _money;
-        private set
+        set
         {
             int oldMoney = _money;
             _money = value;

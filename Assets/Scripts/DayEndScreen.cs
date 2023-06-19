@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class DayEndScreen : MonoBehaviour
 {
     [SerializeField] private TMP_Text _day;
@@ -16,11 +17,18 @@ public class DayEndScreen : MonoBehaviour
     [SerializeField] private int _food;
     [SerializeField] private int _heat;
 
+    public bool IsVisible { get; private set; }
+    private Animator _animator;
+    private int _totalMoney = 0;
+    private bool _saved;
+
     private void Awake()
     {
         _rentText.text = (-_rent).ToString();
         _foodText.text = (-_food).ToString();
         _heatText.text = (-_heat).ToString();
+
+        _animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -34,8 +42,44 @@ public class DayEndScreen : MonoBehaviour
         _salaryText.text = salary.ToString();
         _cvCount.text = $"({correctDecisionCount})";
 
-        int total = savings + salary - _rent - _food - _heat;
-        _totalText.text = total.ToString();
-        MoneySystem.Instance.EarnMoney(total);
+        _totalMoney = savings + salary - _rent - _food - _heat;
+        _totalText.text = _totalMoney.ToString();
+    }
+
+    public void OnContinueButtonPressed()
+    {
+        MoneySystem.Instance.Money = _totalMoney;
+        GameController.Instance.SaveCareerData();
+        GameController.Instance.StartNewDay();
+        _saved = true;
+    }
+
+    private void OnDestroy()
+    {
+        if (!IsVisible || _saved)
+            return;
+
+        SaveSystem.SaveCareerData(SaveSystem.GameData.CareerData.Day + 1, _totalMoney);
+        _saved = true;
+    }
+
+    private void OnApplicationQuit()
+    {
+        if (!IsVisible || _saved)
+            return;
+
+        SaveSystem.SaveCareerData(SaveSystem.GameData.CareerData.Day + 1, _totalMoney);
+        _saved = true;
+    }
+
+    public void SetVisible(bool willBeVisible)
+    {
+        IsVisible = willBeVisible;
+        _animator.SetBool("Showing", true);
+    }
+
+    public void ToggleVisibility()
+    {
+        SetVisible(!IsVisible);
     }
 }
