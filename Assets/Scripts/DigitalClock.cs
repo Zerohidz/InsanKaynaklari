@@ -56,6 +56,9 @@ public class DigitalClock : MonoBehaviour
         if (!IsRunning)
             return;
 
+        if (GameController.Instance.IsPaused)
+            return;
+
         if (CurrentTime >= EndTime)
         {
             OnTimeUp?.Invoke();

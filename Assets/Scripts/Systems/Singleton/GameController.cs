@@ -6,6 +6,7 @@ public class GameController : SingletonMB<GameController>
 {
     public static event Action<int> OnDayChanged;
     public GameState CurrentGameState { get; set; }
+    public bool IsPaused { get; set; }
 
     private int _day;
     /// <summary>
@@ -24,13 +25,19 @@ public class GameController : SingletonMB<GameController>
     public void StartGame()
     {
         Day = SaveSystem.GameData.CareerData.Day;
-        SceneManager.LoadScene("Day");
+        LoadDay();
     }
 
     public void StartNewDay()
     {
         Day++;
+        LoadDay();
+    }
+
+    private void LoadDay()
+    {
         SceneManager.LoadScene("Day");
+        IsPaused = false;
     }
 
     public void SaveCareerData()

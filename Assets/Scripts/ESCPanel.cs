@@ -1,44 +1,61 @@
 using Krivodeling.UI.Effects;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// TODO
 public class ESCPanel : MonoBehaviour
 {
     public UIBlur Blur;
     public Button ResumeButton;
     public Button QuitButton;
-    [HideInInspector] public bool IsShowing;
 
     public void OnResumeButtonPressed()
     {
+        Unpause();
     }
 
     public void OnQuitButtonPressed()
     {
-
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void ToggleShow()
     {
-        SetIsShowing(!IsShowing);
+        SetIsShowing(!GameController.Instance.IsPaused);
     }
 
-    public void SetIsShowing(bool willShow)
+    public void SetIsShowing(bool willPause)
     {
-        // TODO show hide
-        if (IsShowing)
+        if (GameController.Instance.IsPaused)
         {
-            if (willShow == false)
-                Blur.EndBlur(1);
+            if (willPause == false)
+            {
+                Unpause();
+            }
         }
-        else if (willShow == true)
+        else if (willPause == true)
         {
-            Blur.BeginBlur(1);
+            Pause();
         }
-        IsShowing = willShow;
+    }
+
+    private void Pause()
+    {
+        Blur.Intensity = 1;
+
+        ResumeButton.gameObject.SetActive(true);
+        QuitButton.gameObject.SetActive(true);
+
+        GameController.Instance.IsPaused = true;
+    }
+
+    private void Unpause()
+    {
+        Blur.Intensity = 0;
+
+        ResumeButton.gameObject.SetActive(false);
+        QuitButton.gameObject.SetActive(false);
+
+        GameController.Instance.IsPaused = false;
     }
 }

@@ -1,14 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DayController : SingletonMB<DayController>
 {
+    public bool DayEndingButNotYetEnded { get; private set; }
+
     [SerializeField] private Transform _cvParent;
     [SerializeField] private ShowCRButton _showCRButton;
     [SerializeField] private InfoPanel _infoPanel;
     [SerializeField] private ESCPanel _escPanel;
+    [SerializeField] private DayEndScreen _dayEndScreen;
     [SerializeField] private CV[] _cvPrefabs;
     [SerializeField] private CR[] _crPrefabs;
     private CV _cv;
@@ -16,6 +16,7 @@ public class DayController : SingletonMB<DayController>
     private int _earnedMoney;
     private int _correctDecisionCount;
     private int _incorrectDecisionCount;
+
 
     private void Start()
     {
@@ -90,15 +91,23 @@ public class DayController : SingletonMB<DayController>
                 Debug.Log("Doðru karar!");
             }
         }
+
+        if (DayEndingButNotYetEnded)
+            EndDay();
     }
 
     public void EndDay()
     {
+        if (_cv != null)
+        {
+            DayEndingButNotYetEnded = true;
+            return;
+        }
         // TODO: implement
-        MoneySystem.Instance.EarnMoney(_earnedMoney);
+        _dayEndScreen.SetInfo(MoneySystem.Instance.Money, _earnedMoney, _correctDecisionCount);
         _earnedMoney = 0;
         Debug.Log("Gün bitti aga!");
-        GameController.Instance.StartNewDay();
+        //GameController.Instance.StartNewDay();
         GameController.Instance.SaveCareerData();
     }
 }

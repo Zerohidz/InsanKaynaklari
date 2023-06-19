@@ -18,7 +18,22 @@ namespace Krivodeling.UI.Effects
         public FlipMode EditorFlipMode { get => _editorFlipMode; set { _editorFlipMode = value; UpdateFlipMode(); } }
 #endif
         public FlipMode BuildFlipMode { get => _buildFlipMode; set { _buildFlipMode = value; UpdateFlipMode(); } }
-        public float Intensity { get => _intensity; set { _intensity = Mathf.Clamp01(value); UpdateIntensity(); } }
+        public float Intensity
+        {
+            get => _intensity;
+            set
+            {
+                _intensity = Mathf.Clamp01(value);
+                UpdateIntensity();
+                if (_blurTogglesRaycastTarget)
+                {
+                    if (value == 0)
+                        _image.raycastTarget = false;
+                    else if (value == 1)
+                        _image.raycastTarget = true;
+                }
+            }
+        }
         public float Multiplier { get => _multiplier; set { _multiplier = Mathf.Clamp01(value); UpdateMultiplier(); } }
         public UnityEvent OnBeginBlur { get => _onBeginBlur; set => _onBeginBlur = value; }
         public UnityEvent OnEndBlur { get => _onEndBlur; set => _onEndBlur = value; }
