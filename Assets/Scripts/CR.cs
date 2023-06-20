@@ -17,6 +17,8 @@ public class CR : MonoBehaviour
     public TextMeshProUGUI PositiveTraitsHeader;
     public TextMeshProUGUI NegativeTraitsHeader;
 
+    public TextMeshProUGUI FakeExperienceCheck;
+
     public void SetInfo(CompanyRequest companyRequest)
     {
         JobFields?.SetText(companyRequest.JobFields?.GetDisplay());
@@ -27,5 +29,7 @@ public class CR : MonoBehaviour
         JobsHeader?.gameObject.SetActive(companyRequest.Jobs != null);
         PositiveTraitsHeader?.gameObject.SetActive(companyRequest.PositiveTraits != null);
         NegativeTraitsHeader?.gameObject.SetActive(companyRequest.NegativeTraits != null);
+
+        FakeExperienceCheck?.gameObject.SetActive(companyRequest.FakeExperienceCheck);
     }
 }
