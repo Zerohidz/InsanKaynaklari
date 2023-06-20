@@ -22,6 +22,8 @@ public class SaveSystem
         }
     }
 
+    public static bool GameDataExists => File.Exists(_savePath);
+
     private const string EncryptionCodeWord = "EntabiyleKodYazmaca";
     private const string SaveFileName = "GameData.durs";
     private static string _savePath => Path.Combine(Application.persistentDataPath, SaveFileName);
@@ -29,7 +31,7 @@ public class SaveSystem
     public static void LoadGameData()
     {
         Debug.Log("Loading Game Data!");
-        if (File.Exists(_savePath))
+        if (GameDataExists)
         {
             Debug.Log("Game Data Exists!");
             string encryptedGameDataString = ReadStringFromBinaryFile(_savePath);

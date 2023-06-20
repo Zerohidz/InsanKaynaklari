@@ -1,11 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuButtons : MonoBehaviour
 {
-    public void PlayButtonPressed()
+    [SerializeField] private Button _loadGameButton;
+    [SerializeField] private Button _newGameButton;
+    [SerializeField] private Button _quitGameButton;
+
+    private void Awake()
+    {
+        if (!SaveSystem.GameDataExists)
+        {
+            _loadGameButton.interactable = false;
+        }
+    }
+
+    public void OnLoadGameButtonPressed()
     {
         GameController.Instance.StartGame();
+    }
+
+    public void OnNewGameButtonPressed()
+    {
+        SaveSystem.DeleteGameData();
+        GameController.Instance.StartGame();
+    }
+
+    public void OnQuitGameButtonPressed()
+    {
+        Application.Quit();
     }
 }
