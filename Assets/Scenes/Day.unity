@@ -640,7 +640,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -37.9758, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &670811172
 MonoBehaviour:
@@ -1539,6 +1539,7 @@ GameObject:
   - component: {fileID: 1846401721}
   - component: {fileID: 1846401728}
   - component: {fileID: 1846401727}
+  - component: {fileID: 1846401729}
   m_Layer: 5
   m_Name: ShowCRButton
   m_TagString: Untagged
@@ -1676,6 +1677,36 @@ MonoBehaviour:
   _springTime: 0.25
   _springLength: 15
   Child: {fileID: 0}
+  OnArrivedAtDestination:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1846401729}
+        m_TargetAssemblyTypeName: TogglableText, Assembly-CSharp
+        m_MethodName: Toggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnArrivedAtInitialPosition:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1846401729}
+        m_TargetAssemblyTypeName: TogglableText, Assembly-CSharp
+        m_MethodName: Toggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1846401728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1689,6 +1720,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _crPosition: {fileID: 1291519232}
+--- !u!114 &1846401729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846401719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1a7098226973a4ea7232a970eaf46a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Texts:
+  - "Talebi G\xF6ster"
+  - Talebi Gizle
+  TextIndex: 0
+  _text: {fileID: 670811172}
 --- !u!1001 &1856413954
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2138,6 +2186,86 @@ PrefabInstance:
       propertyPath: m_Name
       value: DayEndScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 835370290084015907, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 835370290084015907, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 835370290084015907, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 835370290084015907, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1746732340928968168, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1746732340928968168, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1746732340928968168, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1746732340928968168, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807206953656624770, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807206953656624770, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807206953656624770, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807206953656624770, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3085909692201189039, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3085909692201189039, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3085909692201189039, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3085909692201189039, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784565155815829517, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784565155815829517, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784565155815829517, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784565155815829517, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6011966412009544443, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2220,6 +2348,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6011966412009544443, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6314602545853237442, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6314602545853237442, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6314602545853237442, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6314602545853237442, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834788441606145343, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834788441606145343, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834788441606145343, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834788441606145343, guid: 3977ce52878f2214f93e48e55eb64500, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2550,7 +2710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9087928821811704892, guid: 2de8b61ed3ef15f47b359f6097f09b28, type: 3}
       propertyPath: RealTimeSpanSeconds
-      value: 5
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

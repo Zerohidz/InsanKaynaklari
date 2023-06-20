@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PositionSwithcer : MonoBehaviour
 {
@@ -24,11 +25,12 @@ public class PositionSwithcer : MonoBehaviour
 
     public void Switch()
     {
-        _inDestination = !_inDestination;
+        var targetPosition = _inDestination ? _initialPoisition : GetDestinationPosition();
         StopAllCoroutines();
         StartCoroutine(LerpPositionCoroutine(GetSpringPosition(), _springTime, endAction: () =>
         {
-            StartCoroutine(LerpPositionCoroutine(GetTargetPosition(), _displayTime));
+            StartCoroutine(LerpPositionCoroutine(targetPosition, _displayTime));
+            _inDestination = !_inDestination;
         }));
     }
 
@@ -49,16 +51,15 @@ public class PositionSwithcer : MonoBehaviour
 
     private Vector3 GetSpringPosition()
     {
-        return transform.position + Vector3.Normalize(transform.position - GetTargetPosition()) * _springLength;
+        return transform.position + Vector3.Normalize(transform.position - GetDestinationPosition()) * _springLength;
     }
 
-    private Vector3 GetTargetPosition()
+    private Vector3 GetDestinationPosition()
     {
         Vector3 destinationPosition = _destination.transform.position;
         if (Child != null)
             destinationPosition += (transform.position - Child.position);
 
-        Vector3 targetPosition = _inDestination ? destinationPosition : _initialPoisition;
-        return targetPosition;
+        return destinationPosition;
     }
 }
