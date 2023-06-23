@@ -1,9 +1,26 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class DayEndScreen : MonoBehaviour
 {
+    // TODO: SaveSytem.Save()'lere Spending'leri de ekle
+    // TODO: New Game dedim ama para sýfýrlanmad?
+
+    [Header("Parameters")]
+    [SerializeField] private int _rent;
+    [SerializeField] private int _food;
+    private int _foodInitial;
+    [SerializeField] private int _heat;
+    private int _heatInitial;
+
+    [Header("FamilyStatus")]
+    [SerializeField] private TMP_Text _fatherStatus;
+    [SerializeField] private TMP_Text _motherStatus;
+    [SerializeField] private TMP_Text _sisterStatus;
+
+    [Header("References")]
     [SerializeField] private TMP_Text _day;
     [SerializeField] private TMP_Text _savingsText;
     [SerializeField] private TMP_Text _cvCount;
@@ -13,20 +30,18 @@ public class DayEndScreen : MonoBehaviour
     [SerializeField] private TMP_Text _heatText;
     [SerializeField] private TMP_Text _totalText;
 
-    [SerializeField] private int _rent;
-    [SerializeField] private int _food;
-    [SerializeField] private int _heat;
-
     public bool IsVisible { get; private set; }
     private Animator _animator;
     private int _totalMoney = 0;
+    private int _savings;
+    private int _salary;
+    private int _netCorrectDecisions;
     private bool _saved;
 
     private void Awake()
     {
-        _rentText.text = (-_rent).ToString();
-        _foodText.text = (-_food).ToString();
-        _heatText.text = (-_heat).ToString();
+        _foodInitial = _food;
+        _heatInitial = _heat;
 
         _animator = GetComponent<Animator>();
     }
@@ -36,22 +51,45 @@ public class DayEndScreen : MonoBehaviour
         _day.text = "Gün " + GameController.Instance.Day.ToString();
     }
 
-    public void SetInfo(int savings, int salary, int correctDecisionCount)
+    private void SetSpendingTexts()
     {
-        _savingsText.text = savings.ToString();
-        _salaryText.text = salary.ToString();
-        _cvCount.text = $"({correctDecisionCount})";
+        _rentText.text = (-_rent).ToString();
+        _foodText.text = (-_food).ToString();
+        _heatText.text = (-_heat).ToString();
 
-        _totalMoney = savings + salary - _rent - _food - _heat;
+        _savingsText.text = _savings.ToString();
+        _salaryText.text = _salary.ToString();
+        _cvCount.text = $"({_netCorrectDecisions})";
+    }
+
+    public void SetInfo(int? savings = null, int? salary = null, int? netCorrectDecisions = null)
+    {
+        _savings = savings == null ? _savings : savings.Value;
+        _salary = salary == null ? _salary : salary.Value;
+        _netCorrectDecisions = netCorrectDecisions == null ? _netCorrectDecisions : netCorrectDecisions.Value;
+
+        SetFamilyStatus();
+        SetSpendingTexts();
+        UpdateTotalMoney();
+    }
+
+    private void SetFamilyStatus()
+    {
+        var spendings = SaveSystem.GameData.CareerData.Spendings;
+        // TODO: set family status
+    }
+
+    private void UpdateTotalMoney()
+    {
+        _totalMoney = _savings + _salary - _rent - _food - _heat;
         _totalText.text = _totalMoney.ToString();
     }
 
     public void OnContinueButtonPressed()
     {
         MoneySystem.Instance.Money = _totalMoney;
-        GameController.Instance.SaveCareerData();
+        SaveTheDay(saveNextDay: false);
         GameController.Instance.StartNewDay();
-        _saved = true;
     }
 
     private void OnDestroy()
@@ -59,8 +97,7 @@ public class DayEndScreen : MonoBehaviour
         if (!IsVisible || _saved)
             return;
 
-        SaveSystem.SaveCareerData(SaveSystem.GameData.CareerData.Day + 1, _totalMoney);
-        _saved = true;
+        SaveTheDay();
     }
 
     private void OnApplicationQuit()
@@ -68,7 +105,17 @@ public class DayEndScreen : MonoBehaviour
         if (!IsVisible || _saved)
             return;
 
-        SaveSystem.SaveCareerData(SaveSystem.GameData.CareerData.Day + 1, _totalMoney);
+        SaveTheDay();
+    }
+
+    private void SaveTheDay(bool saveNextDay = true)
+    {
+        int day = SaveSystem.GameData.CareerData.Day;
+        if (saveNextDay)
+            day++;
+
+        // TODO: Save family status
+        SaveSystem.SaveCareerData(day, _totalMoney);
         _saved = true;
     }
 
@@ -81,5 +128,17 @@ public class DayEndScreen : MonoBehaviour
     public void ToggleVisibility()
     {
         SetVisible(!IsVisible);
+    }
+
+    public void ToggleFoodSpend()
+    {
+        _food = _food == 0 ? _foodInitial : 0;
+        SetInfo();
+    }
+
+    public void ToggleHeatSpend()
+    {
+        _heat = _heat == 0 ? _heatInitial : 0;
+        SetInfo();
     }
 }

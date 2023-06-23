@@ -124,10 +124,14 @@ public class SaveSystem
         return cipherString;
     }
 
-    public static void SaveCareerData(int day, int money)
+    public static void SaveCareerData(int? day = null, int? money = null, Spendings spendings = null)
     {
-        GameData.CareerData.Day = day;
-        GameData.CareerData.Money = money;
+        if (day != null)
+            GameData.CareerData.Day = day.Value;
+        if (money != null)
+            GameData.CareerData.Money = money.Value;
+        if (spendings != null)
+            GameData.CareerData.Spendings = spendings;
 
         SaveGameData();
     }
@@ -135,14 +139,8 @@ public class SaveSystem
 
 public class GameData
 {
-    public Config Config;
-    public CareerData CareerData;
-
-    public GameData()
-    {
-        Config = new Config();
-        CareerData = new CareerData();
-    }
+    public Config Config = new Config();
+    public CareerData CareerData = new CareerData();
 }
 
 public class Config
@@ -155,4 +153,12 @@ public class CareerData
 {
     public int Day = 1;
     public int Money = 0;
+    public Spendings Spendings = new Spendings();
+}
+
+public class Spendings
+{
+    public int Father = 7;
+    public int Mother = 7;
+    public int Sister = 5;
 }

@@ -106,12 +106,12 @@ public class DayController : SingletonMB<DayController>
 
         // TODO: if (Son gün)
 
-        // TODO: implement
+        // TODO: correctDecisionCount yerine çýkarma yap
         _dayEndScreen.SetInfo(MoneySystem.Instance.Money, _earnedMoney, _correctDecisionCount);
         _dayEndScreen.SetVisible(true);
 
         _earnedMoney = 0;
         Debug.Log("Gün bitti aga!");
-        GameController.Instance.SaveCareerData();
+        SaveSystem.SaveCareerData(GameController.Instance.Day, MoneySystem.Instance.Money);
     }
 }

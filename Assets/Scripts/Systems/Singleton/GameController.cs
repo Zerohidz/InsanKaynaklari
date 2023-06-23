@@ -41,11 +41,5 @@ public class GameController : SingletonMB<GameController>
         SceneManager.LoadScene("Day");
         IsPaused = false;
     }
-
-    public void SaveCareerData()
-    {
-        Debug.Log("Career Data Saved!");
-        SaveSystem.SaveCareerData(Day, MoneySystem.Instance.Money);
-    }
 }
 
