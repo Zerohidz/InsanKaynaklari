@@ -22,6 +22,11 @@ public class GameController : SingletonMB<GameController>
         }
     }
 
+    public override void Reset()
+    {
+        Day = SaveSystem.GameData.CareerData.Day;
+    }
+
     public void StartGame()
     {
         Day = SaveSystem.GameData.CareerData.Day;

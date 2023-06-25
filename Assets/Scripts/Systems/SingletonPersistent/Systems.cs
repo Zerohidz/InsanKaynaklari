@@ -14,6 +14,16 @@ public class Systems : PersistentSingletonMB<Systems>
         Instantiate(Resources.Load("Systems"));
     }
 
+    public override void Reset()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            var child = transform.GetChild(i);
+            var singleton = child.GetComponent<ISingleton>();
+            singleton?.Reset();
+        }
+    }
+
     [RuntimeInitializeOnLoadMethod]
     private static void SetRandomSeed()
     {
@@ -21,4 +31,5 @@ public class Systems : PersistentSingletonMB<Systems>
         int currentEpochTime = (int)(DateTime.UtcNow - epochStart).TotalSeconds;
         UnityEngine.Random.InitState(currentEpochTime);
     }
+
 }

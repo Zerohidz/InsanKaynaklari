@@ -55,6 +55,7 @@ public class SaveSystem
     {
         File.Delete(_savePath);
         GameData = null;
+        Systems.Instance?.Reset();
     }
 
     public static void ResetGameData()

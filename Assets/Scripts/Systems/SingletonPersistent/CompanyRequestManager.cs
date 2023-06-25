@@ -64,6 +64,11 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
         GameController.OnDayChanged += UpdateCurrentCompanyRequest;
     }
 
+    public override void Reset()
+    {
+        
+    }
+
     private void GenerateCompanyRequests()
     {
         List<CompanyRequest> companyRequests = new()

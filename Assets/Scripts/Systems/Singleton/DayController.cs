@@ -38,6 +38,11 @@ public class DayController : SingletonMB<DayController>
         }
     }
 
+    public override void Reset()
+    {
+        Start();
+    }
+
     public void GetNewCV()
     {
         if (_cv != null)

@@ -23,6 +23,11 @@ public class PersonManger : SingletonMB<PersonManger>
         GameController.OnDayChanged += (_) => GeneratePersonList();
     }
 
+    public override void Reset()
+    {
+        _personList.Clear();
+    }
+
     public void NextPerson()
     {
         if (_personList is null || _personList.Count < 1)

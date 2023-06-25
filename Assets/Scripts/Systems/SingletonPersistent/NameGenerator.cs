@@ -22,6 +22,11 @@ public class NameGenerator : SingletonMB<NameGenerator>
         };
     }
 
+    public override void Reset()
+    {
+
+    }
+
     public string GetRandomName(Race race, Gender gender)
     {
         string name = "";

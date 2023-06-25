@@ -31,6 +31,11 @@ public class MoneySystem : SingletonMB<MoneySystem>
         // TODO: Bunlarý ayrý ayrý yerlerde böyle mi çekelim yoksa tek bi yerden yerlerine mi gönderelim
     }
 
+    public override void Reset()
+    {
+        Money = SaveSystem.GameData.CareerData.Money;
+    }
+
     public void EarnMoney(int amount)
     {
         Money += amount;
