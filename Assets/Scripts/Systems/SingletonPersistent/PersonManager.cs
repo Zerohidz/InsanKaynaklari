@@ -60,18 +60,23 @@ public class PersonManger : SingletonMB<PersonManger>
 
     private void ObeyIncorrectExperienceRule(List<PersonInfo> personList)
     {
+        int count = 0;
         if (GameController.Instance.Day == 2)
-            for (int i = 0; i < 6; i++)
-                MakeIncorrectExperience(personList[10 + i]);
+            count = 6;
         else if (GameController.Instance.Day == 3)
-            for (int i = 0; i < 3; i++)
-                MakeIncorrectExperience(personList[10 + i]);
+            count = 3;
         else if (GameController.Instance.Day == 4)
-            for (int i = 0; i < 2; i++)
-                MakeIncorrectExperience(personList[10 + i]);
+            count = 2;
         else if (GameController.Instance.Day == 5)
-            for (int i = 0; i < 2; i++)
-                MakeIncorrectExperience(personList[10 + i]);
+            count = 2;
+
+        var request = CompanyRequestManager.Instance.CurrentCompanyRequest;
+        for (int i = 0; i < count; i++)
+        {
+            if (i < count / 3)
+                MakeCorrectPerson(personList[10 + i], request);
+            MakeIncorrectExperience(personList[10 + i]);
+        }
     }
 
     private PersonInfo CreateRandomPerson()

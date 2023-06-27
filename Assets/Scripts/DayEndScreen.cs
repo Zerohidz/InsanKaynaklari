@@ -57,6 +57,7 @@ public class DayEndScreen : MonoBehaviour
         spending.transform.SetSiblingIndex(_line.transform.GetSiblingIndex());
         spending.Initialize(name, price);
         spending.OnToggle += _ => UpdateTotalMoney();
+        _spendingsParent.Translate(0, spending.GetComponent<RectTransform>().rect.height / 2, 0);
 
         return spending;
     }
