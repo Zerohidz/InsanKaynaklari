@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class DayController : SingletonMB<DayController>
 {
+    private static int FreeIncorrectDecisions = 2;
+
     public bool DayEndingButNotYetEnded { get; private set; }
 
     [SerializeField] private Transform _cvParent;
@@ -13,7 +16,6 @@ public class DayController : SingletonMB<DayController>
     [SerializeField] private CR[] _crPrefabs;
     private CV _cv;
     private int _day;
-    private int _earnedMoney;
     private int _correctDecisionCount;
     private int _incorrectDecisionCount;
 
@@ -66,14 +68,11 @@ public class DayController : SingletonMB<DayController>
             if (PersonManger.Instance.CurrentPersonInfo.IsCorrect)
             {
                 _correctDecisionCount++;
-                _earnedMoney += 5;
                 Debug.Log("Doðru karar!");
             }
             else
             {
                 _incorrectDecisionCount++;
-                if (_incorrectDecisionCount > 2)
-                    _earnedMoney -= 5;
                 Debug.Log("Yanlýþ karar!");
             }
         }
@@ -85,14 +84,11 @@ public class DayController : SingletonMB<DayController>
             if (PersonManger.Instance.CurrentPersonInfo.IsCorrect)
             {
                 _incorrectDecisionCount++;
-                if (_incorrectDecisionCount > 2)
-                    _earnedMoney -= 5;
                 Debug.Log("Yanlýþ karar!");
             }
             else
             {
                 _correctDecisionCount++;
-                _earnedMoney += 5;
                 Debug.Log("Doðru karar!");
             }
         }
@@ -111,11 +107,10 @@ public class DayController : SingletonMB<DayController>
 
         // TODO: if (Son gün)
 
-        // TODO: correctDecisionCount yerine çýkarma yap
-        _dayEndScreen.SetInfo(MoneySystem.Instance.Money, _earnedMoney, _correctDecisionCount);
+        int netDecisionCount = _correctDecisionCount - Math.Clamp(_incorrectDecisionCount - FreeIncorrectDecisions, 0, _incorrectDecisionCount);
+        _dayEndScreen.SetInfo(MoneySystem.Instance.Money, netDecisionCount);
         _dayEndScreen.SetVisible(true);
 
-        _earnedMoney = 0;
         Debug.Log("Gün bitti aga!");
         SaveSystem.SaveCareerData(GameController.Instance.Day, MoneySystem.Instance.Money);
     }

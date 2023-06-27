@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -8,9 +7,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 public class DayEndScreen : MonoBehaviour
 {
-    // TODO: SaveSytem.Save()'lere Spending'leri de ekle
-    // TODO: New Game dedim ama para sýfýrlanmad?
-
     [Header("Parameters")]
     [SerializeField] private int _rentPrice;
     [SerializeField] private int _foodPrice;
@@ -43,7 +39,7 @@ public class DayEndScreen : MonoBehaviour
     private int _totalMoney = 0;
     private int _savings;
     private int _salary;
-    private int _netCorrectDecisions;
+    private int _netDecisionCount;
     private bool _saved;
 
     private void Awake()
@@ -76,17 +72,18 @@ public class DayEndScreen : MonoBehaviour
 
         _savingsText.text = _savings.ToString();
         _salaryText.text = _salary.ToString();
-        _cvCount.text = $"({_netCorrectDecisions})";
+        _cvCount.text = $"({_netDecisionCount})";
     }
 
-    public void SetInfo(int? savings = null, int? salary = null, int? netCorrectDecisions = null)
+    public void SetInfo(int? savings = null, int? netDecisionCount = null)
     {
         if (savings != null)
             _savings = savings.Value;
-        if (salary != null)
-            _salary = salary.Value;
-        if (netCorrectDecisions != null)
-            _netCorrectDecisions = netCorrectDecisions.Value;
+        if (netDecisionCount != null)
+        {
+            _netDecisionCount = netDecisionCount.Value;
+            _salary = _netDecisionCount * 5;
+        }
 
         SetFamilyStatus();
         SetSpendingTexts();
