@@ -14,7 +14,7 @@ public class MoneySystem : SingletonMB<MoneySystem>
     {
         get => _money;
         set
-        {
+        { 
             int oldMoney = _money;
             _money = value;
             OnMoneyChanged?.Invoke(oldMoney, value);

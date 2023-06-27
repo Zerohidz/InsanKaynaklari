@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class DayEndScreen : MonoBehaviour
@@ -9,11 +12,9 @@ public class DayEndScreen : MonoBehaviour
     // TODO: New Game dedim ama para sýfýrlanmad?
 
     [Header("Parameters")]
-    [SerializeField] private int _rent;
-    [SerializeField] private int _food;
-    private int _foodInitial;
-    [SerializeField] private int _heat;
-    private int _heatInitial;
+    [SerializeField] private int _rentPrice;
+    [SerializeField] private int _foodPrice;
+    [SerializeField] private int _heatPrice;
 
     [Header("FamilyStatus")]
     [SerializeField] private TMP_Text _fatherStatus;
@@ -21,14 +22,21 @@ public class DayEndScreen : MonoBehaviour
     [SerializeField] private TMP_Text _sisterStatus;
 
     [Header("References")]
+    [SerializeField] private Transform _spendingsParent;
     [SerializeField] private TMP_Text _day;
     [SerializeField] private TMP_Text _savingsText;
     [SerializeField] private TMP_Text _cvCount;
     [SerializeField] private TMP_Text _salaryText;
     [SerializeField] private TMP_Text _rentText;
-    [SerializeField] private TMP_Text _foodText;
-    [SerializeField] private TMP_Text _heatText;
     [SerializeField] private TMP_Text _totalText;
+
+    [Header("Seperators")]
+    [SerializeField] private Image _line;
+
+    [Header("Prefabs")]
+    [SerializeField] private Spending _spending;
+
+    private List<Spending> _newSpendings = new();
 
     public bool IsVisible { get; private set; }
     private Animator _animator;
@@ -40,10 +48,21 @@ public class DayEndScreen : MonoBehaviour
 
     private void Awake()
     {
-        _foodInitial = _food;
-        _heatInitial = _heat;
+        _newSpendings.Add(CreateNewSpending("Yemek", _foodPrice));
+        _newSpendings.Add(CreateNewSpending("Isýnma", _heatPrice));
+        _newSpendings.Add(CreateNewSpending("Ýlaç", 10));
 
         _animator = GetComponent<Animator>();
+    }
+
+    private Spending CreateNewSpending(string name, int price)
+    {
+        var spending = Instantiate(_spending, _spendingsParent);
+        spending.transform.SetSiblingIndex(_line.transform.GetSiblingIndex());
+        spending.Initialize(name, price);
+        spending.OnToggle += _ => UpdateTotalMoney();
+
+        return spending;
     }
 
     private void Start()
@@ -53,9 +72,7 @@ public class DayEndScreen : MonoBehaviour
 
     private void SetSpendingTexts()
     {
-        _rentText.text = (-_rent).ToString();
-        _foodText.text = (-_food).ToString();
-        _heatText.text = (-_heat).ToString();
+        _rentText.text = "-" + _rentPrice.ToString();
 
         _savingsText.text = _savings.ToString();
         _salaryText.text = _salary.ToString();
@@ -64,9 +81,12 @@ public class DayEndScreen : MonoBehaviour
 
     public void SetInfo(int? savings = null, int? salary = null, int? netCorrectDecisions = null)
     {
-        _savings = savings == null ? _savings : savings.Value;
-        _salary = salary == null ? _salary : salary.Value;
-        _netCorrectDecisions = netCorrectDecisions == null ? _netCorrectDecisions : netCorrectDecisions.Value;
+        if (savings != null)
+            _savings = savings.Value;
+        if (salary != null)
+            _salary = salary.Value;
+        if (netCorrectDecisions != null)
+            _netCorrectDecisions = netCorrectDecisions.Value;
 
         SetFamilyStatus();
         SetSpendingTexts();
@@ -81,7 +101,7 @@ public class DayEndScreen : MonoBehaviour
 
     private void UpdateTotalMoney()
     {
-        _totalMoney = _savings + _salary - _rent - _food - _heat;
+        _totalMoney = _savings + _salary - _rentPrice - _newSpendings.Sum(s => s.Cost);
         _totalText.text = _totalMoney.ToString();
     }
 
@@ -128,17 +148,5 @@ public class DayEndScreen : MonoBehaviour
     public void ToggleVisibility()
     {
         SetVisible(!IsVisible);
-    }
-
-    public void ToggleFoodSpend()
-    {
-        _food = _food == 0 ? _foodInitial : 0;
-        SetInfo();
-    }
-
-    public void ToggleHeatSpend()
-    {
-        _heat = _heat == 0 ? _heatInitial : 0;
-        SetInfo();
     }
 }
