@@ -12,6 +12,7 @@ public class DayController : SingletonMB<DayController>
     [SerializeField] private InfoPanel _infoPanel;
     [SerializeField] private ESCPanel _escPanel;
     [SerializeField] private DayEndScreen _dayEndScreen;
+    [SerializeField] private WarningPanel _warningPanel;
     [SerializeField] private CV[] _cvPrefabs;
     [SerializeField] private CR[] _crPrefabs;
     private CV _cv;
@@ -61,36 +62,20 @@ public class DayController : SingletonMB<DayController>
             return;
 
         if (accepted)
-        {
             _cv.Accept();
-            _cv = null;
+        else
+            _cv.Reject();
+        _cv = null;
 
-            if (PersonManger.Instance.CurrentPersonInfo.IsCorrect)
-            {
-                _correctDecisionCount++;
-                Debug.Log("Doðru karar!");
-            }
-            else
-            {
-                _incorrectDecisionCount++;
-                Debug.Log("Yanlýþ karar!");
-            }
+        if (accepted == PersonManger.Instance.CurrentPersonInfo.IsCorrect)
+        {
+            _correctDecisionCount++;
+            _warningPanel.ShowWarning("Doðru Karar", true);
         }
         else
         {
-            _cv.Reject();
-            _cv = null;
-
-            if (PersonManger.Instance.CurrentPersonInfo.IsCorrect)
-            {
-                _incorrectDecisionCount++;
-                Debug.Log("Yanlýþ karar!");
-            }
-            else
-            {
-                _correctDecisionCount++;
-                Debug.Log("Doðru karar!");
-            }
+            _incorrectDecisionCount++;
+            _warningPanel.ShowWarning("Yanlýþ Karar", false);
         }
 
         if (DayEndingButNotYetEnded)

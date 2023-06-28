@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CanvasGroup))]
@@ -31,23 +31,27 @@ public class UIFader : MonoBehaviour
             StartCoroutine(FadeToFullAlpha(Speed));   
     }
 
-    public IEnumerator FadeToFullAlpha(float t)
+    public IEnumerator FadeToFullAlpha(float speed, Action tickAction = null, Action endAction = null)
     {
         while (_canvasGroup.alpha < 1.0f)
         {
-            _canvasGroup.alpha += Time.deltaTime / t;
+            _canvasGroup.alpha += Time.deltaTime * speed;
+            tickAction?.Invoke();
             yield return null;
         }
         IsVisible = true;
+        endAction?.Invoke();
     }
 
-    public IEnumerator FadeToZeroAlpha(float t)
+    public IEnumerator FadeToZeroAlpha(float speed, Action tickAction = null, Action endAction = null)
     {
         while (_canvasGroup.alpha > 0f)
         {
-            _canvasGroup.alpha -= Time.deltaTime / t;
+            _canvasGroup.alpha -= Time.deltaTime * speed;
+            tickAction?.Invoke();
             yield return null;
         }
         IsVisible = false;
+        endAction?.Invoke();
     }
 }
