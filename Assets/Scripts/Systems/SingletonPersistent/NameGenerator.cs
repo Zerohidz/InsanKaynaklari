@@ -10,8 +10,7 @@ public class NameGenerator : SingletonMB<NameGenerator>
     protected override void Awake()
     {
         base.Awake();
-        if (IsBeingDestroyed)
-            return;
+        if (IsBeingDestroyed) return;
 
         _nameSets = new() {
             {Race.Russsian,new NameSet(_russianMaleNames, _russianFemaleNames, _russianSurnames )},

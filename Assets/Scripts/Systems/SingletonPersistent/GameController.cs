@@ -36,6 +36,7 @@ public class GameController : SingletonMB<GameController>
     public void StartNewDay()
     {
         Day++;
+        // TODO: if the day is greater than 5, show EndScene
         SaveSystem.GameData.CareerData.Day = Day;
         SaveSystem.SaveGameData();
         LoadDay();

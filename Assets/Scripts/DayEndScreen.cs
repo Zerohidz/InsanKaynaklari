@@ -31,6 +31,7 @@ public class DayEndScreen : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField] private Spending _spending;
+    [SerializeField] private MessageScreen _messageScreenPrefab;
 
     private List<Spending> _newSpendings = new();
 
@@ -46,7 +47,7 @@ public class DayEndScreen : MonoBehaviour
     {
         _newSpendings.Add(CreateNewSpending("Yemek", _foodPrice));
         _newSpendings.Add(CreateNewSpending("Isýnma", _heatPrice));
-        _newSpendings.Add(CreateNewSpending("Ýlaç", 10));
+        //_newSpendings.Add(CreateNewSpending("Ýlaç", 10));
 
         _animator = GetComponent<Animator>();
     }
@@ -107,7 +108,7 @@ public class DayEndScreen : MonoBehaviour
     {
         MoneySystem.Instance.Money = _totalMoney;
         SaveTheDay(saveNextDay: false);
-        GameController.Instance.StartNewDay();
+        Instantiate(_messageScreenPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
     }
 
     private void OnDestroy()

@@ -5,14 +5,20 @@ using UnityEngine;
 [RequireComponent(typeof(CanvasGroup))]
 public class UIFader : MonoBehaviour
 {
-    public bool IsVisible { get; set; } = true;
+    public bool IsVisible = true;
     public float Speed = 1;
+    public bool ToggleOnStart = false;
+    public int OnStartDelaySeconds = 0;
 
     private CanvasGroup _canvasGroup;
 
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
+        _canvasGroup.alpha = IsVisible ? 1 : 0;
+
+        if (ToggleOnStart)
+            StartCoroutine(ToggleAfterDelay(OnStartDelaySeconds));
     }
 
     public void ToggleVisbility()
@@ -20,15 +26,20 @@ public class UIFader : MonoBehaviour
         SetVisible(!IsVisible);
     }
 
-    public void SetVisible(bool willBeVisible)
+    public void ToggleVisibility(Action endAction)
+    {
+        SetVisible(!IsVisible, endAction);
+    }
+
+    public void SetVisible(bool willBeVisible, Action endAction = null)
     {
         if (IsVisible)
         {
             if (!willBeVisible)
-                StartCoroutine(FadeToZeroAlpha(Speed));
+                StartCoroutine(FadeToZeroAlpha(Speed, endAction: endAction));
         }
         else
-            StartCoroutine(FadeToFullAlpha(Speed));   
+            StartCoroutine(FadeToFullAlpha(Speed, endAction: endAction));
     }
 
     public IEnumerator FadeToFullAlpha(float speed, Action tickAction = null, Action endAction = null)
@@ -53,5 +64,11 @@ public class UIFader : MonoBehaviour
         }
         IsVisible = false;
         endAction?.Invoke();
+    }
+
+    private IEnumerator ToggleAfterDelay(float t)
+    {
+        yield return new WaitForSeconds(t);
+        ToggleVisbility();
     }
 }

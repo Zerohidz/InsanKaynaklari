@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TreeEditor;
 using Unity.VisualScripting;
-using UnityEditor.PackageManager.Requests;
-using UnityEngine;
 
 public class PersonManger : SingletonMB<PersonManger>
 {
@@ -17,8 +14,7 @@ public class PersonManger : SingletonMB<PersonManger>
     protected override void Awake()
     {
         base.Awake();
-        if (IsBeingDestroyed)
-            return;
+        if (IsBeingDestroyed) return;
 
         GameController.OnDayChanged += (_) => GeneratePersonList();
     }
@@ -75,7 +71,9 @@ public class PersonManger : SingletonMB<PersonManger>
         {
             if (i < count / 3)
                 MakeCorrectPerson(personList[10 + i], request);
+
             MakeIncorrectExperience(personList[10 + i]);
+            personList[10 + i].IsCorrect = false;
         }
     }
 

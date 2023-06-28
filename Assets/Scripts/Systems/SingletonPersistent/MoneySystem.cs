@@ -14,7 +14,7 @@ public class MoneySystem : SingletonMB<MoneySystem>
     {
         get => _money;
         set
-        { 
+        {
             int oldMoney = _money;
             _money = value;
             OnMoneyChanged?.Invoke(oldMoney, value);
@@ -24,8 +24,7 @@ public class MoneySystem : SingletonMB<MoneySystem>
     protected override void Awake()
     {
         base.Awake();
-        if (IsBeingDestroyed)
-            return;
+        if (IsBeingDestroyed) return;
 
         Money = SaveSystem.GameData.CareerData.Money;
         // TODO: Bunlarý ayrý ayrý yerlerde böyle mi çekelim yoksa tek bi yerden yerlerine mi gönderelim
