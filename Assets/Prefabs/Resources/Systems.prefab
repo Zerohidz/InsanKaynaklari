@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db0060dcba3aef40b69b69662e9fae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _transitionFaderPrefab: {fileID: 8261215697483390957, guid: 8f2eee98ddf9bc344a776bbdcb6f4f92, type: 3}
 --- !u!1 &2587535411747629652
 GameObject:
   m_ObjectHideFlags: 0

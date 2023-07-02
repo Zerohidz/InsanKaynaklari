@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsVisible: 0
-  Speed: 1
+  Duration: 1
   ToggleOnStart: 0
   OnStartDelaySeconds: 0
 --- !u!114 &6251519972304129151
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c33526d8a466aab489f55f86ccb6736a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fadeSpeed: 5
+  _fadeDuration: 0.2
   _moveAmount: 20
   _goodWarningColor: {r: 0.32941177, g: 0.85098046, b: 0.31764707, a: 1}
   _badWarningColor: {r: 0.8313726, g: 0.3254902, b: 0.28235295, a: 1}

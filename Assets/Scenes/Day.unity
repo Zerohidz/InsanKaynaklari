@@ -2957,7 +2957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9087928821811704892, guid: 2de8b61ed3ef15f47b359f6097f09b28, type: 3}
       propertyPath: RealTimeSpanSeconds
-      value: 60
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

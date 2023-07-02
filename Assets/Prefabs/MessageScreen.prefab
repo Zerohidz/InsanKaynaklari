@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsVisible: 0
-  Speed: 0.5
+  Duration: 2
   ToggleOnStart: 1
   OnStartDelaySeconds: 0
 --- !u!1 &2037527829380238698
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsVisible: 0
-  Speed: 0.5
+  Duration: 2
   ToggleOnStart: 1
   OnStartDelaySeconds: 2
 --- !u!1 &5146419839567452593
@@ -597,7 +597,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7508420992518420174}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0.85
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -614,6 +614,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsVisible: 0
-  Speed: 0.5
+  Duration: 2
   ToggleOnStart: 1
   OnStartDelaySeconds: 2

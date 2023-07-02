@@ -3,30 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneController : SingletonMB<SceneController>
 {
-
+    [SerializeField] private UIFader _transitionFaderPrefab;
 
     public override void Reset()
     {
 
     }
 
-    public void LoadSceneWithTransition(string sceneName, float transitionSpeed)
+    public void LoadSceneWithTransition(string sceneName, float transitionDuration)
     {
-        DarkenTheScreen(transitionSpeed, () =>
+        DarkenTheScreen(transitionDuration, () =>
         {
             SceneManager.LoadScene(sceneName);
         });
     }
 
-    private static void DarkenTheScreen(float transitionSpeed, Action endAction)
+    private void DarkenTheScreen(float transitionDuration, Action endAction)
     {
-        var o = new GameObject("a");
-        UIFader fader = o.AddComponent<UIFader>();
-        fader.IsVisible = false;
-        fader.Speed = transitionSpeed;
-        fader.SetVisible(true, endAction);
+        UIFader fader = Instantiate(_transitionFaderPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
+        fader.SetVisible(false);
+        fader.Duration = transitionDuration;
+        fader.ToggleOnStart = true;
+        fader.Fade(true, endAction);
     }
 }

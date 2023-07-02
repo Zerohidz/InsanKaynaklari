@@ -6,7 +6,7 @@ using UnityEngine;
 public class UIFader : MonoBehaviour
 {
     public bool IsVisible = true;
-    public float Speed = 1;
+    public float Duration = 1;
     public bool ToggleOnStart = false;
     public int OnStartDelaySeconds = 0;
 
@@ -15,38 +15,44 @@ public class UIFader : MonoBehaviour
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
-        _canvasGroup.alpha = IsVisible ? 1 : 0;
+        SetVisible(IsVisible);
 
         if (ToggleOnStart)
             StartCoroutine(ToggleAfterDelay(OnStartDelaySeconds));
     }
 
-    public void ToggleVisbility()
+    public void SetVisible(bool willBeVisible)
     {
-        SetVisible(!IsVisible);
+        IsVisible = willBeVisible;
+        _canvasGroup.alpha = IsVisible ? 1 : 0;
     }
 
-    public void ToggleVisibility(Action endAction)
+    public void ToggleFade()
     {
-        SetVisible(!IsVisible, endAction);
+        Fade(!IsVisible);
     }
 
-    public void SetVisible(bool willBeVisible, Action endAction = null)
+    public void ToggleFade(Action endAction)
+    {
+        Fade(!IsVisible, endAction);
+    }
+
+    public void Fade(bool willBeVisible, Action endAction = null)
     {
         if (IsVisible)
         {
             if (!willBeVisible)
-                StartCoroutine(FadeToZeroAlpha(Speed, endAction: endAction));
+                StartCoroutine(FadeToZeroAlpha(Duration, endAction: endAction));
         }
         else
-            StartCoroutine(FadeToFullAlpha(Speed, endAction: endAction));
+            StartCoroutine(FadeToFullAlpha(Duration, endAction: endAction));
     }
 
-    public IEnumerator FadeToFullAlpha(float speed, Action tickAction = null, Action endAction = null)
+    public IEnumerator FadeToFullAlpha(float duration, Action tickAction = null, Action endAction = null)
     {
         while (_canvasGroup.alpha < 1.0f)
         {
-            _canvasGroup.alpha += Time.deltaTime * speed;
+            _canvasGroup.alpha += Time.deltaTime / duration;
             tickAction?.Invoke();
             yield return null;
         }
@@ -54,11 +60,11 @@ public class UIFader : MonoBehaviour
         endAction?.Invoke();
     }
 
-    public IEnumerator FadeToZeroAlpha(float speed, Action tickAction = null, Action endAction = null)
+    public IEnumerator FadeToZeroAlpha(float duration, Action tickAction = null, Action endAction = null)
     {
         while (_canvasGroup.alpha > 0f)
         {
-            _canvasGroup.alpha -= Time.deltaTime * speed;
+            _canvasGroup.alpha -= Time.deltaTime / duration;
             tickAction?.Invoke();
             yield return null;
         }
@@ -69,6 +75,6 @@ public class UIFader : MonoBehaviour
     private IEnumerator ToggleAfterDelay(float t)
     {
         yield return new WaitForSeconds(t);
-        ToggleVisbility();
+        ToggleFade();
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class WarningPanel : MonoBehaviour
 {
     [Header("Parameters")]
-    [SerializeField] private float _fadeSpeed = 5.0f;
+    [SerializeField] private float _fadeDuration = 5.0f;
     [SerializeField] private float _moveAmount = 20.0f;
     [SerializeField] private Color _goodWarningColor;
     [SerializeField] private Color _badWarningColor;
@@ -29,8 +29,8 @@ public class WarningPanel : MonoBehaviour
             SetMessage(message);
             _text.color = isGoodWarning ? _goodWarningColor : _badWarningColor;
             StartCoroutine(_textFader.FadeToFullAlpha(
-                _fadeSpeed,
-                tickAction: () => _text.transform.Translate(0, Time.deltaTime * _fadeSpeed * _moveAmount, 0)
+                _fadeDuration,
+                tickAction: () => _text.transform.Translate(0, Time.deltaTime * _moveAmount / _fadeDuration, 0)
             ));
         };
 
@@ -38,8 +38,8 @@ public class WarningPanel : MonoBehaviour
         if (_currentMessage != null)
         {
             StartCoroutine(_textFader.FadeToZeroAlpha(
-                _fadeSpeed,
-                tickAction: () => _text.transform.Translate(0, -Time.deltaTime * _fadeSpeed * _moveAmount, 0),
+                _fadeDuration,
+                tickAction: () => _text.transform.Translate(0, -Time.deltaTime * _moveAmount / _fadeDuration, 0),
                 endAction: Show)
             );
         }
