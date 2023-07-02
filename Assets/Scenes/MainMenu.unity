@@ -1530,13 +1530,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1847677324325932080, guid: 6c5893ba2feca9d4d93e7dc0867cfeba, type: 3}
+      propertyPath: TransitionDuration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2587535411747629652, guid: 6c5893ba2feca9d4d93e7dc0867cfeba, type: 3}
       propertyPath: m_Name
       value: Systems
-      objectReference: {fileID: 0}
-    - target: {fileID: 3329463703272285604, guid: 6c5893ba2feca9d4d93e7dc0867cfeba, type: 3}
-      propertyPath: m_Name
-      value: NameGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 8093339872816361350, guid: 6c5893ba2feca9d4d93e7dc0867cfeba, type: 3}
       propertyPath: m_RootOrder
@@ -1581,10 +1581,6 @@ PrefabInstance:
     - target: {fileID: 8093339872816361350, guid: 6c5893ba2feca9d4d93e7dc0867cfeba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8120240450191059326, guid: 6c5893ba2feca9d4d93e7dc0867cfeba, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

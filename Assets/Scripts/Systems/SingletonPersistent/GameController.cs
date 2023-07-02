@@ -44,7 +44,7 @@ public class GameController : SingletonMB<GameController>
 
     private void LoadDay()
     {
-        SceneController.Instance.LoadSceneWithTransition("Day", 2);
+        SceneController.Instance.LoadSceneWithTransition("Day");
         IsPaused = false;
     }
 }

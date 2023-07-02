@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,21 +16,34 @@ public class SceneController : SingletonMB<SceneController>
 
     }
 
+    private void Start()
+    {
+        SceneManager.activeSceneChanged += OnSceneChanged;
+    }
+
+    private void OnSceneChanged(Scene oldScene, Scene newScene)
+    {
+        Fade(false, TransitionDuration, terminateOnFade: true);
+    }
+
     public void LoadSceneWithTransition(string sceneName, float? transitionDuration = null)
     {
         float duration = transitionDuration ?? TransitionDuration;
-        FadeOut(duration, () =>
+
+        var loadOperation = SceneManager.LoadSceneAsync(sceneName);
+        loadOperation.allowSceneActivation = false;
+        Fade(true, duration, endAction: () =>
         {
-            SceneManager.LoadScene(sceneName);
+            loadOperation.allowSceneActivation = true;
         });
     }
 
-    private void FadeOut(float transitionDuration, Action endAction)
+    private void Fade(bool willGetVisible, float transitionDuration, bool terminateOnFade = false, Action endAction = null)
     {
         UIFader fader = Instantiate(_transitionFaderPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
-        fader.SetVisible(false);
+        fader.TerminateOnFade = terminateOnFade;
         fader.Duration = transitionDuration;
-        fader.ToggleOnStart = true;
-        fader.Fade(true, endAction);
+        fader.SetVisible(!willGetVisible);
+        fader.Fade(willGetVisible, endAction);
     }
 }

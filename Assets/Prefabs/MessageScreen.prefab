@@ -102,7 +102,7 @@ MonoBehaviour:
   StartVisible: 0
   ToggleOnStart: 1
   TerminateOnFade: 0
-  Duration: 2
+  Duration: 1
   OnStartDelaySeconds: 0
 --- !u!1 &2037527829380238698
 GameObject:
@@ -403,8 +403,8 @@ MonoBehaviour:
   StartVisible: 0
   ToggleOnStart: 1
   TerminateOnFade: 0
-  Duration: 2
-  OnStartDelaySeconds: 2
+  Duration: 1
+  OnStartDelaySeconds: 1
 --- !u!1 &5146419839567452593
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,5 +618,5 @@ MonoBehaviour:
   StartVisible: 0
   ToggleOnStart: 1
   TerminateOnFade: 0
-  Duration: 2
-  OnStartDelaySeconds: 2
+  Duration: 1
+  OnStartDelaySeconds: 1
