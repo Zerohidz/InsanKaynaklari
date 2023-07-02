@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8843014804304261173}
   - component: {fileID: 2543029116020372030}
+  - component: {fileID: 2352865631130861792}
   - component: {fileID: 4184349012843285410}
   - component: {fileID: 6251519972304129151}
-  - component: {fileID: 2352865631130861792}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -48,6 +48,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54940905943504649}
   m_CullTransparentMesh: 1
+--- !u!225 &2352865631130861792
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54940905943504649}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &4184349012843285410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,9 +72,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d393ddc8ba80864fb5dccbfa7f262cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsVisible: 0
-  Duration: 1
+  StartVisible: 0
   ToggleOnStart: 0
+  TerminateOnFade: 0
+  Duration: 1
   OnStartDelaySeconds: 0
 --- !u!114 &6251519972304129151
 MonoBehaviour:
@@ -153,18 +166,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!225 &2352865631130861792
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 54940905943504649}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &5702616371526841595
 GameObject:
   m_ObjectHideFlags: 0

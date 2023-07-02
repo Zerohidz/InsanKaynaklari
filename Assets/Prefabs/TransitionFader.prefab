@@ -72,9 +72,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d393ddc8ba80864fb5dccbfa7f262cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsVisible: 0
-  Duration: 1
+  StartVisible: 0
   ToggleOnStart: 1
+  TerminateOnFade: 0
+  Duration: 1
   OnStartDelaySeconds: 0
 --- !u!1 &6494954522084257163
 GameObject:

@@ -99,9 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d393ddc8ba80864fb5dccbfa7f262cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsVisible: 0
-  Duration: 2
+  StartVisible: 0
   ToggleOnStart: 1
+  TerminateOnFade: 0
+  Duration: 2
   OnStartDelaySeconds: 0
 --- !u!1 &2037527829380238698
 GameObject:
@@ -399,9 +400,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d393ddc8ba80864fb5dccbfa7f262cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsVisible: 0
-  Duration: 2
+  StartVisible: 0
   ToggleOnStart: 1
+  TerminateOnFade: 0
+  Duration: 2
   OnStartDelaySeconds: 2
 --- !u!1 &5146419839567452593
 GameObject:
@@ -613,7 +615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d393ddc8ba80864fb5dccbfa7f262cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsVisible: 0
-  Duration: 2
+  StartVisible: 0
   ToggleOnStart: 1
+  TerminateOnFade: 0
+  Duration: 2
   OnStartDelaySeconds: 2

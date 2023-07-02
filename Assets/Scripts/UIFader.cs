@@ -5,9 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(CanvasGroup))]
 public class UIFader : MonoBehaviour
 {
-    public bool IsVisible = true;
-    public float Duration = 1;
+    public bool StartVisible = false;
     public bool ToggleOnStart = false;
+    public bool TerminateOnFade = false;
+    public float Duration = 1;
     public int OnStartDelaySeconds = 0;
 
     private CanvasGroup _canvasGroup;
@@ -15,7 +16,7 @@ public class UIFader : MonoBehaviour
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
-        SetVisible(IsVisible);
+        SetVisible(StartVisible);
 
         if (ToggleOnStart)
             StartCoroutine(ToggleAfterDelay(OnStartDelaySeconds));
@@ -23,23 +24,23 @@ public class UIFader : MonoBehaviour
 
     public void SetVisible(bool willBeVisible)
     {
-        IsVisible = willBeVisible;
-        _canvasGroup.alpha = IsVisible ? 1 : 0;
+        StartVisible = willBeVisible;
+        _canvasGroup.alpha = StartVisible ? 1 : 0;
     }
 
     public void ToggleFade()
     {
-        Fade(!IsVisible);
+        Fade(!StartVisible);
     }
 
     public void ToggleFade(Action endAction)
     {
-        Fade(!IsVisible, endAction);
+        Fade(!StartVisible, endAction);
     }
 
     public void Fade(bool willBeVisible, Action endAction = null)
     {
-        if (IsVisible)
+        if (StartVisible)
         {
             if (!willBeVisible)
                 StartCoroutine(FadeToZeroAlpha(Duration, endAction: endAction));
@@ -56,8 +57,9 @@ public class UIFader : MonoBehaviour
             tickAction?.Invoke();
             yield return null;
         }
-        IsVisible = true;
+        StartVisible = true;
         endAction?.Invoke();
+        if (TerminateOnFade) Destroy(gameObject);
     }
 
     public IEnumerator FadeToZeroAlpha(float duration, Action tickAction = null, Action endAction = null)
@@ -68,8 +70,9 @@ public class UIFader : MonoBehaviour
             tickAction?.Invoke();
             yield return null;
         }
-        IsVisible = false;
+        StartVisible = false;
         endAction?.Invoke();
+        if (TerminateOnFade) Destroy(gameObject);
     }
 
     private IEnumerator ToggleAfterDelay(float t)
