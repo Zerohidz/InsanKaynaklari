@@ -1,11 +1,12 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(TMP_Text))]
 public class DigitalClock : MonoBehaviour
 {
-    public event Action OnTimeUp;
+    public UnityEvent OnTimeUp;
     public DateTime DisplayTime { get; private set; }
     public DateTime CurrentTime { get; private set; }
     public DateTime StartTime { get; private set; }
