@@ -28,7 +28,7 @@ public class WarningPanel : MonoBehaviour
         {
             SetMessage(message);
             _text.color = isGoodWarning ? _goodWarningColor : _badWarningColor;
-            StartCoroutine(_textFader.FadeToFullAlpha(
+            StartCoroutine(_textFader.FadeToFullAlphaC(
                 _fadeDuration,
                 tickAction: () => _text.transform.Translate(0, Time.deltaTime * _moveAmount / _fadeDuration, 0)
             ));
@@ -37,7 +37,7 @@ public class WarningPanel : MonoBehaviour
         StopAllCoroutines();
         if (_currentMessage != null)
         {
-            StartCoroutine(_textFader.FadeToZeroAlpha(
+            StartCoroutine(_textFader.FadeToZeroAlphaC(
                 _fadeDuration,
                 tickAction: () => _text.transform.Translate(0, -Time.deltaTime * _moveAmount / _fadeDuration, 0),
                 endAction: Show)

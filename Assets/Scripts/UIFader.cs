@@ -19,7 +19,7 @@ public class UIFader : MonoBehaviour
         SetVisible(StartVisible);
 
         if (ToggleOnStart)
-            StartCoroutine(ToggleAfterDelay(OnStartDelaySeconds));
+            StartCoroutine(ToggleFadeAfterC(OnStartDelaySeconds));
     }
 
     public void SetVisible(bool willBeVisible)
@@ -43,13 +43,18 @@ public class UIFader : MonoBehaviour
         if (StartVisible)
         {
             if (!willBeVisible)
-                StartCoroutine(FadeToZeroAlpha(Duration, endAction: endAction));
+                StartCoroutine(FadeToZeroAlphaC(Duration, endAction: endAction));
         }
         else
-            StartCoroutine(FadeToFullAlpha(Duration, endAction: endAction));
+            StartCoroutine(FadeToFullAlphaC(Duration, endAction: endAction));
     }
 
-    public IEnumerator FadeToFullAlpha(float duration, Action tickAction = null, Action endAction = null)
+    public void FadeAfter(float t, bool willBeVisible, Action endAction = null)
+    {
+        StartCoroutine(FadeAfterC(t, willBeVisible, endAction));
+    }
+
+    public IEnumerator FadeToFullAlphaC(float duration, Action tickAction = null, Action endAction = null)
     {
         while (_canvasGroup.alpha < 1.0f)
         {
@@ -62,7 +67,7 @@ public class UIFader : MonoBehaviour
         if (TerminateOnFade) Destroy(gameObject);
     }
 
-    public IEnumerator FadeToZeroAlpha(float duration, Action tickAction = null, Action endAction = null)
+    public IEnumerator FadeToZeroAlphaC(float duration, Action tickAction = null, Action endAction = null)
     {
         while (_canvasGroup.alpha > 0f)
         {
@@ -75,9 +80,15 @@ public class UIFader : MonoBehaviour
         if (TerminateOnFade) Destroy(gameObject);
     }
 
-    private IEnumerator ToggleAfterDelay(float t)
+    public IEnumerator ToggleFadeAfterC(float t)
     {
         yield return new WaitForSeconds(t);
         ToggleFade();
+    }
+
+    public IEnumerator FadeAfterC(float t, bool willBeVisible, Action endAction = null)
+    {
+        yield return new WaitForSeconds(t);
+        Fade(willBeVisible, endAction);
     }
 }

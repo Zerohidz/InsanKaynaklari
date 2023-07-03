@@ -7,12 +7,16 @@ public class DayController : SingletonMB<DayController>
 
     public bool DayEndingButNotYetEnded { get; private set; }
 
+    [Header("References")]
     [SerializeField] private Transform _cvParent;
     [SerializeField] private ShowCRButton _showCRButton;
     [SerializeField] private InfoPanel _infoPanel;
     [SerializeField] private ESCPanel _escPanel;
-    [SerializeField] private DayEndScreen _dayEndScreen;
     [SerializeField] private WarningPanel _warningPanel;
+
+    [Header("Prefabs")]
+    [SerializeField] private MessageScreen _messageScreenPrefab;
+    [SerializeField] private SpendingScreen _spendingScreenPrefab;
     [SerializeField] private CV[] _cvPrefabs;
     [SerializeField] private CR[] _crPrefabs;
     private CV _cv;
@@ -92,11 +96,21 @@ public class DayController : SingletonMB<DayController>
 
         // TODO: if (Son gün)
 
-        int netDecisionCount = _correctDecisionCount - Math.Clamp(_incorrectDecisionCount - FreeIncorrectDecisions, 0, _incorrectDecisionCount);
-        _dayEndScreen.SetInfo(MoneySystem.Instance.Money, netDecisionCount);
-        _dayEndScreen.SetVisible(true);
-
         Debug.Log("Gün bitti aga!");
-        SaveSystem.SaveCareerData(GameController.Instance.Day, MoneySystem.Instance.Money);
+
+        ShowMessageScreen();
+    }
+
+    private void ShowMessageScreen()
+    {
+        Instantiate(_messageScreenPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
+    }
+
+    public void ShowSpendingScreen()
+    {
+        SpendingScreen spendingScreen = Instantiate(_spendingScreenPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
+        int netDecisionCount = _correctDecisionCount - Math.Clamp(_incorrectDecisionCount - FreeIncorrectDecisions, 0, _incorrectDecisionCount);
+        spendingScreen.SetInfo(MoneySystem.Instance.Money, netDecisionCount);
+        spendingScreen.SetVisible(true);
     }
 }

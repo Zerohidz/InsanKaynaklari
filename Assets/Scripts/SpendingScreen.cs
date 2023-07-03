@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
-public class DayEndScreen : MonoBehaviour
+public class SpendingScreen : MonoBehaviour
 {
     [Header("Parameters")]
     [SerializeField] private int _rentPrice;
@@ -30,8 +30,7 @@ public class DayEndScreen : MonoBehaviour
     [SerializeField] private Image _line;
 
     [Header("Prefabs")]
-    [SerializeField] private Spending _spending;
-    [SerializeField] private MessageScreen _messageScreenPrefab;
+    [SerializeField] private Spending _spendingPrefab;
 
     private List<Spending> _newSpendings = new();
 
@@ -54,7 +53,7 @@ public class DayEndScreen : MonoBehaviour
 
     private Spending CreateNewSpending(string name, int price)
     {
-        var spending = Instantiate(_spending, _spendingsParent);
+        var spending = Instantiate(_spendingPrefab, _spendingsParent);
         spending.transform.SetSiblingIndex(_line.transform.GetSiblingIndex());
         spending.Initialize(name, price);
         spending.OnToggle += _ => UpdateTotalMoney();
@@ -108,7 +107,8 @@ public class DayEndScreen : MonoBehaviour
     {
         MoneySystem.Instance.Money = _totalMoney;
         SaveTheDay(saveNextDay: false);
-        Instantiate(_messageScreenPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
+
+        GameController.Instance.StartNewDay();
     }
 
     private void OnDestroy()
