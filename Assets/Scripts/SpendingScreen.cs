@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -11,14 +12,11 @@ public class SpendingScreen : MonoBehaviour
     [SerializeField] private int _rentPrice;
     [SerializeField] private int _foodPrice;
     [SerializeField] private int _heatPrice;
-
-    [Header("FamilyStatus")]
-    [SerializeField] private TMP_Text _fatherStatus;
-    [SerializeField] private TMP_Text _motherStatus;
-    [SerializeField] private TMP_Text _sisterStatus;
+    [SerializeField] private int _medicinePrice;
 
     [Header("References")]
     [SerializeField] private Transform _spendingsParent;
+    [SerializeField] private Transform _statusesParent;
     [SerializeField] private TMP_Text _day;
     [SerializeField] private TMP_Text _savingsText;
     [SerializeField] private TMP_Text _cvCount;
@@ -31,6 +29,7 @@ public class SpendingScreen : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField] private Spending _spendingPrefab;
+    [SerializeField] private Status _statusPrefab;
 
     private List<Spending> _newSpendings = new();
 
@@ -44,27 +43,80 @@ public class SpendingScreen : MonoBehaviour
 
     private void Awake()
     {
-        _newSpendings.Add(CreateNewSpending("Yemek", _foodPrice));
-        _newSpendings.Add(CreateNewSpending("Isýnma", _heatPrice));
-        //_newSpendings.Add(CreateNewSpending("Ýlaç", 10));
-
         _animator = GetComponent<Animator>();
-    }
-
-    private Spending CreateNewSpending(string name, int price)
-    {
-        var spending = Instantiate(_spendingPrefab, _spendingsParent);
-        spending.transform.SetSiblingIndex(_line.transform.GetSiblingIndex());
-        spending.Initialize(name, price);
-        spending.OnToggle += _ => UpdateTotalMoney();
-        _spendingsParent.Translate(0, spending.GetComponent<RectTransform>().rect.height / 2, 0);
-
-        return spending;
+        CreateStatuses();
+        CreateSpendings();
     }
 
     private void Start()
     {
         _day.text = "Gün " + GameController.Instance.Day.ToString();
+    }
+
+    private void CreateStatuses()
+    {
+        var familyStatus = SaveSystem.GameData.CareerData.FamilyStatus;
+        foreach (var statusData in familyStatus.AllStatuses)
+        {
+            var status = Instantiate(_statusPrefab, _statusesParent);
+            status.Initialize(statusData);
+        }
+    }
+
+    private void CreateSpendings()
+    {
+        var familyStatus = SaveSystem.GameData.CareerData.FamilyStatus;
+
+        var foodSpending = CreateNewSpending("Yemek", _foodPrice);
+        var heatSpending = CreateNewSpending("Isýnma", _heatPrice);
+        foodSpending.OnSpend += () =>
+        {
+            foreach (var status in familyStatus.AllStatuses)
+            {
+                if (!status.IsChangable)
+                    continue;
+                status.HungerState += foodSpending.Active ? 1 : -1;
+            }
+        };
+        heatSpending.OnSpend += () =>
+        {
+            foreach (var status in familyStatus.AllStatuses)
+            {
+                if (!status.IsChangable)
+                    continue;
+                status.ColdState += heatSpending.Active ? 1 : -1;
+            }
+        };
+        _newSpendings.Add(foodSpending);
+        _newSpendings.Add(heatSpending);
+
+        foreach (var status in familyStatus.AllStatuses)
+        {
+            if (status.NeededMedicine < 1)
+                return;
+            var medicineSpending = CreateNewSpending("Ýlaç", _medicinePrice, status.Name);
+            medicineSpending.OnSpend += () =>
+            {
+                foreach (var status in familyStatus.AllStatuses)
+                {
+                    if (!status.IsChangable)
+                        continue;
+                    status.ColdState += medicineSpending.Active ? 1 : -1;
+                }
+            };
+            _newSpendings.Add(medicineSpending);
+        }
+    }
+
+    private Spending CreateNewSpending(string name, int price, string description = null)
+    {
+        var spending = Instantiate(_spendingPrefab, _spendingsParent);
+        spending.transform.SetSiblingIndex(_line.transform.GetSiblingIndex());
+        spending.Initialize(name, price, description);
+        spending.OnToggle += _ => UpdateTotalMoney();
+        _spendingsParent.Translate(0, spending.GetComponent<RectTransform>().rect.height / 2, 0);
+
+        return spending;
     }
 
     private void SetSpendingTexts()
@@ -86,15 +138,8 @@ public class SpendingScreen : MonoBehaviour
             _salary = _netDecisionCount * 5;
         }
 
-        SetFamilyStatus();
         SetSpendingTexts();
         UpdateTotalMoney();
-    }
-
-    private void SetFamilyStatus()
-    {
-        var spendings = SaveSystem.GameData.CareerData.Spendings;
-        // TODO: set family status
     }
 
     private void UpdateTotalMoney()
@@ -133,7 +178,7 @@ public class SpendingScreen : MonoBehaviour
         if (saveNextDay)
             day++;
 
-        // TODO: Save family status
+        SpendNewSpendings();
         SaveSystem.SaveCareerData(day, _totalMoney);
         _saved = true;
     }
@@ -147,5 +192,10 @@ public class SpendingScreen : MonoBehaviour
     public void ToggleVisibility()
     {
         SetVisible(!IsVisible);
+    }
+
+    private void SpendNewSpendings()
+    {
+        _newSpendings.ForEach(s => s.Spend());
     }
 }

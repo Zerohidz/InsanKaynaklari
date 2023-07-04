@@ -52,13 +52,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9384e0b162f3f4593faff01754615a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameText: {fileID: 808179336792366091}
-  _valueText: {fileID: 8545052642420018605}
-  _cancelButton: {fileID: 3161337876857848767}
-  Active: 1
-  InitialValue: 0
+  NameText: {fileID: 808179336792366091}
+  ValueText: {fileID: 8545052642420018605}
+  CancelButton: {fileID: 3161337876857848767}
   ActiveColor: {r: 1, g: 0.2509804, b: 0.2509804, a: 1}
   InactiveColor: {r: 1, g: 1, b: 1, a: 1}
+  Active: 1
+  InitialValue: 0
 --- !u!1 &3521690971396141762
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,9 +316,9 @@ MonoBehaviour:
   m_fontSize: 30
   m_fontSizeBase: 30
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512

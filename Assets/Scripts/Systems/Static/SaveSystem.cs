@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -10,16 +11,8 @@ public class SaveSystem
     private static GameData _gameData;
     public static GameData GameData
     {
-        get
-        {
-            if (_gameData == null)
-                LoadGameData();
-            return _gameData;
-        }
-        private set
-        {
-            _gameData = value;
-        }
+        get => _gameData ??= GetGameData();
+        set => _gameData = value;
     }
 
     public static bool GameDataExists => File.Exists(_savePath);
@@ -28,20 +21,16 @@ public class SaveSystem
     private const string SaveFileName = "GameData.durs";
     private static string _savePath => Path.Combine(Application.persistentDataPath, SaveFileName);
 
-    public static void LoadGameData()
+    public static GameData GetGameData()
     {
         Debug.Log("Loading Game Data!");
-        if (GameDataExists)
-        {
-            Debug.Log("Game Data Exists!");
-            string encryptedGameDataString = ReadStringFromBinaryFile(_savePath);
-            string gameDataString = Decrypt(encryptedGameDataString);
-            GameData = JsonConvert.DeserializeObject<GameData>(gameDataString);
-        }
-        else
-        {
-            GameData = new GameData();
-        }
+        if (!GameDataExists)
+            return new GameData();
+
+        Debug.Log("Game Data Exists!");
+        string encryptedGameDataString = ReadStringFromBinaryFile(_savePath);
+        string gameDataString = Decrypt(encryptedGameDataString);
+        return JsonConvert.DeserializeObject<GameData>(gameDataString);
     }
 
     public static void SaveGameData()
@@ -85,21 +74,19 @@ public class SaveSystem
     private static string Encrypt(string clearString)
     {
         byte[] clearBytes = Encoding.Unicode.GetBytes(clearString);
-        using (Aes encryptor = Aes.Create())
-        {
-            Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionCodeWord, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
-            encryptor.Key = pdb.GetBytes(32);
-            encryptor.IV = pdb.GetBytes(16);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
-                {
-                    cs.Write(clearBytes, 0, clearBytes.Length);
-                    cs.Close();
-                }
-                clearString = Convert.ToBase64String(ms.ToArray());
-            }
-        }
+        using var encryptor = Aes.Create();
+
+        Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionCodeWord, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+        encryptor.Key = pdb.GetBytes(32);
+        encryptor.IV = pdb.GetBytes(16);
+
+        using var ms = new MemoryStream();
+        using var cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write);
+
+        cs.Write(clearBytes, 0, clearBytes.Length);
+        cs.Close();
+
+        clearString = Convert.ToBase64String(ms.ToArray());
         return clearString;
     }
 
@@ -107,32 +94,30 @@ public class SaveSystem
     {
         cipherString = cipherString.Replace(" ", "+");
         byte[] cipherBytes = Convert.FromBase64String(cipherString);
-        using (Aes encryptor = Aes.Create())
-        {
-            Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionCodeWord, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
-            encryptor.Key = pdb.GetBytes(32);
-            encryptor.IV = pdb.GetBytes(16);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
-                {
-                    cs.Write(cipherBytes, 0, cipherBytes.Length);
-                    cs.Close();
-                }
-                cipherString = Encoding.Unicode.GetString(ms.ToArray());
-            }
-        }
+        using var encryptor = Aes.Create();
+
+        var pdb = new Rfc2898DeriveBytes(EncryptionCodeWord, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+        encryptor.Key = pdb.GetBytes(32);
+        encryptor.IV = pdb.GetBytes(16);
+
+        using var ms = new MemoryStream();
+        using var cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write);
+
+        cs.Write(cipherBytes, 0, cipherBytes.Length);
+        cs.Close();
+
+        cipherString = Encoding.Unicode.GetString(ms.ToArray());
         return cipherString;
     }
 
-    public static void SaveCareerData(int? day = null, int? money = null, Spendings spendings = null)
+    public static void SaveCareerData(int? day = null, int? money = null, FamilyStatusData spendings = null)
     {
         if (day != null)
             GameData.CareerData.Day = day.Value;
         if (money != null)
             GameData.CareerData.Money = money.Value;
         if (spendings != null)
-            GameData.CareerData.Spendings = spendings;
+            GameData.CareerData.FamilyStatus = spendings;
 
         SaveGameData();
     }
@@ -140,11 +125,11 @@ public class SaveSystem
 
 public class GameData
 {
-    public Config Config = new Config();
-    public CareerData CareerData = new CareerData();
+    public ConfigData Config = new();
+    public CareerData CareerData = new();
 }
 
-public class Config
+public class ConfigData
 {
     public bool FirstTimeOpeningGame = true;
     public float SoundVolume = 0.6f;
@@ -154,12 +139,66 @@ public class CareerData
 {
     public int Day = 1;
     public int Money = 0;
-    public Spendings Spendings = new Spendings();
+    public FamilyStatusData FamilyStatus = new();
 }
 
-public class Spendings
+public class FamilyStatusData
 {
-    public int Father = 7;
-    public int Mother = 7;
-    public int Sister = 5;
+    public StatusData Father = new("Baba");
+    public StatusData Mother = new("Anne");
+    public StatusData Sister = new("Kýz Kardeþ");
+
+    public int NeededMedicineCount => Father.NeededMedicine
+                                    + Mother.NeededMedicine
+                                    + Sister.NeededMedicine;
+
+    public StatusData[] AllStatuses => new StatusData[] { Father, Mother, Sister };
+}
+
+public class StatusData
+{
+    // TODO: -'ye düþmesini engelle
+
+    public string Name;
+    public bool HasJustDied = false;
+    private State _hungerState = State.Well;
+    public State HungerState
+    {
+        get => _hungerState;
+        set
+        {
+            _hungerState = value;
+            if (_hungerState == State.Dead)
+                HasJustDied = true;
+        }
+    }
+    private State _coldState = State.Well;
+    public State ColdState
+    {
+        get => _coldState;
+        set
+        {
+            _coldState = value;
+            if (_coldState == State.Dead)
+                HasJustDied = true;
+        }
+    }
+
+    public bool IsWell => HungerState == State.Well && ColdState == State.Well;
+    public bool IsDead => HungerState == State.Dead || ColdState == State.Dead;
+    public bool IsChangable => !IsDead || HasJustDied;
+    public int NeededMedicine => ColdState == State.NearDead ? 1 : 0;
+
+    public StatusData(string name)
+    {
+        Name = name;
+    }
+
+    public enum State
+    {
+        Dead,
+        NearDead,
+        NotWell,
+        Well,
+    }
 }
