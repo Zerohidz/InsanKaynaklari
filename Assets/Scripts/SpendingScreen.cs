@@ -21,7 +21,6 @@ public class SpendingScreen : MonoBehaviour
     [SerializeField] private TMP_Text _savingsText;
     [SerializeField] private TMP_Text _cvCount;
     [SerializeField] private TMP_Text _salaryText;
-    [SerializeField] private TMP_Text _rentText;
     [SerializeField] private TMP_Text _totalText;
 
     [Header("Seperators")]
@@ -65,12 +64,9 @@ public class SpendingScreen : MonoBehaviour
 
     private void CreateSpendings()
     {
-        // TODO: Ýlaç vermezse ýsýnsa bile ölmeli
-
         var familyStatus = SaveSystem.GameData.CareerData.FamilyStatus;
-        if (familyStatus.AllDead)
-            return;
 
+        _newSpendings.Add(CreateNewSpending("Kira", _rentPrice));
         var foodSpending = CreateNewSpending("Yemek", _foodPrice);
         var heatSpending = CreateNewSpending("Isýnma", _heatPrice);
         foodSpending.OnSpend += () =>
@@ -112,8 +108,14 @@ public class SpendingScreen : MonoBehaviour
     {
         var spending = Instantiate(_spendingPrefab, _spendingsParent);
         spending.transform.SetSiblingIndex(_line.transform.GetSiblingIndex());
+        spending.OnToggle += _ =>
+        {
+            if (_newSpendings.Sum(s => s.Cost) + spending.Cost > _salary + _savings)
+                spending.Deactivate();
+            UpdateTotalMoney();
+        };
         spending.Initialize(name, price, description);
-        spending.OnToggle += _ => UpdateTotalMoney();
+
         _spendingsParent.Translate(0, spending.GetComponent<RectTransform>().rect.height / 2, 0);
 
         return spending;
@@ -121,8 +123,6 @@ public class SpendingScreen : MonoBehaviour
 
     private void SetSpendingTexts()
     {
-        _rentText.text = "-" + _rentPrice.ToString();
-
         _savingsText.text = _savings.ToString();
         _salaryText.text = _salary.ToString();
         _cvCount.text = $"({_netDecisionCount})";
@@ -145,6 +145,7 @@ public class SpendingScreen : MonoBehaviour
     private void UpdateTotalMoney()
     {
         _totalMoney = _savings + _salary - _rentPrice - _newSpendings.Sum(s => s.Cost);
+        _totalMoney = (int)Mathf.Clamp(_totalMoney, 0, Mathf.Infinity);
         _totalText.text = _totalMoney.ToString();
     }
 

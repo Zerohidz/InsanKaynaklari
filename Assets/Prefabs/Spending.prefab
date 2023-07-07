@@ -55,6 +55,7 @@ MonoBehaviour:
   NameText: {fileID: 808179336792366091}
   ValueText: {fileID: 8545052642420018605}
   CancelButton: {fileID: 3161337876857848767}
+  CancelButtonText: {fileID: 8817102657037039836}
   ActiveColor: {r: 1, g: 0.2509804, b: 0.2509804, a: 1}
   InactiveColor: {r: 1, g: 1, b: 1, a: 1}
   Active: 1
@@ -71,7 +72,6 @@ GameObject:
   - component: {fileID: 7164638939300174471}
   - component: {fileID: 2772734945129680822}
   - component: {fileID: 3161337876857848767}
-  - component: {fileID: 972375262764731053}
   m_Layer: 5
   m_Name: CancelButton
   m_TagString: Untagged
@@ -179,18 +179,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 972375262764731053}
-        m_TargetAssemblyTypeName: TogglableText, Assembly-CSharp
-        m_MethodName: Toggle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 7244413276849539240}
         m_TargetAssemblyTypeName: Spending, Assembly-CSharp
         m_MethodName: Toggle
@@ -203,23 +191,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &972375262764731053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3521690971396141762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b1a7098226973a4ea7232a970eaf46a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Texts:
-  - '-'
-  - +
-  TextIndex: 0
-  _text: {fileID: 8817102657037039836}
 --- !u!1 &5230278928937058898
 GameObject:
   m_ObjectHideFlags: 0

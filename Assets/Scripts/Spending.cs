@@ -8,6 +8,7 @@ public class Spending : MonoBehaviour
     [SerializeField] private TMP_Text NameText;
     [SerializeField] private TMP_Text ValueText;
     [SerializeField] private Button CancelButton;
+    [SerializeField] private TMP_Text CancelButtonText;
 
     public event Action OnSpend;
     public event ToggleEvent OnToggle;
@@ -46,20 +47,12 @@ public class Spending : MonoBehaviour
 
     public void Activate()
     {
-        ValueText.text = "-" + InitialValue.ToString();
-        NameText.color = ActiveColor;
-        ValueText.color = ActiveColor;
-        Active = true;
-        OnToggle?.Invoke(true);
+        SetActive(true);
     }
 
     public void Deactivate()
     {
-        ValueText.text = "0";
-        NameText.color = InactiveColor;
-        ValueText.color = InactiveColor;
-        Active = false;
-        OnToggle?.Invoke(false);
+        SetActive(false);
     }
 
     public void Toggle()
@@ -73,5 +66,15 @@ public class Spending : MonoBehaviour
     public void Spend()
     {
         OnSpend?.Invoke();
+    }
+
+    private void SetActive(bool activeness)
+    {
+        ValueText.text = activeness ? "-" + InitialValue.ToString() : "0";
+        CancelButtonText.text = activeness ? "-" : "+";
+        NameText.color = activeness ? ActiveColor : InactiveColor;
+        ValueText.color = NameText.color;
+        Active = activeness;
+        OnToggle?.Invoke(activeness);
     }
 }
