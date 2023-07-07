@@ -65,7 +65,11 @@ public class SpendingScreen : MonoBehaviour
 
     private void CreateSpendings()
     {
+        // TODO: Ýlaç vermezse ýsýnsa bile ölmeli
+
         var familyStatus = SaveSystem.GameData.CareerData.FamilyStatus;
+        if (familyStatus.AllDead)
+            return;
 
         var foodSpending = CreateNewSpending("Yemek", _foodPrice);
         var heatSpending = CreateNewSpending("Isýnma", _heatPrice);
@@ -92,17 +96,13 @@ public class SpendingScreen : MonoBehaviour
 
         foreach (var status in familyStatus.AllStatuses)
         {
-            if (status.NeededMedicine < 1)
-                return;
+            if (!status.NeedsMedicine)
+                continue;
+
             var medicineSpending = CreateNewSpending("Ýlaç", _medicinePrice, status.Name);
             medicineSpending.OnSpend += () =>
             {
-                foreach (var status in familyStatus.AllStatuses)
-                {
-                    if (!status.IsChangable)
-                        continue;
-                    status.ColdState += medicineSpending.Active ? 1 : -1;
-                }
+                status.ColdState += medicineSpending.Active ? 1 : -1;
             };
             _newSpendings.Add(medicineSpending);
         }

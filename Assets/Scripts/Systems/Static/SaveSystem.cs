@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
@@ -153,12 +154,12 @@ public class FamilyStatusData
                                     + Sister.NeededMedicine;
 
     public StatusData[] AllStatuses => new StatusData[] { Father, Mother, Sister };
+
+    public bool AllDead => AllStatuses.Select(s => s.IsDead).Where(s => s == false).Any() == false;
 }
 
 public class StatusData
 {
-    // TODO: -'ye düþmesini engelle
-
     public string Name;
     public bool HasJustDied = false;
     private State _hungerState = State.Well;
@@ -167,6 +168,7 @@ public class StatusData
         get => _hungerState;
         set
         {
+            value = EnumHelper.GetClamped(value);
             _hungerState = value;
             if (_hungerState == State.Dead)
                 HasJustDied = true;
@@ -178,6 +180,7 @@ public class StatusData
         get => _coldState;
         set
         {
+            value = EnumHelper.GetClamped(value);
             _coldState = value;
             if (_coldState == State.Dead)
                 HasJustDied = true;
@@ -187,7 +190,8 @@ public class StatusData
     public bool IsWell => HungerState == State.Well && ColdState == State.Well;
     public bool IsDead => HungerState == State.Dead || ColdState == State.Dead;
     public bool IsChangable => !IsDead || HasJustDied;
-    public int NeededMedicine => ColdState == State.NearDead ? 1 : 0;
+    public bool NeedsMedicine => ColdState == State.NearDead;
+    public int NeededMedicine => NeedsMedicine ? 1 : 0;
 
     public StatusData(string name)
     {

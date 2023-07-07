@@ -30,4 +30,14 @@ public static class EnumHelper
 
         return array.ToArray();
     }
+
+    public static T GetClamped<T>(T value) where T : Enum
+    {
+        var underlyingType = Enum.GetUnderlyingType(typeof(T));
+        var minValue = Convert.ChangeType(Enum.GetValues(typeof(T)).GetValue(0), underlyingType);
+        var maxValue = Convert.ChangeType(Enum.GetValues(typeof(T)).GetValue(Enum.GetValues(typeof(T)).Length - 1), underlyingType);
+
+        return (T)Enum.ToObject(typeof(T), Math.Clamp(Convert.ToInt64(value), Convert.ToInt64(minValue), Convert.ToInt64(maxValue)));
+    }
+
 }
