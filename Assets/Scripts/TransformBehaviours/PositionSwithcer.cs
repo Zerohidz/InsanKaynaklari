@@ -14,9 +14,9 @@ public class PositionSwithcer : MonoBehaviour
 
     [Header("Child Movement")]
     public Transform Child;
+    public bool InDestination;
 
     private Vector3 _initialPoisition;
-    private bool _inDestination;
 
     private void Awake()
     {
@@ -25,12 +25,12 @@ public class PositionSwithcer : MonoBehaviour
 
     public void Switch()
     {
-        var targetPosition = _inDestination ? _initialPoisition : GetDestinationPosition();
+        var targetPosition = InDestination ? _initialPoisition : GetDestinationPosition();
         StopAllCoroutines();
         StartCoroutine(LerpPositionCoroutine(GetSpringPosition(), _springTime, endAction: () =>
         {
             StartCoroutine(LerpPositionCoroutine(targetPosition, _displayTime));
-            _inDestination = !_inDestination;
+            InDestination = !InDestination;
         }));
     }
 

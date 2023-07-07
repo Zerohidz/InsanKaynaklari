@@ -36,23 +36,25 @@ public class Spending : MonoBehaviour
 
     public int Cost => Active ? InitialValue : 0;
 
-    public void Initialize(string name, int value, string description = null)
+    public void Initialize(string name, int value, string description = null, bool togglable = true)
     {
         _name = name;
         NameText.text = _name;
         InitialValue = value;
         Description = description;
+        if (!togglable)
+            CancelButton.gameObject.SetActive(false);
         Activate();
     }
 
-    public void Activate()
+    public void Activate(bool skipOnToggle = false)
     {
-        SetActive(true);
+        SetActive(true, skipOnToggle);
     }
 
-    public void Deactivate()
+    public void Deactivate(bool skipOnToggle = false)
     {
-        SetActive(false);
+        SetActive(false, skipOnToggle);
     }
 
     public void Toggle()
@@ -63,18 +65,27 @@ public class Spending : MonoBehaviour
             Activate();
     }
 
+    public void Toggle(bool skipOnToggle)
+    {
+        if (Active)
+            Deactivate(skipOnToggle);
+        else
+            Activate(skipOnToggle);
+    }
+
     public void Spend()
     {
         OnSpend?.Invoke();
     }
 
-    private void SetActive(bool activeness)
+    private void SetActive(bool activeness, bool skipOnToggle = false)
     {
         ValueText.text = activeness ? "-" + InitialValue.ToString() : "0";
         CancelButtonText.text = activeness ? "-" : "+";
         NameText.color = activeness ? ActiveColor : InactiveColor;
         ValueText.color = NameText.color;
         Active = activeness;
-        OnToggle?.Invoke(activeness);
+        if (!skipOnToggle)
+            OnToggle?.Invoke(activeness);
     }
 }

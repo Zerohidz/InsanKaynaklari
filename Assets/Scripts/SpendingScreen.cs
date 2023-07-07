@@ -30,7 +30,7 @@ public class SpendingScreen : MonoBehaviour
     [SerializeField] private Spending _spendingPrefab;
     [SerializeField] private Status _statusPrefab;
 
-    private List<Spending> _newSpendings = new();
+    private List<Spending> _spendings = new();
 
     public bool IsVisible { get; private set; }
     private Animator _animator;
@@ -66,7 +66,7 @@ public class SpendingScreen : MonoBehaviour
     {
         var familyStatus = SaveSystem.GameData.CareerData.FamilyStatus;
 
-        _newSpendings.Add(CreateNewSpending("Kira", _rentPrice));
+        CreateNewSpending("Kira", _rentPrice, togglable: false);
         var foodSpending = CreateNewSpending("Yemek", _foodPrice);
         var heatSpending = CreateNewSpending("Isýnma", _heatPrice);
         foodSpending.OnSpend += () =>
@@ -87,8 +87,8 @@ public class SpendingScreen : MonoBehaviour
                 status.ColdState += heatSpending.Active ? 1 : -1;
             }
         };
-        _newSpendings.Add(foodSpending);
-        _newSpendings.Add(heatSpending);
+        _spendings.Add(foodSpending);
+        _spendings.Add(heatSpending);
 
         foreach (var status in familyStatus.AllStatuses)
         {
@@ -100,25 +100,32 @@ public class SpendingScreen : MonoBehaviour
             {
                 status.ColdState += medicineSpending.Active ? 1 : -1;
             };
-            _newSpendings.Add(medicineSpending);
+            _spendings.Add(medicineSpending);
         }
     }
 
-    private Spending CreateNewSpending(string name, int price, string description = null)
+    private Spending CreateNewSpending(string name, int price, string description = null, bool togglable = true)
     {
         var spending = Instantiate(_spendingPrefab, _spendingsParent);
         spending.transform.SetSiblingIndex(_line.transform.GetSiblingIndex());
-        spending.OnToggle += _ =>
-        {
-            if (_newSpendings.Sum(s => s.Cost) + spending.Cost > _salary + _savings)
-                spending.Deactivate();
-            UpdateTotalMoney();
-        };
-        spending.Initialize(name, price, description);
+        if (togglable)
+            spending.OnToggle += _ =>
+            {
+                // GetTotalCost() hesabýnda þu an spending aktif
+                if (GetTotalCost() > _salary + _savings)
+                    spending.Deactivate(true);
+                UpdateTotalMoney();
+            };
+        spending.Initialize(name, price, description, togglable);
 
         _spendingsParent.Translate(0, spending.GetComponent<RectTransform>().rect.height / 2, 0);
 
         return spending;
+    }
+
+    private int GetTotalCost()
+    {
+        return _spendings.Sum(s => s.Cost) + _rentPrice;
     }
 
     private void SetSpendingTexts()
@@ -144,8 +151,7 @@ public class SpendingScreen : MonoBehaviour
 
     private void UpdateTotalMoney()
     {
-        _totalMoney = _savings + _salary - _rentPrice - _newSpendings.Sum(s => s.Cost);
-        _totalMoney = (int)Mathf.Clamp(_totalMoney, 0, Mathf.Infinity);
+        _totalMoney = _savings + _salary - GetTotalCost();
         _totalText.text = _totalMoney.ToString();
     }
 
@@ -175,6 +181,12 @@ public class SpendingScreen : MonoBehaviour
 
     private void SaveTheDay(bool saveNextDay = true)
     {
+        if (_totalMoney < 0)
+        {
+            GameController.Instance.LoseTheGame();
+            return;
+        }
+
         int day = SaveSystem.GameData.CareerData.Day;
         if (saveNextDay)
             day++;
@@ -197,6 +209,6 @@ public class SpendingScreen : MonoBehaviour
 
     private void SpendNewSpendings()
     {
-        _newSpendings.ForEach(s => s.Spend());
+        _spendings.ForEach(s => s.Spend());
     }
 }

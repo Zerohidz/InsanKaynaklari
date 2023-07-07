@@ -135,7 +135,6 @@ MonoBehaviour:
   _savingsText: {fileID: 8114148333561572619}
   _cvCount: {fileID: 6596548794591391767}
   _salaryText: {fileID: 3703130750215990071}
-  _rentText: {fileID: 0}
   _totalText: {fileID: 8728832385179673721}
   _line: {fileID: 8128042316568628183}
   _spendingPrefab: {fileID: 7244413276849539240, guid: a1b1e7bd922a07b4fbe0933390cc89f8, type: 3}

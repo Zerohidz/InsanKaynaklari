@@ -47,5 +47,17 @@ public class GameController : SingletonMB<GameController>
         SceneController.Instance.LoadSceneWithTransition("Day");
         IsPaused = false;
     }
+
+    public void WinTheGame()
+    {
+        Debug.Log("Oyunu kazandýn hýyar");
+        // TODO: kazanma ekraný
+    }
+
+    public void LoseTheGame()
+    {
+        Debug.Log("Oyunu kaybettin hýyar");
+        // TODO: kaybetme ekraný ver
+    }
 }
 

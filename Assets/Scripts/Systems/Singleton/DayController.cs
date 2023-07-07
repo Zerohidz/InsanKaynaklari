@@ -31,6 +31,7 @@ public class DayController : SingletonMB<DayController>
         _showCRButton.SetCR(_crPrefabs[_day < 3 ? 0 : 1]);
 
         GetNewCV();
+        _showCRButton.Press();
     }
 
     private void Update()
@@ -66,9 +67,15 @@ public class DayController : SingletonMB<DayController>
             return;
 
         if (accepted)
+        {
             _cv.Accept();
+            _showCRButton.Hide();
+        }
         else
+        {
             _cv.Reject();
+            _showCRButton.Hide();
+        }
         _cv = null;
 
         if (accepted == PersonManger.Instance.CurrentPersonInfo.IsCorrect)
@@ -79,7 +86,7 @@ public class DayController : SingletonMB<DayController>
         else
         {
             _incorrectDecisionCount++;
-            _warningPanel.ShowWarning("Yanlýþ Karar", false);
+            _warningPanel.ShowWarning("Yanlýþ Karar\n" + (_incorrectDecisionCount <= 2 ? "(Ceza yok)" : "(Ceza -5 dolar)"), false);
         }
 
         if (DayEndingButNotYetEnded)

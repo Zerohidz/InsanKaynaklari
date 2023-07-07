@@ -1597,9 +1597,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1846401727}
-        m_TargetAssemblyTypeName: PositionSwithcer, Assembly-CSharp
-        m_MethodName: Switch
+      - m_Target: {fileID: 1846401728}
+        m_TargetAssemblyTypeName: ShowCRButton, Assembly-CSharp
+        m_MethodName: Press
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1661,6 +1661,7 @@ MonoBehaviour:
   _springTime: 0.25
   _springLength: 15
   Child: {fileID: 0}
+  InDestination: 0
 --- !u!114 &1846401728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2463,7 +2464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9087928821811704892, guid: 2de8b61ed3ef15f47b359f6097f09b28, type: 3}
       propertyPath: RealTimeSpanSeconds
-      value: 60
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

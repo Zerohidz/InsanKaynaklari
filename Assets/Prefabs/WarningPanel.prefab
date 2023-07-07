@@ -97,7 +97,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Do\u011Fru Karar"
+  m_text: "Yanl\u0131\u015F Karar\n(Ceza -5 dolar)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
   m_sharedMaterial: {fileID: -2576088356904373890, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
@@ -124,12 +124,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
+  m_fontSize: 24.7
   m_fontSizeBase: 25
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 25
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
