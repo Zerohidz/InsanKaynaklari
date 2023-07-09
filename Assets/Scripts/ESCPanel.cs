@@ -16,7 +16,7 @@ public class ESCPanel : MonoBehaviour
 
     public void OnQuitButtonPressed()
     {
-        SceneManager.LoadScene("MainMenu");
+        Quit();
     }
 
     public void ToggleShow()
@@ -57,5 +57,11 @@ public class ESCPanel : MonoBehaviour
         QuitButton.gameObject.SetActive(false);
 
         GameController.Instance.GameState = GameState.Day;
+    }
+
+    private static void Quit()
+    {
+        GameController.Instance.GameState = GameState.MainMenu;
+        SceneManager.LoadScene("MainMenu");
     }
 }

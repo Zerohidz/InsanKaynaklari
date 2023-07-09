@@ -5,9 +5,21 @@ using UnityEngine.SceneManagement;
 public class GameController : SingletonMB<GameController>
 {
     public static event Action<int> OnDayChanged;
-    public GameState GameState { get; set; }
     public bool IsPaused => GameState == GameState.Paused;
 
+    private GameState _previousGameState;
+
+    private GameState _gameState;
+    public GameState GameState
+    {
+        get => _gameState;
+        set
+        {
+            _previousGameState = _gameState;
+            _gameState = value;
+            Debug.Log(_gameState);
+        }
+    }
     private int _day;
     /// <summary>
     /// Starts from 1
@@ -21,7 +33,6 @@ public class GameController : SingletonMB<GameController>
             OnDayChanged?.Invoke(value);
         }
     }
-
 
     public override void Reset()
     {
@@ -50,13 +61,15 @@ public class GameController : SingletonMB<GameController>
         LoadDay();
     }
 
-    private void LoadDay()
+    public void RevertToPreviousGameState()
     {
-        SceneController.Instance.LoadSceneWithTransition("Day");
+        // Rethink: Bu problemli olabilir
+        GameState = _previousGameState;
     }
 
     public void ShowTutorial()
     {
+        GameState = GameState.Tutorial;
         Debug.Log("Tutorial baþlatýlýyor.");
         // TODO: tutorial
     }
@@ -76,6 +89,11 @@ public class GameController : SingletonMB<GameController>
 
         Debug.Log("Oyunu kaybettin hýyar");
         // TODO: kaybetme ekraný ver
+    }
+
+    private void LoadDay()
+    {
+        SceneController.Instance.LoadSceneWithTransition("Day");
     }
 
     private void HandleSavedGameState()

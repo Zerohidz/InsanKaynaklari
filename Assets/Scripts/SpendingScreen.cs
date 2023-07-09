@@ -196,6 +196,10 @@ public class SpendingScreen : MonoBehaviour
 
     public void SetVisible(bool willBeVisible)
     {
+        if (willBeVisible)
+            GameController.Instance.GameState = GameState.SpendingScreen;
+        else
+            GameController.Instance.RevertToPreviousGameState();
         IsVisible = willBeVisible;
         _animator.SetBool("Showing", true);
     }
