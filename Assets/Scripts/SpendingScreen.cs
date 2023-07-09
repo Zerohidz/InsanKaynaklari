@@ -47,11 +47,6 @@ public class SpendingScreen : MonoBehaviour
         CreateSpendings();
     }
 
-    private void Start()
-    {
-        _day.text = "Gün " + GameController.Instance.Day.ToString();
-    }
-
     private void CreateStatuses()
     {
         var familyStatus = SaveSystem.GameData.CareerData.FamilyStatus;
@@ -145,6 +140,7 @@ public class SpendingScreen : MonoBehaviour
             _salary = _netDecisionCount * 5;
         }
 
+        _day.text = "Gün " + GameController.Instance.Day.ToString();
         SetSpendingTexts();
         UpdateTotalMoney();
     }
@@ -153,6 +149,9 @@ public class SpendingScreen : MonoBehaviour
     {
         _totalMoney = _savings + _salary - GetTotalCost();
         _totalText.text = _totalMoney.ToString();
+
+        if (_totalMoney < 0 && GameController.Instance.GameState != GameState.LoseScreen)
+            GameController.Instance.LoseTheGame();
     }
 
     public void OnContinueButtonPressed()
@@ -183,10 +182,9 @@ public class SpendingScreen : MonoBehaviour
     {
         if (_totalMoney < 0)
         {
-            GameController.Instance.LoseTheGame();
+            SaveSystem.SaveLostGame();
             return;
         }
-
         int day = SaveSystem.GameData.CareerData.Day;
         if (saveNextDay)
             day++;

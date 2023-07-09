@@ -83,7 +83,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662149158312368683}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0.79
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -426,6 +426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 8219932844523185607}
+  _fadeDuration: 1
   _backgroundFader: {fileID: 8191139081655489484}
   _parentFader: {fileID: 2533137332001913590}
 --- !u!1 &7508420992518420174

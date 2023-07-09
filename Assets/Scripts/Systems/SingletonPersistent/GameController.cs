@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameController : SingletonMB<GameController>
 {
     public static event Action<int> OnDayChanged;
-    public GameState CurrentGameState { get; set; }
+    public GameState GameState { get; set; }
     public bool IsPaused { get; set; }
 
     private int _day;
@@ -22,21 +22,29 @@ public class GameController : SingletonMB<GameController>
         }
     }
 
+
     public override void Reset()
     {
         Day = SaveSystem.GameData.CareerData.Day;
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        if (IsBeingDestroyed) return;
+
+        Reset();
+        HandleSavedGameState();
+    }
+
     public void StartGame()
     {
-        Day = SaveSystem.GameData.CareerData.Day;
         LoadDay();
     }
 
     public void StartNewDay()
     {
         Day++;
-        // TODO: if the day is greater than 5, show EndScene
         SaveSystem.GameData.CareerData.Day = Day;
         SaveSystem.SaveGameData();
         LoadDay();
@@ -48,16 +56,41 @@ public class GameController : SingletonMB<GameController>
         IsPaused = false;
     }
 
+    public void ShowTutorial()
+    {
+        Debug.Log("Tutorial baþlatýlýyor.");
+        // TODO: tutorial
+    }
+
     public void WinTheGame()
     {
+        GameState = GameState.WinScreen;
+        SaveSystem.SaveMaxScore(Day);
         Debug.Log("Oyunu kazandýn hýyar");
         // TODO: kazanma ekraný
     }
 
     public void LoseTheGame()
     {
+        GameState = GameState.LoseScreen;
+        SaveSystem.SaveMaxScore(Day);
+
         Debug.Log("Oyunu kaybettin hýyar");
         // TODO: kaybetme ekraný ver
+    }
+
+    private void HandleSavedGameState()
+    {
+        var gameState = SaveSystem.GameData.Config.GameState;
+
+        switch (gameState)
+        {
+            case GameState.Tutorial:
+                ShowTutorial();
+                break;
+            default:
+                break;
+        }
     }
 }
 

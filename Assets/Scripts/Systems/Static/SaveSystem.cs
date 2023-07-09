@@ -122,6 +122,24 @@ public class SaveSystem
 
         SaveGameData();
     }
+
+    public static void SaveWonGame()
+    {
+        GameData.Config.GameState = GameState.WinScreen;
+        SaveGameData();
+    }
+
+    public static void SaveLostGame()
+    {
+        GameData.Config.GameState = GameState.LoseScreen;
+        SaveGameData();
+    }
+
+    public static void SaveMaxScore(int day)
+    {
+        GameData.Config.MaxScore = day;
+        SaveGameData();
+    }
 }
 
 public class GameData
@@ -132,7 +150,9 @@ public class GameData
 
 public class ConfigData
 {
-    public bool FirstTimeOpeningGame = true;
+    public GameState GameState = GameState.Tutorial;
+    // TODO: Max score
+    public int MaxScore = 0;
     public float SoundVolume = 0.6f;
 }
 

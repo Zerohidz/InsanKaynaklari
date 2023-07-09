@@ -4,7 +4,11 @@ using UnityEngine;
 
 public enum GameState
 {
+    Tutorial,
     MainMenu,
-    Game,
-    GameOver
+    Day,
+    Paused,
+    SpendingScreen,
+    WinScreen,
+    LoseScreen,
 }
