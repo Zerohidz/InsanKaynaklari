@@ -5,7 +5,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SaveSystemMenu : MonoBehaviour
+public class SaveSystemMenu
 {
     [MenuItem("Save System/Delete Game Data")]
     public static void DeleteGameData()

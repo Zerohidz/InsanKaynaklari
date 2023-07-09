@@ -13,7 +13,7 @@ public class InfoPanel : MonoBehaviour
     private void Start()
     {
         DigitalClock.Configure(DateTime.Parse("08:00"), DateTime.Parse("17:00"), TimeSpan.FromSeconds(RealTimeSpanSeconds), TimeSpan.FromMinutes(15));
-        DigitalClock.OnTimeUp.AddListener(() => DayController.Instance.EndDay());
+        DigitalClock.OnTimeUp.AddListener(() => DayController.Instance.EndTheDay());
         DigitalClock.Run();
 
         DaySign.SetText(GameController.Instance.Day.ToString());

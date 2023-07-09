@@ -150,7 +150,8 @@ public class GameData
 
 public class ConfigData
 {
-    public GameState GameState = GameState.Tutorial;
+    // TODO: Tutorial gelince bunu yap
+    public GameState GameState = GameState.MainMenu;
     // TODO: Max score
     public int MaxScore = 0;
     public float SoundVolume = 0.6f;

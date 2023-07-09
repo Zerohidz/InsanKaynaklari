@@ -6,7 +6,7 @@ public class GameController : SingletonMB<GameController>
 {
     public static event Action<int> OnDayChanged;
     public GameState GameState { get; set; }
-    public bool IsPaused { get; set; }
+    public bool IsPaused => GameState == GameState.Paused;
 
     private int _day;
     /// <summary>
@@ -53,7 +53,6 @@ public class GameController : SingletonMB<GameController>
     private void LoadDay()
     {
         SceneController.Instance.LoadSceneWithTransition("Day");
-        IsPaused = false;
     }
 
     public void ShowTutorial()

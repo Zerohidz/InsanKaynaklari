@@ -46,7 +46,7 @@ public class ESCPanel : MonoBehaviour
         ResumeButton.gameObject.SetActive(true);
         QuitButton.gameObject.SetActive(true);
 
-        GameController.Instance.IsPaused = true;
+        GameController.Instance.GameState = GameState.Paused;
     }
 
     private void Unpause()
@@ -56,6 +56,6 @@ public class ESCPanel : MonoBehaviour
         ResumeButton.gameObject.SetActive(false);
         QuitButton.gameObject.SetActive(false);
 
-        GameController.Instance.IsPaused = false;
+        GameController.Instance.GameState = GameState.Day;
     }
 }

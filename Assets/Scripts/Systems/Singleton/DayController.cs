@@ -27,6 +27,7 @@ public class DayController : SingletonMB<DayController>
 
     private void Start()
     {
+        GameController.Instance.GameState = GameState.Day;
         _day = GameController.Instance.Day;
         _showCRButton.SetCR(_crPrefabs[_day < 3 ? 0 : 1]);
 
@@ -38,7 +39,7 @@ public class DayController : SingletonMB<DayController>
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
-            EndDay();
+            EndTheDay();
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -90,10 +91,10 @@ public class DayController : SingletonMB<DayController>
         }
 
         if (DayEndingButNotYetEnded)
-            EndDay();
+            EndTheDay();
     }
 
-    public void EndDay()
+    public void EndTheDay()
     {
         if (_cv != null)
         {
@@ -106,6 +107,11 @@ public class DayController : SingletonMB<DayController>
         Debug.Log("Gün bitti aga!");
 
         ShowMessageScreen();
+    }
+
+    public void ForceEndTheDay()
+    {
+        _infoPanel.DigitalClock.ForceTimeUp();
     }
 
     private void ShowMessageScreen()
