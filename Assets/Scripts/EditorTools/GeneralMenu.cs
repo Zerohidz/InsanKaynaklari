@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using System.Collections;
@@ -18,3 +19,5 @@ public static class GeneralMenu
         EditorApplication.isPlaying = true;
     }
 }
+
+#endif

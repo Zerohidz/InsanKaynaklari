@@ -125,11 +125,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43dbad14d28a2c346bc9a354973b0157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rentPrice: 25
-  _foodPrice: 5
-  _heatPrice: 5
+  _rentPrice: 35
+  _foodPrice: 10
+  _heatPrice: 10
   _medicinePrice: 10
-  _operationPrice: 150
+  _operationPrice: 250
   _spendingsParent: {fileID: 978392916210420530}
   _statusesParent: {fileID: 2048813908676225352}
   _day: {fileID: 5201025603341024278}

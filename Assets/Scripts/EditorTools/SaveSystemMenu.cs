@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
-using UnityEditor.SceneManagement;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SaveSystemMenu
 {
@@ -13,3 +9,4 @@ public class SaveSystemMenu
         SaveSystem.DeleteGameData();
     }
 }
+#endif
