@@ -87,18 +87,33 @@ public class GameController : SingletonMB<GameController>
     public void WinTheGame()
     {
         GameState = GameState.WinScreen;
+        SaveSystem.ResetCareerData();
         SaveSystem.SaveMaxScore(Day);
         Debug.Log("Oyunu kazandýn hýyar");
-        // TODO: kazanma ekraný
+
+        var messageScreen = Instantiate(_messageScreenPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
+        messageScreen.Initialize(DatabaseManager.Instance.WinMessage);
+        messageScreen.OnContinueButtonPressed += () =>
+        {
+            GameState = GameState.WinScreen;
+            SceneController.Instance.LoadSceneWithTransition("MainMenu", 1);
+        };
     }
 
-    public void LoseTheGame()
+    public void LoseTheGame(string message)
     {
         GameState = GameState.LoseScreen;
+        SaveSystem.ResetCareerData();
         SaveSystem.SaveMaxScore(Day);
-
         Debug.Log("Oyunu kaybettin hýyar");
-        // TODO: kaybetme ekraný ver
+
+        var messageScreen = Instantiate(_messageScreenPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
+        messageScreen.Initialize(message);
+        messageScreen.OnContinueButtonPressed += () =>
+        {
+            GameState = GameState.LoseScreen;
+            SceneController.Instance.LoadSceneWithTransition("MainMenu", 1);
+        };
     }
 
     private void LoadDay()

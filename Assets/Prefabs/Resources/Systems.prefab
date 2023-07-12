@@ -47,7 +47,7 @@ MonoBehaviour:
   _dayEndMessagesFile: {fileID: 4900000, guid: 7d5b60f026ad17e44b5521400ed6dbb9, type: 3}
   _tutorialMessageFile: {fileID: 4900000, guid: 104de6db52ef2f14481d7c12a1bb79b5, type: 3}
   _winMessageFile: {fileID: 4900000, guid: 95ef75dc421712c4d9561d1f19f20e84, type: 3}
-  _loseMessageFile: {fileID: 4900000, guid: 50931af5695e242469f363ee0dc798d9, type: 3}
+  _loseMessagesFile: {fileID: 4900000, guid: 50931af5695e242469f363ee0dc798d9, type: 3}
 --- !u!1 &514445558323474961
 GameObject:
   m_ObjectHideFlags: 0

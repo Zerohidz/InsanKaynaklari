@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -17,6 +16,7 @@ public class SaveSystem
     }
 
     public static bool GameDataExists => File.Exists(_savePath);
+    public static bool CareerDataExists => !GameData.CareerData.Equals(new CareerData()); 
 
     private const string EncryptionCodeWord = "EntabiyleKodYazmaca";
     private const string SaveFileName = "GameData.durs";
@@ -52,6 +52,7 @@ public class SaveSystem
     {
         GameData.CareerData = new();
         SaveGameData();
+        Systems.Instance.Reset();
     }
 
     public static void ResetGameData()
@@ -174,6 +175,24 @@ public class CareerData
     public int Day = 1;
     public int Money = 0;
     public FamilyStatusData FamilyStatus = new();
+
+    //TODO: Temizle burayý
+    public override bool Equals(object obj)
+    {
+        if (obj is not CareerData)
+            return false;
+
+        var other = (CareerData)obj;
+
+        return other.Day.Equals(Day) 
+            && other.Money.Equals(Money) 
+            && other.FamilyStatus.Equals(FamilyStatus);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }
 
 public class FamilyStatusData
@@ -189,6 +208,24 @@ public class FamilyStatusData
     public StatusData[] AllStatuses => new StatusData[] { Father, Mother, Sister };
 
     public bool AllDead => AllStatuses.Select(s => s.IsDead).Where(s => s == false).Any() == false;
+
+    //TODO: Temizle burayý
+    public override bool Equals(object obj)
+    {
+        if (obj is not FamilyStatusData)
+            return false;
+
+        var other = (FamilyStatusData)obj;
+
+        return other.Father.Equals(Father)
+            && other.Mother.Equals(Mother)
+            && other.Sister.Equals(Sister);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }
 
 public class StatusData
@@ -237,5 +274,24 @@ public class StatusData
         NearDead,
         NotWell,
         Well,
+    }
+
+    //TODO: Temizle burayý
+    public override bool Equals(object obj)
+    {
+        if (obj is not StatusData)
+            return false;
+
+        var other = (StatusData)obj;
+
+        return other.Name.Equals(Name)
+            && other.HasJustDied.Equals(HasJustDied)
+            && other.HungerState.Equals(HungerState)
+            && other.ColdState.Equals(ColdState);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
     }
 }

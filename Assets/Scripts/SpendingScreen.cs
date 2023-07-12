@@ -13,6 +13,7 @@ public class SpendingScreen : MonoBehaviour
     [SerializeField] private int _foodPrice;
     [SerializeField] private int _heatPrice;
     [SerializeField] private int _medicinePrice;
+    [SerializeField] private int _operationPrice;
 
     [Header("References")]
     [SerializeField] private Transform _spendingsParent;
@@ -33,6 +34,8 @@ public class SpendingScreen : MonoBehaviour
     private List<Spending> _spendings = new();
 
     public bool IsVisible { get; private set; }
+
+    private Spending _operationSpending;
     private Animator _animator;
     private int _totalMoney = 0;
     private int _savings;
@@ -64,6 +67,9 @@ public class SpendingScreen : MonoBehaviour
         CreateNewSpending("Kira", _rentPrice, togglable: false);
         var foodSpending = CreateNewSpending("Yemek", _foodPrice);
         var heatSpending = CreateNewSpending("Isýnma", _heatPrice);
+        _spendings.Add(foodSpending);
+        _spendings.Add(heatSpending);
+
         foodSpending.OnSpend += () =>
         {
             foreach (var status in familyStatus.AllStatuses)
@@ -82,8 +88,6 @@ public class SpendingScreen : MonoBehaviour
                 status.ColdState += heatSpending.Active ? 1 : -1;
             }
         };
-        _spendings.Add(foodSpending);
-        _spendings.Add(heatSpending);
 
         foreach (var status in familyStatus.AllStatuses)
         {
@@ -91,11 +95,22 @@ public class SpendingScreen : MonoBehaviour
                 continue;
 
             var medicineSpending = CreateNewSpending("Ýlaç", _medicinePrice, status.Name);
+            _spendings.Add(medicineSpending);
             medicineSpending.OnSpend += () =>
             {
                 status.ColdState += medicineSpending.Active ? 1 : -1;
             };
-            _spendings.Add(medicineSpending);
+        }
+
+        ObeySpendingRulesOfDays();
+    }
+
+    private void ObeySpendingRulesOfDays()
+    {
+        if (GameController.Instance.Day == 5)
+        {
+            _operationSpending = CreateNewSpending("Annenin Ameliyatý", _operationPrice);
+            _spendings.Add(_operationSpending);
         }
     }
 
@@ -149,13 +164,32 @@ public class SpendingScreen : MonoBehaviour
     {
         _totalMoney = _savings + _salary - GetTotalCost();
         _totalText.text = _totalMoney.ToString();
-
-        if (_totalMoney < 0 && GameController.Instance.GameState != GameState.LoseScreen)
-            GameController.Instance.LoseTheGame();
     }
 
     public void OnContinueButtonPressed()
     {
+        // TODO: _saved = true yapana kadar caným çýktý bunu nasýl önlerim?
+        if (GameController.Instance.Day == 5)
+        {
+            if (_operationSpending.Active)
+            {
+                GameController.Instance.WinTheGame();
+            }
+            else
+            {
+                GameController.Instance.LoseTheGame(DatabaseManager.Instance.LoseMessages[1]);
+            }
+            _saved = true;
+            return;
+        }
+
+        if (_totalMoney < 0)
+        {
+            GameController.Instance.LoseTheGame(DatabaseManager.Instance.LoseMessages[0]);
+            _saved = true;
+            return;
+        }
+
         MoneySystem.Instance.Money = _totalMoney;
         SaveTheDay(saveNextDay: false);
 
@@ -180,12 +214,19 @@ public class SpendingScreen : MonoBehaviour
 
     private void SaveTheDay(bool saveNextDay = true)
     {
+        int day = SaveSystem.GameData.CareerData.Day;
+        if (day == 5)
+        {
+            SaveSystem.ResetCareerData();
+            return;
+        }
+
         if (_totalMoney < 0)
         {
             SaveSystem.SaveLostGame();
             return;
         }
-        int day = SaveSystem.GameData.CareerData.Day;
+
         if (saveNextDay)
             day++;
 

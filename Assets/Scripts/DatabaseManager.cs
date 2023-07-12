@@ -9,11 +9,11 @@ public class DatabaseManager : SingletonMB<DatabaseManager>
     [SerializeField] private TextAsset _dayEndMessagesFile;
     [SerializeField] private TextAsset _tutorialMessageFile;
     [SerializeField] private TextAsset _winMessageFile;
-    [SerializeField] private TextAsset _loseMessageFile;
-    public List<string> DayEndMessages { get; private set; }
+    [SerializeField] private TextAsset _loseMessagesFile;
+    public string[] DayEndMessages { get; private set; }
     public string TutorialMessage { get; private set; }
     public string WinMessage { get; private set; }
-    public string LoseMessage { get; private set; }
+    public string[] LoseMessages { get; private set; }
 
     protected override void Awake()
     {
@@ -27,14 +27,15 @@ public class DatabaseManager : SingletonMB<DatabaseManager>
     {
         TutorialMessage = _tutorialMessageFile.text.Trim('\n', '\r');
         WinMessage = _winMessageFile.text.Trim('\n', '\r');
-        LoseMessage = _loseMessageFile.text.Trim('\n', '\r');
+        LoseMessages = _loseMessagesFile.text.Split(Seperator).Select(s => s.Trim('\n', '\r')).ToArray();
         InitDayEndMessages();
     }
 
     private void InitDayEndMessages()
     {
-        DayEndMessages = _dayEndMessagesFile.text.Split(Seperator).Select(s => s.Trim('\n', '\r')).ToList();
-        DayEndMessages.Insert(0, null);
+        var dayEndMessages = _dayEndMessagesFile.text.Split(Seperator).Select(s => s.Trim('\n', '\r')).ToList();
+        dayEndMessages.Insert(0, null);
+        DayEndMessages = dayEndMessages.ToArray();
     }
 
     public override void Reset()
