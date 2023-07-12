@@ -8,7 +8,7 @@ public static class CollectionExtensions
 {
     public static T GetRandom<T>(this ICollection<T> collection)
     {
-        int randomIdx = UnityEngine.Random.Range(0, collection.Count);
+        int randomIdx = Systems.Random.Next(0, collection.Count);
         return collection.ElementAt(randomIdx);
     }
 
@@ -27,7 +27,7 @@ public static class CollectionExtensions
 
         for (int i = 0; i < count; i++)
         {
-            int randomIdx = UnityEngine.Random.Range(0, values.Count);
+            int randomIdx = Systems.Random.Next(0, values.Count);
             array.Add(values[randomIdx]);
             values.RemoveAt(randomIdx);
         }
@@ -42,7 +42,7 @@ public static class CollectionExtensions
         while (n > 1)
         {
             n--;
-            int k = UnityEngine.Random.Range(0, n + 1);
+            int k = Systems.Random.Next(0, n + 1);
             T value = list[k];
             list[k] = list[n];
             list[n] = value;

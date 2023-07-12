@@ -12,7 +12,7 @@ public static class EnumHelper
     public static T GetRandom<T>() where T : Enum
     {
         var values = GetValues<T>().ToArray();
-        return (T)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+        return (T)values.GetValue(Systems.Random.Next(0, values.Length));
     }
 
     public static ICollection<T> GetRandomRange<T>(int count) where T : Enum
@@ -23,7 +23,7 @@ public static class EnumHelper
 
         for (int i = 0; i < count; i++)
         {
-            int randomIdx = UnityEngine.Random.Range(0, values.Count);
+            int randomIdx = Systems.Random.Next(0, values.Count);
             array.Add(values[randomIdx]);
             values.RemoveAt(randomIdx);
         }

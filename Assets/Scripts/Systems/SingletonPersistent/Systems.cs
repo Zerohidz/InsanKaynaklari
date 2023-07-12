@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class Systems : PersistentSingletonMB<Systems>
 {
+    public static System.Random Random = new System.Random(GetEpochTime());
+
     [RuntimeInitializeOnLoadMethod]
     private static void Initialize()
     {
@@ -24,12 +26,11 @@ public class Systems : PersistentSingletonMB<Systems>
         }
     }
 
-    [RuntimeInitializeOnLoadMethod]
-    private static void SetRandomSeed()
+    private static int GetEpochTime()
     {
         DateTime epochStart = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         int currentEpochTime = (int)(DateTime.UtcNow - epochStart).TotalSeconds;
-        UnityEngine.Random.InitState(currentEpochTime);
-    }
 
+        return currentEpochTime;
+    }
 }
