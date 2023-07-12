@@ -30,17 +30,15 @@ public class SaveSystem
 
         Debug.Log("Game Data Exists!");
         string encryptedGameDataString = ReadStringFromBinaryFile(_savePath);
-        //string gameDataString = Decrypt(encryptedGameDataString);
-        //return JsonConvert.DeserializeObject<GameData>(gameDataString);
-        return JsonConvert.DeserializeObject<GameData>(encryptedGameDataString);
+        string gameDataString = Decrypt(encryptedGameDataString);
+        return JsonConvert.DeserializeObject<GameData>(gameDataString);
     }
 
     public static void SaveGameData()
     {
         string gameDataString = JsonConvert.SerializeObject(GameData);
-        //string encryptedGameDataString = Encrypt(gameDataString);
-        //SaveStringToBinaryFile(encryptedGameDataString, _savePath);
-        SaveStringToBinaryFile(gameDataString, _savePath);
+        string encryptedGameDataString = Encrypt(gameDataString);
+        SaveStringToBinaryFile(encryptedGameDataString, _savePath);
     }
 
     public static void DeleteGameData()
