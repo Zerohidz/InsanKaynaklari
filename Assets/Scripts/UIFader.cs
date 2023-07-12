@@ -9,7 +9,7 @@ public class UIFader : MonoBehaviour
     public bool ToggleOnStart = false;
     public bool TerminateOnFade = false;
     public float Duration = 1;
-    public int OnStartDelaySeconds = 0;
+    public float OnStartDelaySeconds = 0;
 
     private CanvasGroup _canvasGroup;
 
@@ -17,7 +17,10 @@ public class UIFader : MonoBehaviour
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         SetVisible(StartVisible);
+    }
 
+    private void Start()
+    {
         if (ToggleOnStart)
             StartCoroutine(ToggleFadeAfterC(OnStartDelaySeconds));
     }

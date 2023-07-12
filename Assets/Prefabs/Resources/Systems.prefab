@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dayEndMessagesFile: {fileID: 4900000, guid: 7d5b60f026ad17e44b5521400ed6dbb9, type: 3}
+  _tutorialMessageFile: {fileID: 4900000, guid: 104de6db52ef2f14481d7c12a1bb79b5, type: 3}
+  _winMessageFile: {fileID: 4900000, guid: 95ef75dc421712c4d9561d1f19f20e84, type: 3}
+  _loseMessageFile: {fileID: 4900000, guid: 50931af5695e242469f363ee0dc798d9, type: 3}
 --- !u!1 &514445558323474961
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f3b6fa96ea3ba4ca6332d5e43223d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _messageScreenPrefab: {fileID: 3201342000243398169, guid: fa67b73f2c3698f4abcb01485f328805, type: 3}
 --- !u!1 &1566974956408409390
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transitionFaderPrefab: {fileID: 8261215697483390957, guid: 8f2eee98ddf9bc344a776bbdcb6f4f92, type: 3}
+  TransitionDuration: 2
 --- !u!1 &2587535411747629652
 GameObject:
   m_ObjectHideFlags: 0

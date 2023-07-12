@@ -22,7 +22,7 @@ public class MainMenuButtons : MonoBehaviour
 
     public void OnNewGameButtonPressed()
     {
-        SaveSystem.DeleteGameData();
+        SaveSystem.ResetCareerData();
         GameController.Instance.StartGame();
     }
 

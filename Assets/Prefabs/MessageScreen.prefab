@@ -103,7 +103,7 @@ MonoBehaviour:
   ToggleOnStart: 0
   TerminateOnFade: 0
   Duration: 1
-  OnStartDelaySeconds: 1
+  OnStartDelaySeconds: 0
 --- !u!1 &2037527829380238698
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,10 +425,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ae1b11733ca4a48acd97b1b3e9afd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: {fileID: 8219932844523185607}
-  _fadeDuration: 1
-  _backgroundFader: {fileID: 8191139081655489484}
-  _parentFader: {fileID: 2533137332001913590}
+  Text: {fileID: 8219932844523185607}
+  FadeInOnStart: 1
+  FadeDuration: 1
+  ContentFader: {fileID: 2533137332001913590}
+  BackgroundFader: {fileID: 8191139081655489484}
+  _button: {fileID: 5741870629690296091}
 --- !u!1 &7508420992518420174
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,7 +574,7 @@ GameObject:
   - component: {fileID: 4974872504796993898}
   - component: {fileID: 2533137332001913590}
   m_Layer: 5
-  m_Name: Parent
+  m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

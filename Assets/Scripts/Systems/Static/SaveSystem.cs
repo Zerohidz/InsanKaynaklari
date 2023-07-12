@@ -30,15 +30,17 @@ public class SaveSystem
 
         Debug.Log("Game Data Exists!");
         string encryptedGameDataString = ReadStringFromBinaryFile(_savePath);
-        string gameDataString = Decrypt(encryptedGameDataString);
-        return JsonConvert.DeserializeObject<GameData>(gameDataString);
+        //string gameDataString = Decrypt(encryptedGameDataString);
+        //return JsonConvert.DeserializeObject<GameData>(gameDataString);
+        return JsonConvert.DeserializeObject<GameData>(encryptedGameDataString);
     }
 
     public static void SaveGameData()
     {
         string gameDataString = JsonConvert.SerializeObject(GameData);
-        string encryptedGameDataString = Encrypt(gameDataString);
-        SaveStringToBinaryFile(encryptedGameDataString, _savePath);
+        //string encryptedGameDataString = Encrypt(gameDataString);
+        //SaveStringToBinaryFile(encryptedGameDataString, _savePath);
+        SaveStringToBinaryFile(gameDataString, _savePath);
     }
 
     public static void DeleteGameData()
@@ -48,9 +50,15 @@ public class SaveSystem
         Systems.Instance?.Reset();
     }
 
+    public static void ResetCareerData()
+    {
+        GameData.CareerData = new();
+        SaveGameData();
+    }
+
     public static void ResetGameData()
     {
-        GameData = new GameData();
+        GameData = new();
         SaveGameData();
     }
 
@@ -123,6 +131,13 @@ public class SaveSystem
         SaveGameData();
     }
 
+    public static void SaveGameState(GameState gameState)
+    {
+        GameData.Config.GameState = gameState;
+        SaveGameData();
+        Debug.Log($"Saved Game State: {gameState}");
+    }
+
     public static void SaveWonGame()
     {
         GameData.Config.GameState = GameState.WinScreen;
@@ -150,8 +165,7 @@ public class GameData
 
 public class ConfigData
 {
-    // TODO: Tutorial gelince bunu yap
-    public GameState GameState = GameState.MainMenu;
+    public GameState GameState = GameState.Tutorial;
     // TODO: Max score
     public int MaxScore = 0;
     public float SoundVolume = 0.6f;

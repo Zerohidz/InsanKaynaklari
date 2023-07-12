@@ -116,7 +116,15 @@ public class DayController : SingletonMB<DayController>
 
     private void ShowMessageScreen()
     {
-        Instantiate(_messageScreenPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
+        var messageScreen = Instantiate(_messageScreenPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
+        messageScreen.Initialize(DatabaseManager.Instance.DayEndMessages[GameController.Instance.Day]);
+        messageScreen.OnContinueButtonPressed += () =>
+        {
+            messageScreen.FadeContent(false, endAction: () =>
+            {
+                ShowSpendingScreen();
+            });
+        };
     }
 
     public void ShowSpendingScreen()

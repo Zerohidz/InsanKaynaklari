@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class GameController : SingletonMB<GameController>
 {
+    [Header("Prefabs")]
+    [SerializeField] private MessageScreen _messageScreenPrefab;
+
     public static event Action<int> OnDayChanged;
     public bool IsPaused => GameState == GameState.Paused;
 
@@ -17,7 +20,6 @@ public class GameController : SingletonMB<GameController>
         {
             _previousGameState = _gameState;
             _gameState = value;
-            Debug.Log(_gameState);
         }
     }
     private int _day;
@@ -64,14 +66,22 @@ public class GameController : SingletonMB<GameController>
     public void RevertToPreviousGameState()
     {
         // Rethink: Bu problemli olabilir
-        GameState = _previousGameState;
+        (GameState, _previousGameState) = (_previousGameState, GameState);
     }
 
     public void ShowTutorial()
     {
         GameState = GameState.Tutorial;
         Debug.Log("Tutorial baþlatýlýyor.");
-        // TODO: tutorial
+
+        var messageScreen = Instantiate(_messageScreenPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
+        messageScreen.Initialize(DatabaseManager.Instance.TutorialMessage);
+        messageScreen.OnContinueButtonPressed += () =>
+        {
+            GameState = GameState.MainMenu;
+            SaveSystem.SaveGameState(GameState);
+            messageScreen.FadeOut(() => Destroy(messageScreen.gameObject));
+        };
     }
 
     public void WinTheGame()
