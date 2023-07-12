@@ -35,7 +35,6 @@ public class SpendingScreen : MonoBehaviour
 
     public bool IsVisible { get; private set; }
 
-    private Spending _operationSpending;
     private Animator _animator;
     private int _totalMoney = 0;
     private int _savings;
@@ -109,8 +108,13 @@ public class SpendingScreen : MonoBehaviour
     {
         if (GameController.Instance.Day == 5)
         {
-            _operationSpending = CreateNewSpending("Annenin Ameliyatı", _operationPrice);
-            _spendings.Add(_operationSpending);
+            var operationSpending = CreateNewSpending("Annenin Ameliyatı", _operationPrice);
+            _spendings.Add(operationSpending);
+            operationSpending.OnSpend += () =>
+            {
+                if (!operationSpending.Active)
+                    SaveSystem.GameData.CareerData.FamilyStatus.Mother.Kill();
+            };
         }
     }
 
@@ -169,15 +173,26 @@ public class SpendingScreen : MonoBehaviour
     public void OnContinueButtonPressed()
     {
         // TODO: _saved = true yapana kadar canım çıktı bunu nasıl önlerim?
+
         if (GameController.Instance.Day == 5)
         {
-            if (_operationSpending.Active)
+            SpendSpendings();
+            var familyStatus = SaveSystem.GameData.CareerData.FamilyStatus;
+            if (familyStatus.AllAlive)
             {
                 GameController.Instance.WinTheGame();
             }
             else
             {
-                GameController.Instance.LoseTheGame(DatabaseManager.Instance.LoseMessages[1]);
+                if (familyStatus.Mother.IsAlive)
+                    GameController.Instance.LoseTheGame(DatabaseManager.Instance.LoseMessages[2]);
+                if (familyStatus.Mother.IsDead)
+                {
+                    if (familyStatus.Father.IsAlive && familyStatus.Sister.IsAlive)
+                        GameController.Instance.LoseTheGame(DatabaseManager.Instance.LoseMessages[1]);
+                    else
+                        GameController.Instance.LoseTheGame(DatabaseManager.Instance.LoseMessages[3]);
+                }
             }
             _saved = true;
             return;
@@ -230,7 +245,7 @@ public class SpendingScreen : MonoBehaviour
         if (saveNextDay)
             day++;
 
-        SpendNewSpendings();
+        SpendSpendings();
         SaveSystem.SaveCareerData(day, _totalMoney);
         _saved = true;
     }
@@ -250,7 +265,7 @@ public class SpendingScreen : MonoBehaviour
         SetVisible(!IsVisible);
     }
 
-    private void SpendNewSpendings()
+    private void SpendSpendings()
     {
         _spendings.ForEach(s => s.Spend());
     }

@@ -6,6 +6,20 @@ using UnityEngine;
 [InitializeOnLoad]
 public class PlayTestMenu
 {
+    [MenuItem("PlayTest/Jump To Critic Finale")]
+    public static void JumptoCriticFinale()
+    {
+        SetMoneyTo300();
+        JumpToDay5();
+
+        var familyStatus = SaveSystem.GameData.CareerData.FamilyStatus;
+        familyStatus.Father.ColdState = StatusData.State.NearDead;
+        familyStatus.Mother.ColdState = StatusData.State.NearDead;
+        familyStatus.Sister.ColdState = StatusData.State.NearDead;
+
+        EndTheDay();
+    }
+
     [MenuItem("PlayTest/End The Day")]
     public static void EndTheDay()
     {

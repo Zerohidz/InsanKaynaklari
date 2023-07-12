@@ -1,3 +1,7 @@
 Kirayı denkleştiremedin ve ev sahibi sizi sokağa attı. Hepiniz kışın ortasında kalakaldınız. Hepsi senin suçun. Ailenin yüz karasısın.
 <BasriPower>
 ANNEN ÖLDÜ! Ve bu senin suçun. Tek yapman gereken daha zeki ve çalışkan olmaktı. Tam bir hayal kırıklığısın.
+<BasriPower>
+Anneni ameliyat ettirdin ama umursamazlığın yüzünden AİLENİN BİR KISMI ÖLDÜ! Ve bu senin suçun. Tek yapman gereken daha zeki ve çalışkan olmaktı. Tam bir hayal kırıklığısın.
+<BasriPower>
+ANNEN VE AİLENİN BİR KISMI ÖLDÜ! Ve bu senin suçun. Tek yapman gereken daha zeki ve çalışkan olmaktı. Tam bir hayal kırıklığısın.

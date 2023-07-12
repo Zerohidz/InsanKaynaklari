@@ -207,6 +207,7 @@ public class FamilyStatusData
 
     public StatusData[] AllStatuses => new StatusData[] { Father, Mother, Sister };
 
+    public bool AllAlive => AllStatuses.Select(s => s.IsDead).Where(s => s == true).Any() == false;
     public bool AllDead => AllStatuses.Select(s => s.IsDead).Where(s => s == false).Any() == false;
 
     //TODO: Temizle burayý
@@ -258,6 +259,7 @@ public class StatusData
     }
 
     public bool IsWell => HungerState == State.Well && ColdState == State.Well;
+    public bool IsAlive => !IsDead;
     public bool IsDead => HungerState == State.Dead || ColdState == State.Dead;
     public bool IsChangable => !IsDead || HasJustDied;
     public bool NeedsMedicine => ColdState == State.NearDead;
@@ -266,6 +268,12 @@ public class StatusData
     public StatusData(string name)
     {
         Name = name;
+    }
+
+    public void Kill()
+    {
+        HungerState = State.Dead;
+        ColdState = State.Dead;
     }
 
     public enum State
