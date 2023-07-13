@@ -238,7 +238,7 @@ public class SpendingScreen : MonoBehaviour
 
         if (_totalMoney < 0)
         {
-            SaveSystem.SaveLostGame();
+            SaveSystem.ResetCareerData();
             return;
         }
 

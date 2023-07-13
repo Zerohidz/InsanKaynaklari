@@ -47,7 +47,6 @@ public class GameController : SingletonMB<GameController>
         if (IsBeingDestroyed) return;
 
         Reset();
-        HandleSavedGameState();
     }
 
     public void StartGame()
@@ -69,7 +68,7 @@ public class GameController : SingletonMB<GameController>
         (GameState, _previousGameState) = (_previousGameState, GameState);
     }
 
-    public void ShowTutorial()
+    public void ShowTutorial(Action endAction)
     {
         GameState = GameState.Tutorial;
         Debug.Log("Tutorial baþlatýlýyor.");
@@ -78,9 +77,8 @@ public class GameController : SingletonMB<GameController>
         messageScreen.Initialize(DatabaseManager.Instance.TutorialMessage);
         messageScreen.OnContinueButtonPressed += () =>
         {
-            GameState = GameState.MainMenu;
-            SaveSystem.SaveGameState(GameState);
-            messageScreen.FadeOut(() => Destroy(messageScreen.gameObject));
+            SaveSystem.GameData.Config.ShowTutorial = false;
+            endAction?.Invoke();
         };
     }
 
@@ -119,20 +117,6 @@ public class GameController : SingletonMB<GameController>
     private void LoadDay()
     {
         SceneController.Instance.LoadSceneWithTransition("Day");
-    }
-
-    private void HandleSavedGameState()
-    {
-        var gameState = SaveSystem.GameData.Config.GameState;
-
-        switch (gameState)
-        {
-            case GameState.Tutorial:
-                ShowTutorial();
-                break;
-            default:
-                break;
-        }
     }
 }
 

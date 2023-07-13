@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,8 +20,16 @@ public class MainMenuButtons : MonoBehaviour
 
     public void OnNewGameButtonPressed()
     {
-        SaveSystem.ResetCareerData();
-        GameController.Instance.StartGame();
+        Action main = () =>
+        {
+            SaveSystem.ResetCareerData();
+            GameController.Instance.StartGame();
+        };
+
+        if (SaveSystem.GameData.Config.ShowTutorial)
+            GameController.Instance.ShowTutorial(endAction: main);
+        else
+            main();
     }
 
     public void OnQuitGameButtonPressed()

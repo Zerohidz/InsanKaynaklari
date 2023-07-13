@@ -129,25 +129,6 @@ public class SaveSystem
         SaveGameData();
     }
 
-    public static void SaveGameState(GameState gameState)
-    {
-        GameData.Config.GameState = gameState;
-        SaveGameData();
-        Debug.Log($"Saved Game State: {gameState}");
-    }
-
-    public static void SaveWonGame()
-    {
-        GameData.Config.GameState = GameState.WinScreen;
-        SaveGameData();
-    }
-
-    public static void SaveLostGame()
-    {
-        GameData.Config.GameState = GameState.LoseScreen;
-        SaveGameData();
-    }
-
     public static void SaveMaxScore(int day)
     {
         GameData.Config.MaxScore = day;
@@ -163,7 +144,7 @@ public class GameData
 
 public class ConfigData
 {
-    public GameState GameState = GameState.Tutorial;
+    public bool ShowTutorial = true;
     public int MaxScore = 0;
     public float SoundVolume = 0.6f;
 }
