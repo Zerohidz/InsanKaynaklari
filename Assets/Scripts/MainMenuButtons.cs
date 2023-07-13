@@ -9,7 +9,7 @@ public class MainMenuButtons : MonoBehaviour
 
     private void Awake()
     {
-        _loadGameButton.interactable = SaveSystem.CareerDataExists;
+        _loadGameButton.interactable = SaveSystem.GameData.CareerData.Day > 1;
     }
 
     public void OnLoadGameButtonPressed()
