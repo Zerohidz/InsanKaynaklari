@@ -30,6 +30,6 @@ public class InfoPanel : MonoBehaviour
             TimeSpan.FromSeconds(RealTimeSpanSeconds),
             TimeSpan.FromMinutes(15)
         );
-        DigitalClock.OnTimeUp.AddListener(() => DayController.Instance.EndTheDay());
+        DigitalClock.OnTimeUp.AddListener(DayController.Instance.EndTheDay);
     }
 }

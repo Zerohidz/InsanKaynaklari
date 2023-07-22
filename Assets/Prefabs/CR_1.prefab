@@ -458,8 +458,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u2022 Baz\u0131lar\u0131 ya\u015Flar\u0131 hakk\u0131nda yalan s\xF6yl\xFCyor,
-    dikkat edin! (\xE7al\u0131\u015Fma ya\u015F\u0131 22'dir)"
+  m_text: "\u2022 Baz\u0131lar\u0131 tecr\xFCbe s\xFCreleri hakk\u0131nda yalan s\xF6yl\xFCyor
+    (\xE7al\u0131\u015Fmaya ba\u015Flama ya\u015F\u0131 22'dir)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
   m_sharedMaterial: {fileID: -2576088356904373890, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}

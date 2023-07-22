@@ -129,7 +129,7 @@ MonoBehaviour:
   _foodPrice: 10
   _heatPrice: 10
   _medicinePrice: 10
-  _operationPrice: 200
+  _operationPrice: 150
   _spendingsParent: {fileID: 978392916210420530}
   _statusesParent: {fileID: 2048813908676225352}
   _day: {fileID: 5201025603341024278}

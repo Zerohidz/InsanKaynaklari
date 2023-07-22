@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+// TODO: new game dedim ama gün 2'den baþladý
+// TODO: gün bitmiyo what?
+
 public class DayController : SingletonMB<DayController>
 {
     private static int FreeIncorrectDecisions = 2;
@@ -32,8 +35,8 @@ public class DayController : SingletonMB<DayController>
         _day = GameController.Instance.Day;
         _showCRButton.SetCR(_crPrefabs[_day < 3 ? 0 : 1]);
 
-        _showCRButton.Press();
-        _showCRButton.GetComponent<Button>().onClick.AddListener(StartGameLoopListener);
+        _showCRButton.Click();
+        _showCRButton.GetComponent<Button>().onClick.AddListener(StartGameLoop_Listener);
     }
 
     private void Update()
@@ -83,7 +86,7 @@ public class DayController : SingletonMB<DayController>
         if (accepted == PersonManger.Instance.CurrentPersonInfo.IsCorrect)
         {
             _correctDecisionCount++;
-            _warningPanel.ShowWarning("Doðru Karar", true);
+            _warningPanel.ShowWarning("Doðru Karar\n(+5 Dolar)", true);
         }
         else
         {
@@ -114,6 +117,7 @@ public class DayController : SingletonMB<DayController>
     {
         _infoPanel.DigitalClock.ForceTimeUp();
     }
+
     public void ShowSpendingScreen()
     {
         SpendingScreen spendingScreen = Instantiate(_spendingScreenPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
@@ -135,10 +139,10 @@ public class DayController : SingletonMB<DayController>
         };
     }
 
-    private void StartGameLoopListener()
+    private void StartGameLoop_Listener()
     {
         GetNewCV();
         _infoPanel.StartDigitalClock();
-        _showCRButton.GetComponent<Button>().onClick.RemoveListener(StartGameLoopListener);
+        _showCRButton.GetComponent<Button>().onClick.RemoveListener(StartGameLoop_Listener);
     }
 }

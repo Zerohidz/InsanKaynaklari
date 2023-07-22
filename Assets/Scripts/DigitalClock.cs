@@ -18,7 +18,7 @@ public class DigitalClock : MonoBehaviour
     private TMP_Text _text;
     private double _timeMultiplier;
 
-    private void Start()
+    private void Awake()
     {
         _text = GetComponent<TMP_Text>();
         UpdateDisplayTime();

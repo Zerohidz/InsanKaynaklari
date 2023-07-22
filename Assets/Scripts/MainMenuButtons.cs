@@ -20,16 +20,11 @@ public class MainMenuButtons : MonoBehaviour
 
     public void OnNewGameButtonPressed()
     {
-        Action main = () =>
+        GameController.Instance.ShowTutorial(endAction: () =>
         {
             SaveSystem.ResetCareerData();
             GameController.Instance.StartGame();
-        };
-
-        if (SaveSystem.GameData.Config.ShowTutorial)
-            GameController.Instance.ShowTutorial(endAction: main);
-        else
-            main();
+        });
     }
 
     public void OnQuitGameButtonPressed()
