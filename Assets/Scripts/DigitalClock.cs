@@ -21,7 +21,7 @@ public class DigitalClock : MonoBehaviour
     private void Start()
     {
         _text = GetComponent<TMP_Text>();
-        _text.SetText(DisplayTime.ToString("HH:mm"));
+        UpdateDisplayTime();
     }
 
     public void Configure(DateTime startTime, DateTime endTime, TimeSpan realTimeSpan = default, TimeSpan displayIncrement = default)
@@ -40,6 +40,8 @@ public class DigitalClock : MonoBehaviour
 
         if (displayIncrement == default)
             DisplayIncrement = TimeSpan.FromSeconds(1);
+
+        UpdateDisplayTime();
     }
 
     public void Run()
@@ -56,7 +58,7 @@ public class DigitalClock : MonoBehaviour
     {
         CurrentTime = EndTime;
         DisplayTime = EndTime;
-        _text.SetText(DisplayTime.ToString("HH:mm"));
+        UpdateDisplayTime();
         TimeUp();
     }
 
@@ -77,6 +79,11 @@ public class DigitalClock : MonoBehaviour
         CurrentTime = CurrentTime.AddSeconds(Time.deltaTime * _timeMultiplier);
         if (CurrentTime - DisplayTime >= DisplayIncrement)
             DisplayTime = CurrentTime.AddTicks(-(CurrentTime.Ticks % DisplayIncrement.Ticks));
+        UpdateDisplayTime();
+    }
+
+    private void UpdateDisplayTime()
+    {
         _text.SetText(DisplayTime.ToString("HH:mm"));
     }
 

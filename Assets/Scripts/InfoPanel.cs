@@ -12,10 +12,24 @@ public class InfoPanel : MonoBehaviour
 
     private void Start()
     {
-        DigitalClock.Configure(DateTime.Parse("08:00"), DateTime.Parse("17:00"), TimeSpan.FromSeconds(RealTimeSpanSeconds), TimeSpan.FromMinutes(15));
-        DigitalClock.OnTimeUp.AddListener(() => DayController.Instance.EndTheDay());
-        DigitalClock.Run();
+        InitializeDigitalClock();
 
         DaySign.SetText(GameController.Instance.Day.ToString());
+    }
+
+    public void StartDigitalClock()
+    {
+        DigitalClock.Run();
+    }
+
+    private void InitializeDigitalClock()
+    {
+        DigitalClock.Configure(
+            DateTime.Parse("08:00"),
+            DateTime.Parse("17:00"),
+            TimeSpan.FromSeconds(RealTimeSpanSeconds),
+            TimeSpan.FromMinutes(15)
+        );
+        DigitalClock.OnTimeUp.AddListener(() => DayController.Instance.EndTheDay());
     }
 }

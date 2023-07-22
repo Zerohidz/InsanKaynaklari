@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DayController : SingletonMB<DayController>
 {
@@ -31,8 +32,8 @@ public class DayController : SingletonMB<DayController>
         _day = GameController.Instance.Day;
         _showCRButton.SetCR(_crPrefabs[_day < 3 ? 0 : 1]);
 
-        GetNewCV();
         _showCRButton.Press();
+        _showCRButton.GetComponent<Button>().onClick.AddListener(StartGameLoopListener);
     }
 
     private void Update()
@@ -113,6 +114,13 @@ public class DayController : SingletonMB<DayController>
     {
         _infoPanel.DigitalClock.ForceTimeUp();
     }
+    public void ShowSpendingScreen()
+    {
+        SpendingScreen spendingScreen = Instantiate(_spendingScreenPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
+        int netDecisionCount = _correctDecisionCount - Math.Clamp(_incorrectDecisionCount - FreeIncorrectDecisions, 0, _incorrectDecisionCount);
+        spendingScreen.SetInfo(MoneySystem.Instance.Money, netDecisionCount);
+        spendingScreen.SetVisible(true);
+    }
 
     private void ShowMessageScreen()
     {
@@ -127,11 +135,10 @@ public class DayController : SingletonMB<DayController>
         };
     }
 
-    public void ShowSpendingScreen()
+    private void StartGameLoopListener()
     {
-        SpendingScreen spendingScreen = Instantiate(_spendingScreenPrefab, GameObject.FindGameObjectWithTag("Canvas").transform);
-        int netDecisionCount = _correctDecisionCount - Math.Clamp(_incorrectDecisionCount - FreeIncorrectDecisions, 0, _incorrectDecisionCount);
-        spendingScreen.SetInfo(MoneySystem.Instance.Money, netDecisionCount);
-        spendingScreen.SetVisible(true);
+        GetNewCV();
+        _infoPanel.StartDigitalClock();
+        _showCRButton.GetComponent<Button>().onClick.RemoveListener(StartGameLoopListener);
     }
 }
