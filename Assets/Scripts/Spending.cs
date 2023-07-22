@@ -41,6 +41,7 @@ public class Spending : MonoBehaviour
         _name = name;
         NameText.text = _name;
         InitialValue = value;
+        ValueText.text = "-" + InitialValue.ToString();
         Description = description;
         if (!togglable)
             CancelButton.gameObject.SetActive(false);
@@ -80,7 +81,6 @@ public class Spending : MonoBehaviour
 
     private void SetActive(bool activeness, bool skipOnToggle = false)
     {
-        ValueText.text = activeness ? "-" + InitialValue.ToString() : "0";
         CancelButtonText.text = activeness ? "-" : "+";
         NameText.color = activeness ? ActiveColor : InactiveColor;
         ValueText.color = NameText.color;

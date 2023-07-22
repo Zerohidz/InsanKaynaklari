@@ -65,7 +65,7 @@ public class CompanyRequestManager : SingletonMB<CompanyRequestManager>
 
     public override void Reset()
     {
-        
+        GenerateCompanyRequests();
     }
 
     private void GenerateCompanyRequests()
