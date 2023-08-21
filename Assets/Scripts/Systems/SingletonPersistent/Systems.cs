@@ -8,6 +8,7 @@ public class Systems : PersistentSingletonMB<Systems>
     [RuntimeInitializeOnLoadMethod]
     private static void Initialize()
     {
+        Application.targetFrameRate = 144;
         Instantiate(Resources.Load("Systems"));
     }
 

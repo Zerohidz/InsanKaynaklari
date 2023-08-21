@@ -51,6 +51,7 @@ public class GameController : SingletonMB<GameController>
 
     public void StartGame()
     {
+        CompanyRequestManager.Instance.Reset();
         LoadDay();
     }
 

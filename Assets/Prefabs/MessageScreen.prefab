@@ -549,19 +549,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8116083116806625393}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3201342000243398169}
-        m_TargetAssemblyTypeName: MessageScreen, Assembly-CSharp
-        m_MethodName: OnContinueButtonPressed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8654476288405421003
 GameObject:
   m_ObjectHideFlags: 0

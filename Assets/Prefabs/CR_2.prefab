@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Sahip olunmamas\u0131 istenen k\xF6t\xFC huylar"
+  m_text: "Sahip olunmamas\u0131 istenen k\xF6t\xFC huylar:"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
   m_sharedMaterial: {fileID: -2576088356904373890, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
@@ -468,15 +468,15 @@ RectTransform:
   m_GameObject: {fileID: 1500170146745188522}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8888889, y: 0.8888889, z: 0.8888889}
+  m_LocalScale: {x: 0.8000001, y: 0.8000001, z: 0.8000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8199576287623030717}
+  m_Father: {fileID: 7208102706217136648}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 8.499993, y: -1.8731995}
+  m_AnchoredPosition: {x: 0, y: -114.6}
   m_SizeDelta: {x: 1035.339, y: 7.2965}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &9107795671691025758
@@ -1310,7 +1310,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 92.7577, y: -500.0111}
-  m_SizeDelta: {x: 701.4237, y: 82.9771}
+  m_SizeDelta: {x: 701.4237, y: 91.0016}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &681813071447613962
 CanvasRenderer:
@@ -1340,7 +1340,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'asd
+
+    asd
+
+    asd
+
+    a'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
   m_sharedMaterial: {fileID: -2576088356904373890, guid: 09c9419aa382dbc429759643c657a9fa, type: 2}
@@ -1367,7 +1373,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
+  m_fontSize: 18
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1441,8 +1447,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2477518792768944204}
-  - {fileID: 5632321748218872833}
-  - {fileID: 8726049773035133301}
   m_Father: {fileID: 3968172629775647030}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1745,15 +1749,15 @@ RectTransform:
   m_GameObject: {fileID: 8431502500519773193}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8888889, y: 0.8888889, z: 0.8888889}
+  m_LocalScale: {x: 0.8000001, y: 0.8000001, z: 0.8000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8199576287623030717}
+  m_Father: {fileID: 7208102706217136648}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 8.5, y: 4.408203}
+  m_AnchoredPosition: {x: 0, y: 24.4}
   m_SizeDelta: {x: 1035.339, y: 7.296509}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &6266702862644242198
@@ -1828,6 +1832,8 @@ RectTransform:
   - {fileID: 5530144983568151805}
   - {fileID: 9178755664341652111}
   - {fileID: 3968172629775647030}
+  - {fileID: 5632321748218872833}
+  - {fileID: 8726049773035133301}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
