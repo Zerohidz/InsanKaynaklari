@@ -9,7 +9,14 @@ public class Systems : PersistentSingletonMB<Systems>
     private static void Initialize()
     {
         Application.targetFrameRate = 144;
+        SetScreenRatio();
         Instantiate(Resources.Load("Systems"));
+    }
+
+    private static void SetScreenRatio()
+    {
+        int targetHeight = Screen.width * 9 / 16;
+        Screen.SetResolution(Screen.width, targetHeight, true);
     }
 
     public override void Reset()

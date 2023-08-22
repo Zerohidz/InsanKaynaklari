@@ -41,24 +41,25 @@ public class DayController : SingletonMB<DayController>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ForceEndTheDay();
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            MoneySystem.Instance.Money = 300;
-            SaveSystem.SaveCareerData(money: 300);
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            MoneySystem.Instance.Money = 0;
-            SaveSystem.SaveCareerData(money: 0);
-        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             _escPanel.ToggleShow();
         }
+
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    ForceEndTheDay();
+        //}
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    MoneySystem.Instance.Money = 300;
+        //    SaveSystem.SaveCareerData(money: 300);
+        //}
+        //if (Input.GetKeyDown(KeyCode.N))
+        //{
+        //    MoneySystem.Instance.Money = 0;
+        //    SaveSystem.SaveCareerData(money: 0);
+        //}
     }
 
     public override void Reset()
