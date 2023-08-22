@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Systems : PersistentSingletonMB<Systems>
 {
@@ -9,15 +10,18 @@ public class Systems : PersistentSingletonMB<Systems>
     private static void Initialize()
     {
         Application.targetFrameRate = 144;
-        SetScreenRatio();
         Instantiate(Resources.Load("Systems"));
     }
 
-    private static void SetScreenRatio()
-    {
-        int targetHeight = Screen.width * 9 / 16;
-        Screen.SetResolution(Screen.width, targetHeight, true);
-    }
+    //private static void SetScreenRatio()
+    //{
+    //    int currentRatio = Screen.width / Screen.height;
+    //    if ((16f / 10f) <= currentRatio && currentRatio <= (16f / 9f))
+    //        return;
+
+    //    int targetWidth = Screen.height * 16 / 9;
+    //    Screen.SetResolution(targetWidth, Screen.height, true);
+    //}
 
     public override void Reset()
     {

@@ -309,7 +309,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 800, y: 450}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -326,8 +326,8 @@ Canvas:
   m_GameObject: {fileID: 141314595}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1920189507}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -487,6 +487,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5632321748218872833, guid: 9cd5f471b3e336244b045d8cd8abd209, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -114.600006
+      objectReference: {fileID: 0}
     - target: {fileID: 6693585518069973592, guid: 9cd5f471b3e336244b045d8cd8abd209, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 92.77997
@@ -586,6 +590,10 @@ PrefabInstance:
     - target: {fileID: 7208102706217136648, guid: 9cd5f471b3e336244b045d8cd8abd209, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726049773035133301, guid: 9cd5f471b3e336244b045d8cd8abd209, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 24.399994
       objectReference: {fileID: 0}
     - target: {fileID: 9167592386187621929, guid: 9cd5f471b3e336244b045d8cd8abd209, type: 3}
       propertyPath: m_Name
@@ -774,7 +782,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &752664911
@@ -1968,8 +1976,8 @@ Camera:
   m_GameObject: {fileID: 1920189505}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
-  m_BackGroundColor: {r: 0.1466536, g: 0.42094937, b: 0.7264151, a: 0}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
