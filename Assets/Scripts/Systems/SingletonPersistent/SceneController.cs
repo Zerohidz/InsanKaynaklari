@@ -23,8 +23,6 @@ public class SceneController : SingletonMB<SceneController>
 
     private void OnSceneChanged(Scene oldScene, Scene newScene)
     {
-        UpdateCanvasScaling();
-        Debug.Log("Update canvas scaling");
         Fade(false, TransitionDuration, terminateOnFade: true);
     }
 
@@ -40,15 +38,17 @@ public class SceneController : SingletonMB<SceneController>
         });
     }
 
-    public void UpdateCanvasScaling()
-    {
-        float screenRatio = Screen.width / (float)Screen.height;
-        float targetRatio = 16f / 9f;
+    //public void UpdateCanvasScaling()
+    //{
+    //    float screenRatio = Screen.width / (float)Screen.height;
+    //    float targetRatio = 16f / 9f;
 
-        var canvasScaler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasScaler>();
-        if (canvasScaler != null)
-            canvasScaler.matchWidthOrHeight = screenRatio > targetRatio ? 1f : 0f;
-    }
+    //    var canvasScaler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasScaler>();
+    //    if (canvasScaler != null)
+    //        canvasScaler.matchWidthOrHeight = screenRatio > targetRatio ? 1f : 0f;
+
+    //    Debug.Log("Updated canvas scaling");
+    //}
 
     private void Fade(bool willGetVisible, float transitionDuration, bool terminateOnFade = false, Action endAction = null)
     {
