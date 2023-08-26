@@ -25,7 +25,7 @@ public class SpendingScreen : MonoBehaviour
     [SerializeField] private TMP_Text _totalText;
 
     [Header("Seperators")]
-    [SerializeField] private Image _line;
+    [SerializeField] private Transform _line;
 
     [Header("Prefabs")]
     [SerializeField] private Spending _spendingPrefab;
@@ -132,7 +132,7 @@ public class SpendingScreen : MonoBehaviour
             };
         spending.Initialize(name, price, description, togglable);
 
-        _spendingsParent.Translate(0, spending.GetComponent<RectTransform>().rect.height / 2, 0);
+        //_spendingsParent.Translate(0, spending.GetComponent<RectTransform>().rect.height / 2, 0);
 
         return spending;
     }
