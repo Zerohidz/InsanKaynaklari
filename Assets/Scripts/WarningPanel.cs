@@ -39,7 +39,7 @@ public class WarningPanel : MonoBehaviour
         {
             StartCoroutine(_textFader.FadeToZeroAlphaC(
                 _fadeDuration,
-                tickAction: () => _text.transform.Translate(0, -Time.deltaTime * _moveAmount / _fadeDuration, 0),
+                tickAction: () => _text.transform.Translate(0, Time.deltaTime * -_moveAmount / _fadeDuration, 0),
                 endAction: Show)
             );
         }

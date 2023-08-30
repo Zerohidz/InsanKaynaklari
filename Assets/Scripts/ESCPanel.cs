@@ -1,11 +1,10 @@
-using Krivodeling.UI.Effects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ESCPanel : MonoBehaviour
 {
-    public UIBlur Blur;
+    public RawImage BackgroundBlocker;
     public Button ResumeButton;
     public Button QuitButton;
 
@@ -41,7 +40,7 @@ public class ESCPanel : MonoBehaviour
 
     private void Pause()
     {
-        Blur.Intensity = 1;
+        BackgroundBlocker.gameObject.SetActive(true);
 
         ResumeButton.gameObject.SetActive(true);
         QuitButton.gameObject.SetActive(true);
@@ -51,7 +50,7 @@ public class ESCPanel : MonoBehaviour
 
     private void Unpause()
     {
-        Blur.Intensity = 0;
+        BackgroundBlocker.gameObject.SetActive(false);
 
         ResumeButton.gameObject.SetActive(false);
         QuitButton.gameObject.SetActive(false);

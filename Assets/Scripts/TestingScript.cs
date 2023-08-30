@@ -3,12 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class TestingScript : MonoBehaviour
 {
-    void Start()
+    public void LoadTestScene()
     {
-    }
-
-    private void Update()
-    {
-       
+        SceneManager.LoadScene("Test");
     }
 }
